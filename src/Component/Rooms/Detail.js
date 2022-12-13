@@ -11,10 +11,6 @@ const { RangePicker } = DatePicker;
 
 function Detail() {
 
-    const handleChange = (value) => {
-        console.log(`selected ${value}`);
-    }
-
     return (
         <>
             {/* Header UI part */}
@@ -25,30 +21,30 @@ function Detail() {
             <div className="container wrap_detail">
                 <div className="row">
                     <div className="col-lg-8 col-sm-12 col-xs-12">
-                        <div id="myCarousel" class="carousel slide contain_slider mt-5" data-ride="carousel">
+                        <div id="myCarousel" className="carousel slide contain_slider mt-5" data-ride="carousel">
 
                             {/* Slider */}
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
+                            <div className="carousel-inner">
+                                <div className="carousel-item active">
                                     <img className='img_slider' src={slide_img1} alt="Los Angeles" />
                                 </div>
-                                <div class="carousel-item">
+                                <div className="carousel-item">
                                     <img className='img_slider' src={slide_img2} alt="Chicago" />
                                 </div>
-                                <div class="carousel-item">
+                                <div className="carousel-item">
                                     <img className='img_slider' src={slide_img3} alt="New York" />
                                 </div>
-                                <div class="carousel-item">
+                                <div className="carousel-item">
                                     <img className='img_slider' src={slide_img4} alt="New York" />
                                 </div>
                             </div>
 
                             {/* Left and right controls */}
-                            <a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
-                                <span class="carousel-control-prev-icon"></span>
+                            <a className="carousel-control-prev" href="#myCarousel" data-slide="prev">
+                                <span className="carousel-control-prev-icon"></span>
                             </a>
-                            <a class="carousel-control-next" href="#myCarousel" data-slide="next">
-                                <span class="carousel-control-next-icon"></span>
+                            <a className="carousel-control-next" href="#myCarousel" data-slide="next">
+                                <span className="carousel-control-next-icon"></span>
                             </a>
                         </div>
 
@@ -73,7 +69,9 @@ function Detail() {
                                 <p className='mb-1 pl-1 font-weight-bold'>Date</p>
                                 <div className=''>
                                     <Space direction="vertical" size={12}>
-                                        <RangePicker placeholder={['Check In', 'Check Out']} />
+                                        <RangePicker
+                                            placeholder={['Check In', 'Check Out']}
+                                        />
                                     </Space>
                                 </div>
                             </div>

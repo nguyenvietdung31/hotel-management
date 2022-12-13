@@ -29,7 +29,7 @@ function Header() {
       <header className='header'>
         <div className="navbar">
           <div className="left_menu">
-            <img src={img_logo} width={80} alt="image" />
+            <img src={img_logo} width={60} alt="image" />
 
             <div className="menu ml-5">
               <div className="item_menu">
