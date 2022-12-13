@@ -1,0 +1,63 @@
+@import '../Base/Base.scss';
+
+body {
+    background: #f2f4f6;
+}
+.ant-card-meta-description {
+    display: -webkit-box;
+    text-align: justify;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+}
+
+.ant-card-meta-title {
+    display: -webkit-box;
+    text-align: justify;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+}
+
+.contain_price .ant-card-meta-title {
+    color: red;
+}
+
+.img_rooms {
+    width: 100%;
+    height: 250px;
+    transition: all 1s ease-in-out;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}
+
+.contain_title_room {
+    margin-bottom: 30px;
+
+    p {
+        margin-bottom: 0;
+        width: fit-content;
+        position: relative;
+        transition: all 1s ease-in-out;
+        cursor: default;
+        color: #1e293b;
+
+        &:hover {
+            transform: translateX(30px);
+        }
+    }
+
+    .title_room::after {
+        content: "";
+        height: 2px;
+        width: 100%;
+        position: absolute;
+        bottom: 5px;
+        left: 0;
+        background-color: #1e293b;
+    }
+}
