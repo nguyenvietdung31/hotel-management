@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Header from '../Header_Footer/Header'
 import Footer from '../Header_Footer/Footer'
 import slide_img1 from '../../Image/slide_img_1.jpg'
@@ -6,10 +7,39 @@ import slide_img3 from '../../Image/slide_img_3.jpg'
 import slide_img4 from '../../Image/slide_img_4.jpg'
 import './Detail.scss'
 import { DatePicker, Space, Select } from 'antd';
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
 
 const { RangePicker } = DatePicker;
 
 function Detail() {
+    dayjs.extend(customParseFormat);
+
+    // const [listDate, setListDate] = useState(['2022-12-14', '2022-12-15','2022-12-20']);
+    // array chua list date can disable (vd: "2020-09-20")
+
+    const disabledDate = (current) => {
+        const arr = [
+            {
+                startDate: "2022-12-13",
+                endDate: "2022-12-15"
+            },
+            {
+                startDate: "2022-12-18",
+                endDate: "2022-12-19"
+            },
+            {
+                startDate: "2022-12-22",
+                endDate: "2022-12-24"
+            }
+        ];
+
+        for (let i = 0; i < arr.length; i++) {
+            if (current >= dayjs(arr[i].startDate) && current <= dayjs(arr[i].endDate))
+                return true;
+        }
+        return false;
+    };
 
     return (
         <>
@@ -48,13 +78,29 @@ function Detail() {
                             </a>
                         </div>
 
-                        <div className="about_room">
-                            <div className="title">
-                                <p className='room_name font-weight-bold'>Luxury Room 1</p>
-                                <p className='room_price font-weight-bold'>$250 / Night</p>
-                            </div>
-                            <div className="description">
-                                <p className='room_description'>This is a luxury room with many grate service, beautiful view. It will make you relaxable.</p>
+                        <div className="row">
+                            <div className="about_room col-lg-12 col-sm-12 col-xs-12">
+                                <div className="title">
+                                    <p className='room_name font-weight-bold'>Luxury Room 1</p>
+                                    <p className='room_price font-weight-bold'>$250 / Night</p>
+                                </div>
+                                <div className="row">
+                                    <div className="description col-lg-8 col-sm-12 col-xs-12">
+                                        <p className='room_description'>This is a luxury room with many grate service, beautiful view. It will make you relaxable.</p>
+                                    </div>
+                                    <div className="description col-lg-4 col-sm-12 col-xs-12">
+                                        <div className="room_services">
+                                            <p className="room_services_title font-weight-bold">Room Services</p>
+                                            <ul>
+                                                <li>Private bathroom</li>
+                                                <li>Free Wifi</li>
+                                                <li>Free Lunch</li>
+                                                <li>Bottled Mineral Water</li>
+                                                <li>Hot/Cold Shower & Bathtub</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -66,32 +112,22 @@ function Detail() {
                             </div>
 
                             <div className="check_in_out_reservation">
-                                <p className='mb-1 pl-1 font-weight-bold'>Date</p>
-                                <div className=''>
+                                <div className='wrap_title_rangepicker'>
+                                    <p className='mb-2 font-weight-bold'>Date</p>
+                                </div>
+                                <div className='wrap_rangepicker'>
                                     <Space direction="vertical" size={12}>
                                         <RangePicker
+                                            size='large'
                                             placeholder={['Check In', 'Check Out']}
+                                            disabledDate={disabledDate}
                                         />
                                     </Space>
+
                                 </div>
                             </div>
-                            <hr />
-                            <div className="select_room">
-                                <p className='mb-1 pl-1 font-weight-bold'>Number of rooms</p>
-                                <Select defaultValue={1}
-                                    style={{
-                                        width: 100,
-                                    }}
-                                    options={[
-                                        { value: 1, label: 1 },
-                                        { value: 2, label: 2 },
-                                        { value: 3, label: 3 },
-                                    ]}
-                                />
-                            </div>
-                            <hr />
                             <div className="wrap_button">
-                                <button className='btn btn-warning'>Check Availability</button>
+                                <button className='btn btn-warning'>Book now!</button>
                             </div>
 
 
