@@ -61,12 +61,6 @@ function Rooms() {
         setMaxPrice(value[1])
     }
 
-    /* when change value of Rating slider => update value of minRate and maxRate  */
-    const handleChangeRating = value => {
-        setMinRate(value[0])
-        setMaxRate(value[1])
-    }
-
     return (
         <>
             {/* Header part */}
@@ -88,7 +82,7 @@ function Rooms() {
                             <Input placeholder="Input to search..."/>
 
                             <div className="category">
-                                <div className="category_title font-weight-bold">Category</div>
+                                <div className="category_title font-weight-bold">Type</div>
                                 <div className="sub_category"
                                     onClick={() => handleFilterCategory('all')}
                                 >All</div>
@@ -104,12 +98,6 @@ function Rooms() {
                                 <div className="sub_category"
                                     onClick={() => handleFilterCategory('suite')}
                                 >Suite</div>
-                            </div>
-
-                            <div className="range_price">
-                                <div className="price_title font-weight-bold">Rating</div>
-                                <p><FontAwesomeIcon className="text-warning mr-1" icon={faStar} />{minRate} - <FontAwesomeIcon className="text-warning mr-1" icon={faStar} />{maxRate}</p>
-                                <Slide range defaultValue={[minRate, maxRate]} max={5} min={0} placement='bottom' onChange={handleChangeRating}/>
                             </div>
 
                             <div className="range_price">
@@ -158,7 +146,6 @@ function Rooms() {
                                             hoverable
                                             cover={<img className="img_rooms" alt="example" src={slide_img1} />}
                                         >
-                                            <Rate disabled defaultValue={5} style={{ fontSize: '17px' }} />
                                             <Meta title={val.title} description={val.description} className="mt-1" />
                                             <Meta title="Price: $250" className="mt-2 contain_price" />
                                         </Card>
