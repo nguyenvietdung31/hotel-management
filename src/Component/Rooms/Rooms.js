@@ -17,6 +17,8 @@ function Rooms() {
 
     const [allRooms, setAllRooms] = useState([])
     const [allRoomsFilter, setAllRoomsFilter] = useState([])
+
+    const [isFilter, setIsFilter] = useState(false)
     const [refresh, setRefresh] = useState(false)
 
     // Initialize the page size options
@@ -41,7 +43,6 @@ function Rooms() {
             await axios.get(API)
                 .then(resp => {
                     setAllRooms(resp.data)
-                    setAllRoomsFilter(resp.data)
                 })
         }
         getData()
@@ -54,7 +55,7 @@ function Rooms() {
 
     /* handle something */
     const handleSomething = (type, value) => {
-        switch(type) {
+        switch (type) {
             case 'SortPA':
                 /* do something */
                 break;
@@ -80,8 +81,10 @@ function Rooms() {
     }
     /* handle filter with type: '..' */
     const handleFilter = (value) => {
-        setAllRooms(allRooms.filter((item) => 
-            item.type.toLowerCase() === value.toLowerCase()))
+        // if (value.toLowerCase() !== 'all') {
+            allRooms.filter((item) => value ?
+                item.type.toLowerCase() === value.toLowerCase() : item)
+        // }
     }
 
     // Pagination: change the page number or page size 
@@ -176,34 +179,38 @@ function Rooms() {
                             {/* loop rooms here */}
                             {
                                 /* Check if data exist => display the data */
-                                
-                                allRooms && allRooms.length > 0 &&
+                                allRooms && allRooms.length > 0 ?
 
-                                /* Display data in range - for Pagination */
-                                allRooms.slice(minValue, maxValue).map((val, index) => (
-                                    <div data-aos="fade-up" className="col-lg-4 col-sm-6 col-xs-12 mt-3 mb-3" key={index}>
-                                        <Card style={{ overflow: 'hidden' }} loading={val !== undefined ? false: true}
-                                            onClick={() => navigate(`/detail?roomID=1`, { replace: true })}
-                                            hoverable
-                                            cover={<img className="img_rooms" alt="example" src={val.avatar} />}
-                                        >
-                                            <Meta title={val.name} description={val.description} className="mt-1" />
-                                            <Meta title={`Price: $${val.price}`} className="mt-2 contain_price" />
-                                        </Card>
-                                    </div>
-                                ))
+                                    /* Display data in range - for Pagination */
+                                    allRooms.slice(minValue, maxValue).map((val, index) => (
+                                        <div data-aos="fade-up" className="col-lg-4 col-sm-6 col-xs-12 mt-3 mb-3" key={index}>
+                                            <Card style={{ overflow: 'hidden' }} loading={val !== undefined ? false : true}
+                                                onClick={() => navigate(`/detail?roomID=1`, { replace: true })}
+                                                hoverable
+                                                cover={<img className="img_rooms" alt="example" src={val.avatar} />}
+                                            >
+                                                <Meta title={val.name} description={val.description} className="mt-1" />
+                                                <Meta title={`Price: $${val.price}`} className="mt-2 contain_price" />
+                                            </Card>
+                                        </div>
+                                    ))
+
+                                    : <p>There is no room!</p>
                             }
 
                             {/* Pagination part */}
-                            <div data-aos="fade-right" className="col-md-12 col-sm-12 col-xs-12 d-flex justify-content-center mt-5 mb-5">
-                                <Pagination
-                                    showSizeChanger
-                                    total={allRooms.length}
-                                    defaultPageSize={pageSizeOpt[0]}
-                                    pageSizeOptions={pageSizeOpt}
-                                    onChange={handleChangePageSize}
-                                />
-                            </div>
+                            {
+                                allRooms && allRooms.length > 0 &&
+                                <div data-aos="fade-right" className="col-md-12 col-sm-12 col-xs-12 d-flex justify-content-center mt-5 mb-5">
+                                    <Pagination
+                                        showSizeChanger
+                                        total={allRooms.length}
+                                        defaultPageSize={pageSizeOpt[0]}
+                                        pageSizeOptions={pageSizeOpt}
+                                        onChange={handleChangePageSize}
+                                    />
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
