@@ -1,12 +1,13 @@
 import Slider from "../Utilities/Slider"
 import { Card, Row, Col } from "antd";
-import slide_img1 from '../../Image/slide_img_1.jpg'
 import { useNavigate } from "react-router-dom";
+import slide_img1 from '../../Image/slide_img_1.jpg'
+import img_avt_team from '../../Image/img_avt_team.jpg'
 import './Home.scss'
 
 
 function Home() {
-    let home_room = [
+    const home_room = [
         {
             title: "Luxury room 1",
             description: "This is a luxury room with many grate service, beautiful view. It will make you relaxable.",
@@ -22,29 +23,28 @@ function Home() {
             description: "This is a luxury room with many grate service, beautiful view. It will make you relaxable.",
             price: '300$',
         },
-        //{ title: "Luxury room 4", description: "This is a luxury room with many grate service, beautiful view. It will make you relaxable." },
 
     ];
     const home_staff = [
         {
             name: 'Nguyen Viet Dung',
             position: 'Front-end Developer',
-            avatar: "https://cdn3.vectorstock.com/i/thumb-large/68/97/programmer-computer-expert-rgb-color-icon-vector-37206897.jpg",
+            avatar: img_avt_team,
         },
         {
             name: 'Nguyen Minh Thanh',
             position: 'Front-end Developer',
-            avatar: "https://cdn3.vectorstock.com/i/thumb-large/68/97/programmer-computer-expert-rgb-color-icon-vector-37206897.jpg",
+            avatar: img_avt_team,
         },
         {
             name: 'Pham Tung Duong',
             position: 'Back-end Developer',
-            avatar: "https://cdn3.vectorstock.com/i/thumb-large/68/97/programmer-computer-expert-rgb-color-icon-vector-37206897.jpg",
+            avatar: img_avt_team,
         },
         {
             name: 'Nguyen Cung Ung',
             position: 'Back-end Developer',
-            avatar: "https://cdn3.vectorstock.com/i/thumb-large/68/97/programmer-computer-expert-rgb-color-icon-vector-37206897.jpg",
+            avatar: img_avt_team,
         }
         ,
     ]
@@ -68,7 +68,6 @@ function Home() {
     return (
         <>
             <Slider />
-            <hr />
             <div className="container mt-4">
                 <h3 className="font-weight-bold text-center">Watch Our Room</h3>
                 <p className="text-center">We have many rooms, all types, prices for you to choose </p>
@@ -117,6 +116,7 @@ function Home() {
                 </Row>
                 <a href="/about" className="home_link">Discover more about us</a>
             </div>
+            <hr />
             <div className="container">
                 <div className="home_more">
                     <div className="home_more_header">
@@ -129,8 +129,8 @@ function Home() {
                     <div className="home_more_content">
                         {
                             home_more_infomation.map((el, index) => (
-                                <div>
-                                    <Card key={index}
+                                <div key={index}>
+                                    <Card
                                         className="home_more_content_box"
                                         hoverable
                                     >

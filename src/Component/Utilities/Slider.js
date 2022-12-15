@@ -9,7 +9,7 @@ function Slider() {
 
     return (
         <>
-            <div className="container-fluid" style={{ paddingTop: '90px' }}>
+            <div className="container-fluid" style={{ paddingTop: '70px' }}>
                 <div className="row">
                     <div className="col-md-12 col-sm-12 col-xs-12 pl-0 pr-0">
                         <Carousel autoplay style={{width: '100%'}}>
