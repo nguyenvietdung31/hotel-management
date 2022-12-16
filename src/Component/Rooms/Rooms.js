@@ -142,7 +142,7 @@ function Rooms() {
                                 data.slice(minValue, maxValue).map((val, index) => (
                                     <div className="col-lg-4 col-sm-6 col-xs-12 mt-3 mb-3" key={index}>
                                         <Card style={{ overflow: 'hidden' }}
-                                            onClick={() => navigate(`/detail?roomID=1`, { replace: true })}
+                                            onClick={() => navigate(`/detail`, { replace: true })}
                                             hoverable
                                             cover={<img className="img_rooms" alt="example" src={slide_img1} />}
                                         >

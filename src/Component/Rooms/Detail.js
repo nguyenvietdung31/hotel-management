@@ -6,13 +6,15 @@ import slide_img2 from '../../Image/slide_img_2.jpg'
 import slide_img3 from '../../Image/slide_img_3.jpg'
 import slide_img4 from '../../Image/slide_img_4.jpg'
 import './Detail.scss'
-import { DatePicker, Space, Select } from 'antd';
+import { DatePicker, Space, Select, Button } from 'antd';
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import { useNavigate } from 'react-router-dom'
 
 const { RangePicker } = DatePicker;
 
 function Detail() {
+    const navigate = useNavigate()
     dayjs.extend(customParseFormat);
 
     // const [listDate, setListDate] = useState(['2022-12-14', '2022-12-15','2022-12-20']);
@@ -127,7 +129,10 @@ function Detail() {
                                 </div>
                             </div>
                             <div className="wrap_button">
-                                <button className='btn btn-warning'>Book now!</button>
+                                <Button onClick={() => navigate(`/booking_form`, { replace: true })}
+                                    type='primary'>
+                                    Book now!
+                                </Button>
                             </div>
 
 

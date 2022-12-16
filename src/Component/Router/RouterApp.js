@@ -9,6 +9,7 @@ const Login = lazy(() => import("../Authentication/Login"))
 const Register = lazy(() => import("../Authentication/Register"))
 const Rooms = lazy(() => import("../Rooms/Rooms"))
 const Detail = lazy(() => import("../Rooms/Detail"))
+const Booking_Form = lazy(() => import("../Form/Booking_Form"))
 
 function RouterApp() {
 
@@ -25,6 +26,7 @@ function RouterApp() {
                 <Route path='/contact' element={<Contact />} />
                 <Route path='/rooms' element={<Rooms />} />
                 <Route path='/detail' element={<Detail />} />
+                <Route path='/booking_form' element={<Booking_Form/>}/>
                 {/* <Route path='/search' element={<Search />} />  */}
                 {/*<Route path="/forgotpassword" element={<RequireForgotpass><Forgotpassword /></RequireForgotpass>} />
                 <Route path="/changepassword" element={<RequireChangepass><Changepassword /></RequireChangepass>} />*/}
