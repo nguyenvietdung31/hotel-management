@@ -22,60 +22,62 @@ $MD: 1024px;
 
 @import '../Base/Base.scss';
 
-.home_link:link,.home_link:visited {
+.home_link:link,
+.home_link:visited {
     background-color: #b89f80;
     color: white;
     padding: 14px 25px;
     margin: 20px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%)
 }
-.home_link:hover, .home_link:active{
+
+.home_link:hover,
+.home_link:active {
     background-color: #ac8b64;
 }
+
 .home_more {
-    height: 480px;
     width: 100%;
     background-color: #eaded7;
-    position: relative;
-    display: flex;
-    justify-content: center;
+    padding: 40px;
+
+    .home_more_header_content {
+        margin: 20px 0;
+    }
+
+    .home_more_content {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    
+        .home_more_content_box {
+            margin: 20px 0;
+    
+            .home_more_content_card {
+                width: 280px;
+                height: 280px;
+                background: #c5a491;
+                text-transform: justify;
+                padding: 10px;
+    
+                .ant-card-meta-title {
+                    text-align: center;
+                }
+            }
+        }
+    
+    }
 }
 
-.home_more_header {
-    position: absolute;
-    display: flex;
-    width: 90%;
-    margin-top: 20px;
-}
-
-.home_more_header_content {
-    width: 50%;
-}
-
-.home_more_content {
-    position: absolute;
-    width: 90%;
-    display: flex;
-    justify-content: space-between;
-    top: 35%;
-}
-
-.home_more_content_box {
-    float: left;
-    width: 280px;
-    height: 280px;
-    background: #c5a491;
-    text-align: center;
-    padding: 10px;
-}
 
 .contain_price .ant-card-meta-title {
     color: red;
+}
+
+.ant-card-cover img {
+    border-bottom: 1px solid rgb(208, 208, 208);
 }
 
 .contain_member {
