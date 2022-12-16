@@ -7,19 +7,27 @@ import ScrollToTop from "../Utilities/ScrollToTop";
 import axios from "axios";
 import AOS from 'aos'
 import './Rooms.scss'
-import { Pagination, Card, Select, Input, Slider as Slide } from 'antd';
+import { Pagination, Card, Select, Input, Slider as Slide, Space, Spin, Skeleton, Radio } from 'antd';
 
 const { Meta } = Card
 
 
 function Rooms() {
+    /* API */
     const API = 'https://639003d065ff41831106d1c8.mockapi.io/api/login/rooms'
 
+    /* list data room */
     const [allRooms, setAllRooms] = useState([])
     const [allRoomsFilter, setAllRoomsFilter] = useState([])
 
-    const [isFilter, setIsFilter] = useState(false)
+    /* Loading when call data from api */
+    const [loading, setLoading] = useState(false)
+
+    /* Decide when recall useEffect */
     const [refresh, setRefresh] = useState(false)
+    const [type, setType] = useState('all')
+    const [search, setSearch] = useState('')
+    const [sortType, setSortType] = useState('DF')
 
     // Initialize the page size options
     const pageSizeOpt = [6, 9, 12]
@@ -37,15 +45,9 @@ function Rooms() {
     // using this to redirect to another page
     let navigate = useNavigate()
 
-    /* Get data from api */
+    /* when 'refresh' change => call getAllData() again to refresh new data */
     useEffect(() => {
-        const getData = async () => {
-            await axios.get(API)
-                .then(resp => {
-                    setAllRooms(resp.data)
-                })
-        }
-        getData()
+        getAllData()
     }, [refresh])
 
     // set time for aos animation
@@ -53,55 +55,120 @@ function Rooms() {
         AOS.init({ duration: 1000 })
     }, [])
 
-    /* handle something */
-    const handleSomething = (type, value) => {
-        switch (type) {
-            case 'SortPA':
-                /* do something */
+    /* Get data from api */
+    const getAllData = async () => {
+        setLoading(true)
+        await axios.get(API)
+            .then(resp => {
+                setAllRooms(resp.data)
+                setAllRoomsFilter(resp.data)
+
+                /* after get data, set loading to False */
+                setLoading(false)
+            }
+            )
+    }
+
+    /* handle sort ascending or descending by name or price */
+    const handleSort = (sort_type) => {
+        setSortType(sort_type)
+        switch (sort_type) {
+            /* Default */
+            case 'DF':
+                setAllRooms(allRooms.slice().sort((a, b) => a.id - b.id))
                 break;
-            case 'SortPD':
-                /* do something */
-                break;
-            case 'SortAA':
-                /* do something */
-                break;
-            case 'SortAD':
-                /* do something */
-                break;
-            case 'doFilter':
-                /* do something */
-                handleFilter(value)
-                break;
-            case 'ClearFilter':
-                /* do something */
-                break;
+
+            /* Sort Price Asc */
+            case 'PA':
+                setAllRooms(allRooms.slice().sort((a, b) => a.price - b.price))
+                break
+
+            /* Sort Price Desc */
+            case 'PD':
+                setAllRooms(allRooms.slice().sort((a, b) => b.price - a.price))
+                break
+
+            /* Sort name Alphabet Asc */
+            case 'AA':
+                setAllRooms(allRooms.slice().sort((a, b) => {
+                    let x = a.name.toLowerCase();
+                    let y = b.name.toLowerCase();
+                    return (x < y) ? -1 : 1
+                }))
+                break
+
+            /* Sort name Alphabet Desc */
+            case 'AD':
+                setAllRooms(allRooms.slice().sort((a, b) => {
+                    let x = a.name.toLowerCase();
+                    let y = b.name.toLowerCase();
+                    return (x < y) ? 1 : -1
+                }))
+                break
+
             default:
                 throw new Error('Invalid')
         }
     }
-    /* handle filter with type: '..' */
-    const handleFilter = (value) => {
-        // if (value.toLowerCase() !== 'all') {
-            allRooms.filter((item) => value ?
-                item.type.toLowerCase() === value.toLowerCase() : item)
-        // }
+
+    /* handle filter with TYPE of room: '..' */
+    const handleFilter = (type) => {
+        setType(type)
+        setSortType('DF')
+
+        if (type === 'all') {
+            setAllRooms(allRoomsFilter.filter(room =>
+                (room.price >= minPrice) &&
+                (room.price <= maxPrice)
+            ))
+        }
+        else {
+            setAllRooms(allRoomsFilter.filter(room =>
+                (room.type.toLowerCase() === type) &&
+                (room.price >= minPrice) &&
+                (room.price <= maxPrice)
+            ))
+        }
     }
 
-    // Pagination: change the page number or page size 
-    // => display the current page in range
-    const handleChangePageSize = (pageNumber, pageSize) => {
-        setMinValue((pageNumber - 1) * pageSize)
-        setMaxValue(pageNumber * pageSize)
+    /* to search rooms by name */
+    const handleSearch = value => {
+        setSearch(value)
+        setAllRooms(allRoomsFilter.filter(room => room.name.toLowerCase().includes(value.toLowerCase())))
     }
 
-    /* to filter rooms depend on category */
-    const handleFilterCategory = category => {
-        /* Call API to get rooms with suitable category */
-    }
     /* when change value of Price slider => update value of minPrice and maxPrice  */
     const handleChangePrice = value => {
         setMinPrice(value[0])
         setMaxPrice(value[1])
+        setSortType('DF')
+
+        if (type !== 'all')
+            setAllRooms(allRoomsFilter.filter(item => item.price >= value[0] &&
+                item.price <= value[1] &&
+                item.type.toLowerCase() === type.toLowerCase()
+            ))
+        else
+            setAllRooms(allRoomsFilter.filter(item => item.price >= value[0] &&
+                item.price <= value[1]
+            ))
+    }
+
+    /* clear all filter */
+    const handleClearFilter = () => {
+        setAllRooms(allRoomsFilter)
+        setMinPrice(0)
+        setMaxPrice(1000)
+        setSortType('DF')
+        setType('all')
+        setSearch('')
+    }
+
+    /*  Pagination: change the page number or page size 
+        => display the current page in range            */
+    const handleChangePageSize = (pageNumber, pageSize) => {
+        setMinValue((pageNumber - 1) * pageSize)
+        setMaxValue(pageNumber * pageSize)
     }
 
     return (
@@ -122,35 +189,28 @@ function Rooms() {
                     <div className="col-lg-3 col-md-12 col-xs-12">
                         <div className="contain_filter pl-2 pr-2">
 
-                            <Input placeholder="Input to search..." />
+                            <Input placeholder="Input to search..." onChange={(e) => handleSearch(e.target.value)} value={search} />
 
                             <div className="category">
-                                <div className="category_title font-weight-bold">Type</div>
-                                <div className="sub_category"
-                                    onClick={() => handleSomething('doFilter', 'All')}
-                                >All</div>
-                                <div className="sub_category"
-                                    onClick={() => handleSomething('doFilter', 'Standard')}
-                                >Standard</div>
-                                <div className="sub_category"
-                                    onClick={() => handleSomething('doFilter', 'Superior')}
-                                >Superior</div>
-                                <div className="sub_category"
-                                    onClick={() => handleSomething('doFilter', 'Deluxe')}
-                                >Deluxe</div>
-                                <div className="sub_category"
-                                    onClick={() => handleSomething('doFilter', 'Suite')}
-                                >Suite</div>
+                                <div className="category_title font-weight-bold mb-3">Type</div>
+
+                                <Radio.Group onChange={(e) => handleFilter(e.target.value)} value={type}>
+                                    <Radio className="mt-2 mb-2" value='all'>All</Radio><br />
+                                    <Radio className="mt-2 mb-2" value='standard'>Standard</Radio><br />
+                                    <Radio className="mt-2 mb-2" value='superior'>Superior</Radio><br />
+                                    <Radio className="mt-2 mb-2" value='deluxe'>Deluxe</Radio><br />
+                                    <Radio className="mt-2 mb-2" value='suite'>Suite</Radio><br />
+                                </Radio.Group>
                             </div>
 
                             <div className="range_price">
                                 <div className="price_title font-weight-bold">Price</div>
                                 <p>${minPrice} - ${maxPrice}</p>
-                                <Slide range defaultValue={[minPrice, maxPrice]} max={1000} min={0} placement='bottom' onChange={handleChangePrice} />
+                                <Slide range defaultValue={[minPrice, maxPrice]} value={[minPrice, maxPrice]} max={1000} min={0} placement='bottom' onChange={handleChangePrice} />
                             </div>
 
                             <div className="wrap_clear_filter">
-                                <button className="btn btn-outline-danger">Clear Filter</button>
+                                <button className="btn btn-outline-danger" onClick={handleClearFilter}>Clear Filter</button>
                             </div>
                         </div>
                     </div>
@@ -158,19 +218,21 @@ function Rooms() {
                         <div className="row">
                             <div className="col-md-12 col-sm-12 col-xs-12">
                                 <div className="contain_head_rooms">
-                                    <p>8 Rooms</p>
+                                    <p>{allRooms.length || 0} Rooms</p>
                                     <div className="line"></div>
                                     <div>Sort By
-                                        <Select defaultValue='PD'
+                                        <Select value={sortType}
                                             style={{
                                                 width: 'fit-content',
                                                 marginLeft: '10px',
                                             }}
+                                            onChange={handleSort}
                                             options={[
-                                                { value: 'PD', label: 'Price (Desc)' },
+                                                { value: 'DF', label: 'Default' },
                                                 { value: 'PA', label: 'Price (Asc)' },
-                                                { value: 'AD', label: 'Name (A-Z)' },
-                                                { value: 'AA', label: 'Name (Z-A)' },
+                                                { value: 'PD', label: 'Price (Desc)' },
+                                                { value: 'AA', label: 'Name (A-Z)' },
+                                                { value: 'AD', label: 'Name (Z-A)' },
                                             ]}
                                         />
                                     </div>
@@ -178,29 +240,45 @@ function Rooms() {
                             </div>
                             {/* loop rooms here */}
                             {
-                                /* Check if data exist => display the data */
-                                allRooms && allRooms.length > 0 ?
-
-                                    /* Display data in range - for Pagination */
-                                    allRooms.slice(minValue, maxValue).map((val, index) => (
-                                        <div data-aos="fade-up" className="col-lg-4 col-sm-6 col-xs-12 mt-3 mb-3" key={index}>
-                                            <Card style={{ overflow: 'hidden' }} loading={val !== undefined ? false : true}
-                                                onClick={() => navigate(`/detail?roomID=1`, { replace: true })}
-                                                hoverable
-                                                cover={<img className="img_rooms" alt="example" src={val.avatar} />}
-                                            >
-                                                <Meta title={val.name} description={val.description} className="mt-1" />
-                                                <Meta title={`Price: $${val.price}`} className="mt-2 contain_price" />
-                                            </Card>
+                                loading ?
+                                    (
+                                        <div className="col-lg-12 col-sm-6 col-xs-12 mt-3 mb-3 d-flex justify-content-center mt-5">
+                                            <Space direction="vertical"
+                                                style={{
+                                                    width: '100%',
+                                                }}>
+                                                <Spin tip="Loading" size="large">
+                                                    <div className="content" />
+                                                </Spin>
+                                            </Space>
                                         </div>
-                                    ))
+                                    ) :
+                                    /* Check if data exist => display the data */
+                                    (allRooms && allRooms.length > 0 ?
+                                        /* Display data in range - for Pagination */
+                                        allRooms.slice(minValue, maxValue).map((val, index) => (
+                                            <div className="col-lg-4 col-sm-6 col-xs-12 mt-3 mb-3" key={index}>
+                                                <Card style={{ overflow: 'hidden' }} loading={val !== undefined ? false : true}
+                                                    onClick={() => navigate(`/detail?roomID=1`, { replace: true })}
+                                                    hoverable
+                                                    cover={<img className="img_rooms" alt="example" src={val.avatar} />}
+                                                >
+                                                    <Skeleton loading={loading} avatar active>
+                                                        <Meta title={val.name} description={val.description} className="mt-1" />
+                                                        <Meta title={`Type: ${val.type}`} className="mt-2" />
+                                                        <Meta title={`Price: $${val.price}`} className="mt-2 contain_price" />
+                                                    </Skeleton>
+                                                </Card>
+                                            </div>
+                                        ))
 
-                                    : <p>There is no room!</p>
+                                        : <div className="contain_no_room_found"><p className="no_room_found font-weight-bold">There is no room!</p></div>
+                                    )
                             }
 
                             {/* Pagination part */}
                             {
-                                allRooms && allRooms.length > 0 &&
+                                !loading && allRooms && allRooms.length > 0 &&
                                 <div data-aos="fade-right" className="col-md-12 col-sm-12 col-xs-12 d-flex justify-content-center mt-5 mb-5">
                                     <Pagination
                                         showSizeChanger

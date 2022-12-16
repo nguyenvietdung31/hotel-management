@@ -6,6 +6,7 @@ import Slider from '../Utilities/Slider';
 import ScrollToTop from '../Utilities/ScrollToTop';
 import './About.scss'
 import AOS from 'aos'
+import img_avt_team from '../../Image/img_avt_team.jpg'
 
 /*  to display UI elements */
 const { Meta } = Card;
@@ -34,41 +35,46 @@ function About() {
             </Row>
 
             <Row gutter={[0, 24]} justify="space-around" className='contain_member'>
-                <Col md={23} xs={23}><div data-aos="fade-right" className='contain_title_manager ml-5'>
-                    <p className='title_manager'>Manager</p>
-                </div></Col>
-                <Col lg={5} sm={10} xs={24} ><Card data-aos="fade" className='mb-4 card card1'
-                    hoverable
+                <div className="container">
+                    <Row gutter={[0, 24]} justify="space-around">
+                        <Col md={23} xs={23}><div data-aos="fade-right" className='contain_title_manager'>
+                            <p className='title_manager'>Developer</p>
+                        </div></Col>
+                        <Col lg={5} sm={10} xs={24} ><Card data-aos="fade" className='mb-4 card card1'
+                            hoverable
 
-                    cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-                >
-                    <Meta title="Nguyễn Việt Dũng" description="Front-End" />
+                            cover={<img alt="img" src={img_avt_team} />}
+                        >
+                            <Meta title="Nguyễn Việt Dũng" description="Front-End" />
 
-                </Card></Col>
-                <Col lg={5} sm={10} xs={24} ><Card data-aos="fade" className='mb-4 card card2'
-                    hoverable
+                        </Card></Col>
+                        <Col lg={5} sm={10} xs={24} ><Card data-aos="fade" className='mb-4 card card2'
+                            hoverable
 
-                    cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-                >
-                    <Meta title="Nguyễn Minh Thanh" description="Front-End" />
+                            cover={<img alt="img" src={img_avt_team} />}
+                        >
+                            <Meta title="Nguyễn Minh Thanh" description="Front-End" />
 
-                </Card></Col>
-                <Col lg={5} sm={10} xs={24} ><Card data-aos="fade" className='mb-4 card card3'
-                    hoverable
+                        </Card></Col>
+                        <Col lg={5} sm={10} xs={24} ><Card data-aos="fade" className='mb-4 card card3'
+                            hoverable
 
-                    cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-                >
-                    <Meta title="Phạm Tùng Dương" description="Back-End" />
+                            cover={<img alt="img" src={img_avt_team} />}
+                        >
+                            <Meta title="Phạm Tùng Dương" description="Back-End" />
 
-                </Card></Col>
-                <Col lg={5} sm={10} xs={24} ><Card data-aos="fade" className='mb-4 card card4'
-                    hoverable
+                        </Card></Col>
+                        <Col lg={5} sm={10} xs={24} ><Card data-aos="fade" className='mb-4 card card4'
+                            hoverable
 
-                    cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-                >
-                    <Meta title="Nguyễn Cung Ứng" description="Back-End" />
+                            cover={<img alt="img" src={img_avt_team} />}
+                        >
+                            <Meta title="Nguyễn Cung Ứng" description="Back-End" />
 
-                </Card></Col>
+                        </Card></Col>
+                    </Row>
+
+                </div>
             </Row>
             {/* End body UI of About component */}
 
