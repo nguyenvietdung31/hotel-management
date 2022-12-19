@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import Header from '../Header_Footer/Header';
 import Footer from '../Header_Footer/Footer';
 import Slider from '../Utilities/Slider';
+import BeAtTop from '../Utilities/BeAtTop';
 import ScrollToTop from '../Utilities/ScrollToTop';
 import { useTranslation } from 'react-i18next'
 import Loader from '../Utilities/Loader'
@@ -87,6 +88,8 @@ function About() {
 
             {/* Footer part */}
             <Footer />
+            <BeAtTop />
+
         </>
     )
 }

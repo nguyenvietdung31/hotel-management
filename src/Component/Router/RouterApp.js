@@ -1,15 +1,13 @@
-import { lazy } from 'react'
 import { Route, Routes, Navigate } from 'react-router-dom'
-
-/* Only when using, it will load the component below */
-const App = lazy(() => import("../../App"))
-const About = lazy(() => import("../About_Contact/About"))
-const Contact = lazy(() => import("../About_Contact/Contact"))
-const Login = lazy(() => import("../Authentication/Login"))
-const Register = lazy(() => import("../Authentication/Register"))
-const Rooms = lazy(() => import("../Rooms/Rooms"))
-const Detail = lazy(() => import("../Rooms/Detail"))
-
+import App from '../../App'
+import About from '../About_Contact/About'
+import Contact from '../About_Contact/Contact'
+import Login from '../Authentication/Login'
+import Register from '../Authentication/Register'
+import Rooms from '../Rooms/Rooms'
+import Detail from '../Rooms/Detail'
+import NotFound from '../NotFound/NotFound'
+import Booking_Form from '../Form/Booking_Form'
 function RouterApp() {
 
     return (
@@ -25,11 +23,13 @@ function RouterApp() {
                 <Route path='/contact' element={<Contact />} />
                 <Route path='/rooms' element={<Rooms />} />
                 <Route path='/detail' element={<Detail />} />
+                <Route path='/booking_form' element={<Booking_Form/>}/>
                 {/* <Route path='/search' element={<Search />} />  */}
                 {/*<Route path="/forgotpassword" element={<RequireForgotpass><Forgotpassword /></RequireForgotpass>} />
                 <Route path="/changepassword" element={<RequireChangepass><Changepassword /></RequireChangepass>} />*/}
                 {/*<Route path="/create" element={<RequireAdmin><Create /></RequireAdmin>} />
                 <Route path="/update" element={<RequireAdmin><Update /></RequireAdmin>} />*/}
+                <Route path='/*' element={<NotFound />} />
 
                 {/* With each path will redirect to a page */}
             </Routes>

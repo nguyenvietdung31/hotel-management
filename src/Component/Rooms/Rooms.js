@@ -6,6 +6,7 @@ import Footer from "../Header_Footer/Footer";
 import ScrollToTop from "../Utilities/ScrollToTop";
 import Loader from '../Utilities/Loader'
 import { useTranslation } from 'react-i18next'
+import BeAtTop from "../Utilities/BeAtTop";
 import axios from "axios";
 import AOS from 'aos'
 import './Rooms.scss'
@@ -47,7 +48,12 @@ function Rooms() {
     const { t, i18n } = useTranslation();
 
     // using this to redirect to another page
-    let navigate = useNavigate()
+    const navigate = useNavigate()
+
+    /* scroll at top when reload */
+    window.onbeforeunload = function () {
+        window.scrollTo(0, 0);
+    }
 
     /* when 'refresh' change => call getAllData() again to refresh new data */
     useEffect(() => {
@@ -275,7 +281,7 @@ function Rooms() {
                                         allRooms.slice(minValue, maxValue).map((val, index) => (
                                             <div className="col-lg-4 col-sm-6 col-xs-12 mt-3 mb-3" key={index}>
                                                 <Card style={{ overflow: 'hidden' }} loading={val !== undefined ? false : true}
-                                                    onClick={() => navigate(`/detail?roomID=1`, { replace: true })}
+                                                    onClick={() => navigate(`/detail?roomID=${val.id}`, { replace: true })}
                                                     hoverable
                                                     cover={<img className="img_rooms" alt="example" src={val.avatar} />}
                                                 >
@@ -317,6 +323,7 @@ function Rooms() {
             {/* Footer part */}
             <Footer />
             {/* </Suspense> */}
+            <BeAtTop />
         </>
     )
 }

@@ -4,6 +4,7 @@ import Header from "../Header_Footer/Header";
 import Footer from "../Header_Footer/Footer";
 import ScrollToTop from "../Utilities/ScrollToTop";
 import { useTranslation } from 'react-i18next'
+import BeAtTop from "../Utilities/BeAtTop";
 import './Contact.scss'
 import AOS from 'aos'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -93,6 +94,8 @@ function Contact() {
 
             {/* Footer part */}
             <Footer />
+            <BeAtTop />
+
         </>
     )
 }
