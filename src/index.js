@@ -7,6 +7,7 @@ import 'aos/dist/aos.css'
 import RouterApp from './Component/Router/RouterApp';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import i18n from './i18n';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

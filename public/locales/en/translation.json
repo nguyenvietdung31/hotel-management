@@ -1,0 +1,85 @@
+{
+    "header":  {
+        "home": "Home",
+        "rooms": "Rooms",
+        "about": "About Us",
+        "contact": "Contact",
+        "lang_en": "English",
+        "lang_vie": "Vietnamese",
+        "change_pass": "Change Password",
+        "log_out": "Log Out",
+        "log_in": "Log In",
+        "register": "Register"
+    },
+
+    "footer": {
+        "by": "by"
+    },
+
+    "home": {
+        "introduce_room_title": "View Our Rooms",
+        "introduce_room_description": "We have many rooms, all types, price for you to choose",
+        "introduce_room_seemore": "See more Rooms",
+        "introduce_member_title": "Our Members",
+        "introduce_member_subtitle": "Developer",
+        "introduce_member_name1": "Nguyen Viet Dung",
+        "introduce_member_name2": "Nguyen Minh Thanh",
+        "introduce_member_name3": "Pham Tung Duong",
+        "introduce_member_name4": "Nguyen Cung Ung",
+        "introduce_member_front_end": "Front-End Developer",
+        "introduce_member_back_end": "Back-End Developer",
+        "introduce_member_seemore": "View more about us",
+        "introduce_side_infor_title": "Side Information",
+        "introduce_side_infor_description": "Our company was established in 2010, located in 187 Nguyen Luong Bang, Dong Da, Ha Noi. Currently, it has expanded and has over 100 employees. Contact us by email: webinternhotel@gmail.com or phone number: (+84) 13 23 45 67 89",
+        "introduce_side_infor_box_mission_title": "Mission",
+        "introduce_side_infor_box_mission_description": "We bring you the best place, service for you to have a happy holiday with your family and lover. Your contribution and support is the driving force for us to grow stronger every day",
+        "introduce_side_infor_box_service_title": "Service",
+        "introduce_side_infor_box_service_description": "We have the best services for you: Private bathroom. Free wifi. Beach view. Free Lunch and Dinner, Wonderful Landscape,...",
+        "introduce_side_infor_box_history_title": "History",
+        "introduce_side_infor_box_history_description": "Founded in 2010, our goal is to become one of the largest hotel business groups in the world.Currently, there are more than 50 facilities spread across the country. In the next 5 years, we will have 20 to 25 more facilities. We look forward to your support."
+    },
+
+    "rooms": {
+        "rooms_title": "Rooms",
+        "rooms_input_search": "Input to search...",
+        "rooms_type_title": "Type",
+        "rooms_type_item1": "All",
+        "rooms_type_item2": "Standard",
+        "rooms_type_item3": "Superior",
+        "rooms_type_item4": "Deluxe",
+        "rooms_type_item5": "Suite",
+        "rooms_price_title": "Price",
+        "rooms_clear_filter": "Clear Filter",
+        "rooms_sortBy": "Sort By",
+        "rooms_sort_option1": "Default",
+        "rooms_sort_option2": "Price (Asc)",
+        "rooms_sort_option3": "Price (Desc)",
+        "rooms_sort_option4": "Name (A-Z)",
+        "rooms_sort_option5": "Name (Z-A)"
+    },
+
+    "about": {
+        "about_welcome": "Welcome to",
+        "about_welcome_description": "Hello there, we're so glad that you visit our website. You will enjoy the most dedicated and modern services here. Believe us and just enjoy the moment as a 'KING'."
+    },
+
+    "contact": {
+        "contact_form_title": "Please fulfil the form.",
+        "contact_form_name_lable": "Name",
+        "contact_form_name_plh": "Your name...",
+        "contact_form_email_lable": "Email",
+        "contact_form_email_plh": "Your email...",
+        "contact_form_subject_lable": "Subject",
+        "contact_form_subject_plh": "Your subject...",
+        "contact_form_message_lable": "Message",
+        "contact_form_message_plh": "Your message...",
+        "contact_form_button": "Send",
+        "contact_infor": "Contact information",
+        "contact_infor_item1": "187 Nguyen Luong Bang, Quang Trung, Dong Da, Ha Noi",
+        "contact_infor_item2": "(+84) 13 23 45 67 89",
+        "contact_infor_item3": "webinternhotel@gmail.com",
+        "contact_infor_item4": "Everyday 9:30 am - 6:30 pm",
+        "contact_social": "Social Media"
+    }
+
+}

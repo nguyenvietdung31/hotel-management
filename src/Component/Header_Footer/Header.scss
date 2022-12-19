@@ -72,12 +72,26 @@ $MD: 1024px;
                     display: block;
                 }
             }
+
+            .contain_multi_lang_responsive {
+                display: none;
+                cursor: pointer;
+
+                @include mobile {
+                    display: block;
+                }
+
+                @include tablet {
+                    display: block;
+                }
+            }
         }
     }
 
 
     .right_menu {
         display: flex;
+        align-items: center;
 
         .login_register {
             display: flex;
@@ -91,7 +105,18 @@ $MD: 1024px;
             }
         }
 
+        .contain_multi_lang {
+            @include mobile {
+                display: none;
+            }
+
+            @include tablet {
+                display: none;
+            }
+        }
+
         .user_logged_in {
+            margin-left: 20px;
 
             @include mobile {
                 display: none;
