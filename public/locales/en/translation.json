@@ -80,6 +80,21 @@
         "contact_infor_item3": "webinternhotel@gmail.com",
         "contact_infor_item4": "Everyday 9:30 am - 6:30 pm",
         "contact_social": "Social Media"
+    },
+
+    "detail": {
+        "detail_night": "Night",
+        "detail_type": "Type",
+        "detail_bed": "Bed",
+        "detail_size": "Size",
+        "detail_description": "Description",
+        "detail_room_service": "Room services",
+        "detail_reservation_title": "Your Reservation",
+        "detail_reservation_date": "Date",
+        "detail_reservation_startDate": "Check In",
+        "detail_reservation_endDate": "Check Out",
+        "detail_reservation_button_book": "Book Now!"
+
     }
 
 }

@@ -80,5 +80,20 @@
         "contact_infor_item3": "webinternhotel@gmail.com",
         "contact_infor_item4": "Hằng ngày 9:30 sáng - 6:30 tối",
         "contact_social": "Phương tiện xã hội"
+    },
+
+    "detail": {
+        "detail_night": "Đêm",
+        "detail_type": "Loại phòng",
+        "detail_bed": "Giường",
+        "detail_size": "Kích cỡ",
+        "detail_description": "Miêu tả",
+        "detail_room_service": "Dịch vụ phòng",
+        "detail_reservation_title": "Đặt phòng",
+        "detail_reservation_date": "Thời gian",
+        "detail_reservation_startDate": "Ngày thuê",
+        "detail_reservation_endDate": "Ngày trả",
+        "detail_reservation_button_book": "Đặt lịch ngay!"
+
     }
 }

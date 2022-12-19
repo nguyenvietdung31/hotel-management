@@ -1,6 +1,4 @@
-import { useEffect, Suspense } from "react";
 import { useTranslation } from 'react-i18next'
-import ScrollToTop from "../Utilities/ScrollToTop";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AOS from 'aos'

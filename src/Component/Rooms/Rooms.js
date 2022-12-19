@@ -1,10 +1,9 @@
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Slider from "../Utilities/Slider"
 import Header from "../Header_Footer/Header";
 import Footer from "../Header_Footer/Footer";
 import ScrollToTop from "../Utilities/ScrollToTop";
-import Loader from '../Utilities/Loader'
 import { useTranslation } from 'react-i18next'
 import BeAtTop from "../Utilities/BeAtTop";
 import axios from "axios";

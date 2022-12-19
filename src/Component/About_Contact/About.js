@@ -6,7 +6,6 @@ import Slider from '../Utilities/Slider';
 import BeAtTop from '../Utilities/BeAtTop';
 import ScrollToTop from '../Utilities/ScrollToTop';
 import { useTranslation } from 'react-i18next'
-import Loader from '../Utilities/Loader'
 import './About.scss'
 import AOS from 'aos'
 import img_avt_team from '../../Image/img_avt_team.jpg'
