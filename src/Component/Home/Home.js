@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AOS from 'aos'
@@ -13,6 +14,9 @@ import img_avt_team from '../../Image/img_avt_team.jpg'
 import { Card, Row, Col, Skeleton, Space, Spin } from "antd";
 
 function Home() {
+
+    /* i18next */
+    const { t, i18n } = useTranslation();
     /* API */
     const API = 'https://639003d065ff41831106d1c8.mockapi.io/api/login/rooms'
 
@@ -45,23 +49,23 @@ function Home() {
 
     const home_staff = [
         {
-            name: 'Nguyễn Việt Dũng',
-            position: 'Front-end Developer',
+            name: `${t('home.introduce_member_name1')}`,
+            position: `${t('home.introduce_member_front_end')}`,
             avatar: img_avt_team,
         },
         {
-            name: 'Nguyễn Minh Thanh',
-            position: 'Front-end Developer',
+            name: `${t('home.introduce_member_name2')}`,
+            position: `${t('home.introduce_member_front_end')}`,
             avatar: img_avt_team,
         },
         {
-            name: 'Phạm Tùng Dương',
-            position: 'Back-end Developer',
+            name: `${t('home.introduce_member_name3')}`,
+            position: `${t('home.introduce_member_back_end')}`,
             avatar: img_avt_team,
         },
         {
-            name: 'Nguyễn Cung Ứng',
-            position: 'Back-end Developer',
+            name: `${t('home.introduce_member_name4')}`,
+            position: `${t('home.introduce_member_back_end')}`,
             avatar: img_avt_team,
         }
         ,
@@ -69,16 +73,16 @@ function Home() {
 
     const home_more_infomation = [
         {
-            title: 'Mission',
-            description: 'We bring you the best palace for you to have a happy holiday with your family and lover. Your contribution and support is the driving force for us to grow stronger every day',
+            title: `${t('home.introduce_side_infor_box_mission_title')}`,
+            description: `${t('home.introduce_side_infor_box_mission_description')}`,
         },
         {
-            title: 'Service',
-            description: 'We have the best services for you: Private bathroom. Free wifi. Beach view. Free Lunch and Dinner, Wonderful Landscape,...',
+            title: `${t('home.introduce_side_infor_box_service_title')}`,
+            description: `${t('home.introduce_side_infor_box_service_description')}`,
         },
         {
-            title: 'History',
-            description: 'Founded in 2010, our goal is to become one of the largest hotel business groups in the world.Currently, there are more than 50 facilities spread across the country. In the next 5 years, we will have 20 to 25 more facilities. We look forward to your support.',
+            title: `${t('home.introduce_side_infor_box_history_title')}`,
+            description: `${t('home.introduce_side_infor_box_history_description')}`,
         },
     ]
 
@@ -95,8 +99,8 @@ function Home() {
 
             {/* body Home UI part */}
             <div className="container mt-4">
-                <h3 className="font-weight-bold text-center" data-aos="fade-down">Watch Our Room</h3>
-                <p className="text-center" data-aos="fade-up">We have many rooms, all types, prices for you to choose </p>
+                <h3 className="font-weight-bold text-center" data-aos="fade-down">{t('home.introduce_room_title')}</h3>
+                <p className="text-center" data-aos="fade-up">{t('home.introduce_room_description')}</p>
                 <div className="row">
                     {
                         loading ?
@@ -132,7 +136,7 @@ function Home() {
                     }
 
                     <div className="col-lg-12 col-sm-12 col-xs-12 d-flex justify-content-center">
-                        <a href="/rooms" className="home_link">See more Rooms</a>
+                        <a href="/rooms" className="home_link">{t('home.introduce_room_seemore')}</a>
                     </div>
                 </div>
 
@@ -140,10 +144,10 @@ function Home() {
             </div>
             <hr />
             <div className="container mt-4">
-                <h3 className="font-weight-bold text-center" data-aos="fade-down">Our Staff</h3>
+                <h3 className="font-weight-bold text-center" data-aos="fade-down">{t('home.introduce_member_title')}</h3>
                 <Row gutter={[0, 24]} justify="space-around" className='contain_member'>
                     <Col md={23} xs={23}><div className='contain_title_manager ml-5'>
-                        <p className='title_manager' data-aos="fade-right">Developer</p>
+                        <p className='title_manager' data-aos="fade-right">{t('home.introduce_member_subtitle')}</p>
                     </div>
                     </Col>
                     {
@@ -161,7 +165,7 @@ function Home() {
                     }
                 </Row>
                 <div className="col-lg-12 col-sm-12 col-xs-12 d-flex justify-content-center">
-                    <a href="/about" className="home_link">Discover more about us</a>
+                    <a href="/about" className="home_link">{t('home.introduce_member_seemore')}</a>
                 </div>
             </div>
             <hr />
@@ -170,11 +174,8 @@ function Home() {
                     <div className="home_more">
                         <div className="col-lg-12 col-sm-12 col-xs-12 home_more_header">
                             <div className="row">
-                                <h3 className="col-lg-6 col-sm-6 col-xs-12 home_more_header_content" data-aos="fade-right">Side Information</h3>
-                                <p className="col-lg-6 col-sm-6 col-xs-12 home_more_header_content" data-aos="fade-right">Our company was established in 2010, located in 187 Nguyen Luong Bang, Dong Da, Ha Noi.
-                                    Currently, it has expanded and has over 100 employees.
-                                    Contact us by email: abc@def.xyz or phone number: 0000.111.222
-                                </p>
+                                <h3 className="col-lg-6 col-sm-6 col-xs-12 home_more_header_content" data-aos="fade-right">{t('home.introduce_side_infor_title')}</h3>
+                                <p className="col-lg-6 col-sm-6 col-xs-12 home_more_header_content" data-aos="fade-right">{t('home.introduce_side_infor_description')}</p>
                             </div>
                         </div>
                         <div className="col-lg-12 col-sm-12 col-xs-12 home_more_content">
@@ -195,6 +196,9 @@ function Home() {
 
                 </div>
             </div>
+
+            {/* scroll top top button */}
+            <ScrollToTop />
 
             {/* button to scroll to top of page */}
             <ScrollToTop />

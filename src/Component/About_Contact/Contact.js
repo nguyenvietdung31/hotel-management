@@ -3,6 +3,7 @@ import { Col, Row } from 'antd';
 import Header from "../Header_Footer/Header";
 import Footer from "../Header_Footer/Footer";
 import ScrollToTop from "../Utilities/ScrollToTop";
+import { useTranslation } from 'react-i18next'
 import BeAtTop from "../Utilities/BeAtTop";
 import './Contact.scss'
 import AOS from 'aos'
@@ -12,6 +13,9 @@ import { faFacebook, faInstagram, faTwitter } from '@fortawesome/free-brands-svg
 
 
 function Contact() {
+
+    /* i18next */
+    const { t, i18n } = useTranslation()
 
     /* set time for aos animation */
     useEffect(() => {
@@ -38,38 +42,38 @@ function Contact() {
                         <Row gutter={24}>
                             <Col md={15} sm={24}>
                                 <form className='col-md-12' data-aos="fade-right">
-                                    <p className="text-light font-weight-bold title_form">Please fulfil the form.</p>
+                                    <p className="text-light font-weight-bold title_form">{t('contact.contact_form_title')}</p>
                                     <div className="form-group">
-                                        <label htmlFor="inputName" className="text-light">Name</label>
-                                        <input type="text" className="form-control" id="inputName" placeholder="Your name..." required />
+                                        <label htmlFor="inputName" className="text-light">{t('contact.contact_form_name_lable')}</label>
+                                        <input type="text" className="form-control" id="inputName" placeholder={t('contact.contact_form_name_plh')} required />
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="inputEmail" className="text-light">Email</label>
-                                        <input type="email" className="form-control" id="inputEmail" placeholder="Your email..." required />
+                                        <label htmlFor="inputEmail" className="text-light">{t('contact.contact_form_email_lable')}</label>
+                                        <input type="email" className="form-control" id="inputEmail" placeholder={t('contact.contact_form_email_plh')} required />
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="inputSubject" className="text-light">Subject</label>
-                                        <input type="text" className="form-control" id="inputSubject" placeholder="Your subject..." required />
+                                        <label htmlFor="inputSubject" className="text-light">{t('contact.contact_form_subject_lable')}</label>
+                                        <input type="text" className="form-control" id="inputSubject" placeholder={t('contact.contact_form_subject_plh')} required />
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="inputMessage" className="text-light">Message</label>
-                                        <textarea className="form-control" id="inputMessage" rows="5" placeholder="Your message..." required></textarea>
+                                        <label htmlFor="inputMessage" className="text-light">{t('contact.contact_form_message_lable')}</label>
+                                        <textarea className="form-control" id="inputMessage" rows="5" placeholder={t('contact.contact_form_message_plh')} required></textarea>
                                     </div>
 
-                                    <button type='submit' className="btn btn-success">Send</button>
+                                    <button type='submit' className="btn btn-success">{t('contact.contact_form_button')}</button>
                                 </form>
                             </Col>
                             <Col md={9} sm={24}>
                                 <div className="mt-5 mb-5" data-aos="fade-up">
-                                    <p className="text-uppercase font-weight-bold text-light title_info">Contact information</p>
-                                    <p className="mt-3 text-light"><FontAwesomeIcon icon={faLocationDot} /> <span className="ml-2">187 Nguyễn Lương Bằng, Quang Trung, Đống Đa, Hà Nội</span></p>
-                                    <p className="mt-3 text-light"><FontAwesomeIcon icon={faPhone} /> <span className="ml-2">(+84) 13 23 45 67 89</span></p>
-                                    <p className="mt-3 text-light"><FontAwesomeIcon icon={faEnvelope} /> <span className="ml-2">webinternhotel@gmail.com</span></p>
-                                    <p className="mt-3 text-light"><FontAwesomeIcon icon={faClock} /> <span className="ml-2">Everyday 9:30 am - 6:30 pm</span></p>
+                                    <p className="text-uppercase font-weight-bold text-light title_info">{t('contact.contact_infor')}</p>
+                                    <p className="mt-3 text-light"><FontAwesomeIcon icon={faLocationDot} /> <span className="ml-2">{t('contact.contact_infor_item1')}</span></p>
+                                    <p className="mt-3 text-light"><FontAwesomeIcon icon={faPhone} /> <span className="ml-2">{t('contact.contact_infor_item2')}</span></p>
+                                    <p className="mt-3 text-light"><FontAwesomeIcon icon={faEnvelope} /> <span className="ml-2">{t('contact.contact_infor_item3')}</span></p>
+                                    <p className="mt-3 text-light"><FontAwesomeIcon icon={faClock} /> <span className="ml-2">{t('contact.contact_infor_item4')}</span></p>
                                 </div>
 
                                 <div className="mt-5 mb-5" data-aos="fade-up">
-                                    <p className="text-uppercase font-weight-bold mb-4 text-light title_info">Social Media</p>
+                                    <p className="text-uppercase font-weight-bold mb-4 text-light title_info">{t('contact.contact_social')}</p>
                                     <p>
                                         <a href="#" className="mr-4"><FontAwesomeIcon className="text-primary" icon={faFacebook} size="2x" /> </a>
                                         <a href="#" className="mr-4"><FontAwesomeIcon className="text-warning" icon={faInstagram} size="2x" /> </a>

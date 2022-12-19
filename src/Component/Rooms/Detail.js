@@ -12,6 +12,7 @@ import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat"
 import { useSearchParams } from 'react-router-dom'
 import Booking_Form from '../Form/Booking_Form'
+import { useTranslation } from 'react-i18next'
 
 dayjs.extend(customParseFormat)
 const { RangePicker } = DatePicker;
@@ -31,6 +32,9 @@ function Detail() {
     // searchParams return a object
     const [searchParams, setSearchParams] = useSearchParams();
     const roomID = Number(searchParams.get("roomID"))
+
+    /* i18next */
+    const { t, i18n } = useTranslation()
 
     /* when 'refresh' change => call getAllData() again to refresh new data */
     useEffect(() => {
@@ -135,7 +139,7 @@ function Detail() {
                                 <Skeleton loading={loading} active>
                                     <div className="title" data-aos="fade-left">
                                         <p className='room_name font-weight-bold'>{room.name}</p>
-                                        <p className='room_price font-weight-bold'>${room.price} / Night</p>
+                                        <p className='room_price font-weight-bold'>${room.price} / {t('detail.detail_night')}</p>
                                     </div>
                                 </Skeleton>
 
@@ -145,9 +149,9 @@ function Detail() {
                                             <table className="table table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th>Type</th>
-                                                        <th>Bed</th>
-                                                        <th>Size</th>
+                                                        <th>{t('detail.detail_type')}</th>
+                                                        <th>{t('detail.detail_bed')}</th>
+                                                        <th>{t('detail.detail_size')}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -161,7 +165,7 @@ function Detail() {
                                         </Skeleton>
 
                                         <div data-aos="fade-right" className="item_description mt-4">
-                                            <p className='item_description_title font-weight-bold'>Description</p>
+                                            <p className='item_description_title font-weight-bold'>{t('detail.detail_description')}</p>
                                             <Skeleton loading={loading} active>
                                                 <p className='room_description'>{room.description}</p>
                                             </Skeleton>
@@ -171,7 +175,7 @@ function Detail() {
                                     <div className="wrap_room_services col-lg-4 col-sm-6 col-xs-12">
                                         <Skeleton loading={loading} active>
                                             <div data-aos="fade-right" className="room_services">
-                                                <p className="room_services_title font-weight-bold">Room Services</p>
+                                                <p className="room_services_title font-weight-bold">{t('detail.detail_room_service')}</p>
                                                 <ul>
                                                     <li><FontAwesomeIcon icon={faCircleCheck} className='mr-2 text-success' />Private bathroom</li>
                                                     <li><FontAwesomeIcon icon={faCircleCheck} className='mr-2 text-success' />Free Wifi</li>
@@ -191,18 +195,18 @@ function Detail() {
                     <div className="col-lg-4 col-sm-8 col-xs-12">
                         <div data-aos="fade-up" className="wrap_reservation mt-5">
                             <div className="heading">
-                                <p className='mb-0 font-weight-bold'>Your Reservation</p>
+                                <p className='mb-0 font-weight-bold'>{t('detail.detail_reservation_title')}</p>
                             </div>
 
                             <div className="check_in_out_reservation">
                                 <div className='wrap_title_rangepicker'>
-                                    <p className='mb-2 font-weight-bold'>Date</p>
+                                    <p className='mb-2 font-weight-bold'>{t('detail.detail_reservation_date')}</p>
                                 </div>
                                 <div className='wrap_rangepicker'>
                                     <Space direction="vertical" size={12} style={{ width: '100%' }}>
                                         <RangePicker style={{ width: '100%' }}
                                             size='large'
-                                            placeholder={['Check In', 'Check Out']}
+                                            placeholder={[`${t('detail.detail_reservation_startDate')}`, `${t('detail.detail_reservation_endDate')}`]}
                                             disabledDate={disabledDate}
                                         />
                                     </Space>
@@ -210,7 +214,7 @@ function Detail() {
                                 </div>
                             </div>
                             <div className="wrap_button">
-                                <a href='/booking_form' className='btn btn-success'>Book now!</a>
+                                <a href='/booking_form' className='btn btn-success'>{t('detail.detail_reservation_button_book')}</a>
                             </div>
                             {/* <Button className="wrap_button" onClick={showModal}>
                                 Book Now

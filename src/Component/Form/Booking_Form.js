@@ -44,18 +44,8 @@ function Booking_Form() {
       },
 
     },
-    style: {
-      justifyContent: 'space-around'
-    }
   }
 
-//   const formItemLayout = {
-//     labelCol: { xs: { span: 24 }, sm: { span: 12 }, md: { span: 8 }, lg: { span: 8 } },
-//     wrapperCol: { xs: { span: 24 }, sm: { span: 12 }, md: { span: 12 }, lg: { span: 12 } }
-// }
-// const tailFormItemLayOut = {
-//     wrapperCol: { xs: { span: 24 }, sm: { span: 12, offset: 12 }, md: { span: 12, offset: 8 }, lg: { span: 12, offset: 8 } }
-// };
 
   return (
     <div className='container'>
@@ -67,7 +57,7 @@ function Booking_Form() {
             >
               See another room
             </Button>
-        <Title level={2} className='text-center'>Booking Room</Title>
+        <Title level={2} className='text-center mt-4'>Booking Room</Title>
         <p className='text-center'>Fill the form below to book your room, specify the guests expected and number of days likely to stay and will get back
           to you shortly
         </p>

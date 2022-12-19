@@ -4,6 +4,7 @@ import Slider from "../Utilities/Slider"
 import Header from "../Header_Footer/Header";
 import Footer from "../Header_Footer/Footer";
 import ScrollToTop from "../Utilities/ScrollToTop";
+import { useTranslation } from 'react-i18next'
 import BeAtTop from "../Utilities/BeAtTop";
 import axios from "axios";
 import AOS from 'aos'
@@ -42,6 +43,8 @@ function Rooms() {
     const [minPrice, setMinPrice] = useState(0)
     const [maxPrice, setMaxPrice] = useState(1000)
 
+    /* i18next */
+    const { t, i18n } = useTranslation();
 
     // using this to redirect to another page
     const navigate = useNavigate()
@@ -125,14 +128,16 @@ function Rooms() {
         if (type === 'all') {
             setAllRooms(allRoomsFilter.filter(room =>
                 (room.price >= minPrice) &&
-                (room.price <= maxPrice)
+                (room.price <= maxPrice) &&
+                (room.name.toLowerCase().includes(search.toLowerCase()))
             ))
         }
         else {
             setAllRooms(allRoomsFilter.filter(room =>
                 (room.type.toLowerCase() === type) &&
                 (room.price >= minPrice) &&
-                (room.price <= maxPrice)
+                (room.price <= maxPrice) &&
+                (room.name.toLowerCase().includes(search.toLowerCase()))
             ))
         }
     }
@@ -140,7 +145,13 @@ function Rooms() {
     /* to search rooms by name */
     const handleSearch = value => {
         setSearch(value)
-        setAllRooms(allRoomsFilter.filter(room => room.name.toLowerCase().includes(value.toLowerCase())))
+        if (value !== '') {
+            handleFilter(type)
+            setAllRooms(allRooms.filter(room => room.name.toLowerCase().includes(value.toLowerCase())))
+        }
+        else {
+            handleFilter(type)
+        }
     }
 
     /* when change value of Price slider => update value of minPrice and maxPrice  */
@@ -152,11 +163,13 @@ function Rooms() {
         if (type !== 'all')
             setAllRooms(allRoomsFilter.filter(item => item.price >= value[0] &&
                 item.price <= value[1] &&
-                item.type.toLowerCase() === type.toLowerCase()
+                item.type.toLowerCase() === type.toLowerCase() &&
+                (item.name.toLowerCase().includes(search.toLowerCase()))
             ))
         else
             setAllRooms(allRoomsFilter.filter(item => item.price >= value[0] &&
-                item.price <= value[1]
+                item.price <= value[1] &&
+                (item.name.toLowerCase().includes(search.toLowerCase()))
             ))
     }
 
@@ -179,6 +192,8 @@ function Rooms() {
 
     return (
         <>
+            {/* <Suspense fallback={<Loader />}> */}
+
             {/* Header part */}
             <Header />
 
@@ -189,34 +204,34 @@ function Rooms() {
             <div className="container mt-5 contain_body">
                 <div className="row">
                     <div className="col-md-12 col-sm-12 col-xs-12 contain_title_room">
-                        <p className="text-uppercase font-weight-bold title_room" style={{ fontSize: '25px' }}>Rooms</p>
+                        <p className="text-uppercase font-weight-bold title_room" style={{ fontSize: '25px' }}>{t('rooms.rooms_title')}</p>
                     </div>
 
                     <div className="col-lg-3 col-md-12 col-xs-12">
                         <div className="contain_filter pl-2 pr-2">
 
-                            <Input placeholder="Input to search..." onChange={(e) => handleSearch(e.target.value)} value={search} />
+                            <Input placeholder={t('rooms.rooms_input_search')} onChange={(e) => handleSearch(e.target.value)} value={search} />
 
                             <div className="category">
-                                <div className="category_title font-weight-bold mb-3">Type</div>
+                                <div className="category_title font-weight-bold mb-3">{t('rooms.rooms_type_title')}</div>
 
                                 <Radio.Group onChange={(e) => handleFilter(e.target.value)} value={type}>
-                                    <Radio className="mt-2 mb-2" value='all'>All</Radio><br />
-                                    <Radio className="mt-2 mb-2" value='standard'>Standard</Radio><br />
-                                    <Radio className="mt-2 mb-2" value='superior'>Superior</Radio><br />
-                                    <Radio className="mt-2 mb-2" value='deluxe'>Deluxe</Radio><br />
-                                    <Radio className="mt-2 mb-2" value='suite'>Suite</Radio><br />
+                                    <Radio className="mt-2 mb-2" value='all'>{t('rooms.rooms_type_item1')}</Radio><br />
+                                    <Radio className="mt-2 mb-2" value='standard'>{t('rooms.rooms_type_item2')}</Radio><br />
+                                    <Radio className="mt-2 mb-2" value='superior'>{t('rooms.rooms_type_item3')}</Radio><br />
+                                    <Radio className="mt-2 mb-2" value='deluxe'>{t('rooms.rooms_type_item4')}</Radio><br />
+                                    <Radio className="mt-2 mb-2" value='suite'>{t('rooms.rooms_type_item5')}</Radio><br />
                                 </Radio.Group>
                             </div>
 
                             <div className="range_price">
-                                <div className="price_title font-weight-bold">Price</div>
+                                <div className="price_title font-weight-bold">{t('rooms.rooms_price_title')}</div>
                                 <p>${minPrice} - ${maxPrice}</p>
                                 <Slide range defaultValue={[minPrice, maxPrice]} value={[minPrice, maxPrice]} max={1000} min={0} placement='bottom' onChange={handleChangePrice} />
                             </div>
 
                             <div className="wrap_clear_filter">
-                                <button className="btn btn-outline-danger" onClick={handleClearFilter}>Clear Filter</button>
+                                <button className="btn btn-outline-danger" onClick={handleClearFilter}>{t('rooms.rooms_clear_filter')}</button>
                             </div>
                         </div>
                     </div>
@@ -224,21 +239,21 @@ function Rooms() {
                         <div className="row">
                             <div className="col-md-12 col-sm-12 col-xs-12">
                                 <div className="contain_head_rooms">
-                                    <p>{allRooms.length || 0} Rooms</p>
+                                    <p>{allRooms.length || 0} {t('rooms.rooms_title')}</p>
                                     <div className="line"></div>
-                                    <div>Sort By
+                                    <div>{t('rooms.rooms_sortBy')}
                                         <Select value={sortType}
                                             style={{
                                                 width: 'fit-content',
-                                                marginLeft: '10px',
+                                                marginLeft: '10px'
                                             }}
                                             onChange={handleSort}
                                             options={[
-                                                { value: 'DF', label: 'Default' },
-                                                { value: 'PA', label: 'Price (Asc)' },
-                                                { value: 'PD', label: 'Price (Desc)' },
-                                                { value: 'AA', label: 'Name (A-Z)' },
-                                                { value: 'AD', label: 'Name (Z-A)' },
+                                                { value: 'DF', label: `${t('rooms.rooms_sort_option1')}` },
+                                                { value: 'PA', label: `${t('rooms.rooms_sort_option2')}` },
+                                                { value: 'PD', label: `${t('rooms.rooms_sort_option3')}` },
+                                                { value: 'AA', label: `${t('rooms.rooms_sort_option4')}` },
+                                                { value: 'AD', label: `${t('rooms.rooms_sort_option5')}` },
                                             ]}
                                         />
                                     </div>
@@ -306,6 +321,7 @@ function Rooms() {
 
             {/* Footer part */}
             <Footer />
+            {/* </Suspense> */}
             <BeAtTop />
         </>
     )

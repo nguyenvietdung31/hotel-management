@@ -1,0 +1,99 @@
+{
+    "header": {
+      "home": "Trang Chủ",
+      "rooms": "Phòng",
+      "about": "Về Chúng Tôi",
+      "contact": "Liên Hệ",
+      "lang_en": "Tiếng Anh",
+      "lang_vie": "Tiếng Việt",
+      "change_pass": "Đổi Mật Khẩu",
+      "log_out": "Đăng Xuất",
+      "log_in": "Đăng Nhập",
+      "register": "Đăng Ký"
+    },
+
+    "footer": {
+      "by": "bởi"
+    },
+
+    "home": {
+      "introduce_room_title": "Xem phòng",
+      "introduce_room_description": "Chúng tôi có nhiều phòng, các loại phòng và mức giá cho bạn lựa chọn",
+      "introduce_room_seemore": "Xem thêm phòng",
+      "introduce_member_title": "Các thành viên của chúng tôi",
+      "introduce_member_subtitle": "Lập trình viên",
+      "introduce_member_name1": "Nguyễn Việt Dũng",
+      "introduce_member_name2": "Nguyễn Minh Thanh",
+      "introduce_member_name3": "Phạm Tùng Dương",
+      "introduce_member_name4": "Nguyễn Cung Ứng",
+      "introduce_member_front_end": "Lập trình viên Front-End",
+      "introduce_member_back_end": "Lập trình viên Back-End",
+      "introduce_member_seemore": "Xem thêm về chúng tôi",
+      "introduce_side_infor_title": "Thông tin bên lề",
+      "introduce_side_infor_description": "Khách sạn của chúng tôi được thành lập năm 2010, nằm ở 187 Nguyễn Lương Bằng, Quang Trung, Đống Đa, Hà Nội. Hiện nay, chúng tôi gồm hơn 100 nhân viên. Hãy liên hệ với chúng tôi qua hòm thư: webinternhotel@gmail.com hoặc số điện thoại: (+84) 13 23 45 67 89",
+      "introduce_side_infor_box_mission_title": "Nhiệm vụ",
+      "introduce_side_infor_box_mission_description": "Chúng tôi mang đến cho bạn địa điểm, dịch vụ tốt nhất để bạn có một kỳ nghỉ vui vẻ với gia đình và người yêu của bạn. Đóng góp và hỗ trợ của bạn là động lực để chúng tôi phát triển mạnh mẽ hơn mỗi ngày",
+      "introduce_side_infor_box_service_title": "Dịch vụ",
+      "introduce_side_infor_box_service_description": "Chúng tôi mang tới các dịch vụ tốt nhất cho bạn: Phòng tắm riêng. Wifi miễn phí. Nhìn bãi biển. Bữa trưa và bữa tối miễn phí, phong cảnh tuyệt vời, ...",
+      "introduce_side_infor_box_history_title": "Lịch sử",
+      "introduce_side_infor_box_history_description": "Được thành lập vào năm 2010, mục tiêu của chúng tôi là trở thành một trong những nhóm kinh doanh khách sạn lớn nhất thế giới. Hiện tại, có hơn 50 cơ sở trải rộng trên cả nước. Trong 5 năm tới, chúng tôi sẽ có thêm 20 đến 25 cơ sở. Chúng tôi mong chờ sự hỗ trợ của bạn."
+    },
+
+    "rooms": {
+      "rooms_title": "Phòng",
+      "rooms_input_search": "Nhập từ khóa tìm kiếm...",
+      "rooms_type_title": "Loại phòng",
+      "rooms_type_item1": "Tất cả",
+      "rooms_type_item2": "Tiêu chuẩn",
+      "rooms_type_item3": "Cao Cấp",
+      "rooms_type_item4": "Sang trọng",
+      "rooms_type_item5": "Thượng hạng",
+      "rooms_price_title": "Giá",
+      "rooms_clear_filter": "Xóa bộ lọc",
+      "rooms_sortBy": "Sắp xếp",
+      "rooms_sort_option1": "Mặc định",
+      "rooms_sort_option2": "Giá (tăng dần)",
+      "rooms_sort_option3": "Giá (giảm dần)",
+      "rooms_sort_option4": "Tên (A-Z)",
+      "rooms_sort_option5": "Tên (Z-A)"
+    },
+
+    "about": {
+      "about_welcome": "Chào mừng tới",
+      "about_welcome_description": "Xin chào, chúng tôi rất vui vì bạn truy cập trang web của chúng tôi. Bạn sẽ tận hưởng các dịch vụ tận tâm và hiện đại nhất ở đây. Hãy tin chúng tôi và chỉ tận hưởng khoảnh khắc như một 'Nhà Vua'."
+    },
+
+    "contact": {
+        "contact_form_title": "Hãy điền vào form bên dưới.",
+        "contact_form_name_lable": "Tên",
+        "contact_form_name_plh": "Tên của bạn...",
+        "contact_form_email_lable": "Email",
+        "contact_form_email_plh": "Email của bạn...",
+        "contact_form_subject_lable": "Tiêu đề",
+        "contact_form_subject_plh": "Tiêu đề...",
+        "contact_form_message_lable": "Nội dung",
+        "contact_form_message_plh": "Nội dung...",
+        "contact_form_button": "Gửi",
+        "contact_infor": "Thông tin liên hệ",
+        "contact_infor_item1": "187 Nguyễn Lương Bằng, Quang Trung, Đống Đa, Hà Nội",
+        "contact_infor_item2": "(+84) 13 23 45 67 89",
+        "contact_infor_item3": "webinternhotel@gmail.com",
+        "contact_infor_item4": "Hằng ngày 9:30 sáng - 6:30 tối",
+        "contact_social": "Phương tiện xã hội"
+    },
+
+    "detail": {
+        "detail_night": "Đêm",
+        "detail_type": "Loại phòng",
+        "detail_bed": "Giường",
+        "detail_size": "Kích cỡ",
+        "detail_description": "Miêu tả",
+        "detail_room_service": "Dịch vụ phòng",
+        "detail_reservation_title": "Đặt phòng",
+        "detail_reservation_date": "Thời gian",
+        "detail_reservation_startDate": "Ngày thuê",
+        "detail_reservation_endDate": "Ngày trả",
+        "detail_reservation_button_book": "Đặt lịch ngay!"
+
+    }
+}
