@@ -1,4 +1,4 @@
-import { Button, Checkbox, Form, Input, Typography , message } from 'antd'
+import { Button, Checkbox, Form, Input, Typography, message } from 'antd'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -19,7 +19,8 @@ function Booking_Form() {
         span: 24,
       },
       sm: {
-        span: 8,
+        span: 5,
+        // offset:12,
       },
     },
     wrapperCol: {
@@ -38,15 +39,34 @@ function Booking_Form() {
         offset: 0,
       },
       sm: {
-        span: 16,
+        span: 12,
         offset: 8,
       },
+
     },
+    style: {
+      justifyContent: 'space-around'
+    }
   }
+
+//   const formItemLayout = {
+//     labelCol: { xs: { span: 24 }, sm: { span: 12 }, md: { span: 8 }, lg: { span: 8 } },
+//     wrapperCol: { xs: { span: 24 }, sm: { span: 12 }, md: { span: 12 }, lg: { span: 12 } }
+// }
+// const tailFormItemLayOut = {
+//     wrapperCol: { xs: { span: 24 }, sm: { span: 12, offset: 12 }, md: { span: 12, offset: 8 }, lg: { span: 12, offset: 8 } }
+// };
 
   return (
     <div className='container'>
       <div className='mt-4'>
+        <Button
+              onClick={() => navigate(`/rooms`, { replace: true })}
+              type='primary'
+              style={{ backgroundColor: 'rgb(22 163 74)' }}
+            >
+              See another room
+            </Button>
         <Title level={2} className='text-center'>Booking Room</Title>
         <p className='text-center'>Fill the form below to book your room, specify the guests expected and number of days likely to stay and will get back
           to you shortly
@@ -59,6 +79,7 @@ function Booking_Form() {
           name='booking'
           onFinish={test}
           scrollToFirstError
+          style={{width:'100%'}}
         >
           <Form.Item
             name='fullname'
@@ -133,20 +154,15 @@ function Booking_Form() {
             </Checkbox>
           </Form.Item>
           <Form.Item
-            {...tailFormItemLayOut}>
-              {contextHolder}
+            {...tailFormItemLayOut}
+          >
+            {contextHolder}
             <Button type='primary' htmlType='submit'>
               Booking our room
             </Button>
             &emsp; {/* tab character */}
             &emsp; {/* tab character */}
-            <Button
-            onClick={() => navigate(`/rooms`, { replace: true })}
-            type='primary'
-            style={{backgroundColor:'rgb(22 163 74)'}}
-            >
-              See another room
-            </Button>
+            
           </Form.Item>
         </Form>
       </div>
