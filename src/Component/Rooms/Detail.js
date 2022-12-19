@@ -204,7 +204,7 @@ function Detail() {
                                 </div>
                             </div>
                             <div className="wrap_button">
-                                <a href='/reservation' className='btn btn-success'>Book now!</a>
+                                <a href='/booking_form' className='btn btn-success'>Book now!</a>
                             </div>
 
 

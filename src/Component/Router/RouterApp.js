@@ -7,7 +7,7 @@ import Register from '../Authentication/Register'
 import Rooms from '../Rooms/Rooms'
 import Detail from '../Rooms/Detail'
 import NotFound from '../NotFound/NotFound'
-
+import Booking_Form from '../Form/Booking_Form'
 function RouterApp() {
 
     return (
