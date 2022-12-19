@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import Header from '../Header_Footer/Header';
 import Footer from '../Header_Footer/Footer';
 import Slider from '../Utilities/Slider';
+import BeAtTop from '../Utilities/BeAtTop';
 import ScrollToTop from '../Utilities/ScrollToTop';
 import './About.scss'
 import AOS from 'aos'
@@ -83,6 +84,8 @@ function About() {
 
             {/* Footer part */}
             <Footer />
+            <BeAtTop />
+
         </>
     )
 }
