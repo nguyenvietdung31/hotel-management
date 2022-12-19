@@ -1,37 +1,47 @@
-import Slider from "../Utilities/Slider"
-import { Card, Row, Col } from "antd";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AOS from 'aos'
+import axios from 'axios';
+import './Home.scss'
+import Header from '../Header_Footer/Header';
+import Footer from '../Header_Footer/Footer';
+import Slider from "../Utilities/Slider"
+import BeAtTop from "../Utilities/BeAtTop";
+import ScrollToTop from "../Utilities/ScrollToTop";
 import slide_img1 from '../../Image/slide_img_1.jpg'
 import img_avt_team from '../../Image/img_avt_team.jpg'
-import './Home.scss'
-import AOS from 'aos'
-import { useEffect } from "react";
+import { Card, Row, Col, Skeleton, Space, Spin } from "antd";
 
 function Home() {
+    /* API */
+    const API = 'https://639003d065ff41831106d1c8.mockapi.io/api/login/rooms'
+
+    /* list data room */
+    const [allRooms, setAllRooms] = useState([])
+    const [loading, setLoading] = useState(false)
+
+    /* when 'refresh' change => call getAllData() again to refresh new data */
+    useEffect(() => {
+        getAllData()
+    }, [])
+
+    /* Get data from api */
+    const getAllData = async () => {
+        setLoading(true)
+        await axios.get(API)
+            .then(resp => {
+                setAllRooms(resp.data)
+
+                /* after get data, set loading to False */
+                setLoading(false)
+            }
+            )
+    }
 
     // set time for aos animation
     useEffect(() => {
         AOS.init({ duration: 1000 })
     }, [])
-
-    const home_room = [
-        {
-            title: "Luxury room 1",
-            description: "This is a luxury room with many grate service, beautiful view. It will make you relaxable.",
-            price: '500$',
-        },
-        {
-            title: "Luxury room 2",
-            description: "This is a luxury room with many grate service, beautiful view. It will make you relaxable.",
-            price: '250$',
-        },
-        {
-            title: "Luxury room 3",
-            description: "This is a luxury room with many grate service, beautiful view. It will make you relaxable.",
-            price: '300$',
-        },
-
-    ]
 
     const home_staff = [
         {
@@ -77,27 +87,48 @@ function Home() {
 
     return (
         <>
+            {/* Header UI part */}
+            <Header />
+
+            {/* Slider UI part */}
             <Slider />
+
+            {/* body Home UI part */}
             <div className="container mt-4">
                 <h3 className="font-weight-bold text-center" data-aos="fade-down">Watch Our Room</h3>
                 <p className="text-center" data-aos="fade-up">We have many rooms, all types, prices for you to choose </p>
                 <div className="row">
                     {
+                        loading ?
+                        (
+                            <div className="col-lg-12 col-sm-6 col-xs-12 mt-3 mb-3 d-flex justify-content-center mt-5">
+                                <Space direction="vertical"
+                                    style={{
+                                        width: '100%',
+                                    }}>
+                                    <Spin tip="Loading" size="large">
+                                        <div className="content" />
+                                    </Spin>
+                                </Space>
+                            </div>
+                        ) :
                         // Check if data exist => display the data
-                        home_room && home_room.length > 0 &&
+                        (allRooms && allRooms.length > 0 &&
                         // Display data in range - for Pagination
-                        home_room.map((el, index) => (
+                        allRooms.slice(0, 3).map((el, index) => (
                             <div data-aos="fade-right" className="col-lg-4 col-sm-6 col-xs-12 mt-3 mb-3" key={index}>
                                 <Card style={{ overflow: 'hidden' }}
-                                    onClick={() => navigate(`/detail?roomID=1`, { replace: true })}
+                                    onClick={() => navigate(`/detail?roomID=${el.id}`, { replace: true })}
                                     hoverable
                                     cover={<img className="img_rooms" alt="img" src={slide_img1} style={{ borderBottom: '1px solid #000' }} />}
                                 >
-                                    <Meta title={el.title} description={el.description} className="mt-1" />
-                                    <Meta title={el.price} className="mt-2 contain_price" />
+                                    <Skeleton loading={loading} avatar active>
+                                        <Meta title={el.title} description={el.description} className="mt-1" />
+                                        <Meta title={el.price} className="mt-2 contain_price" />
+                                    </Skeleton>
                                 </Card>
                             </div>
-                        ))
+                        )))
                     }
 
                     <div className="col-lg-12 col-sm-12 col-xs-12 d-flex justify-content-center">
@@ -164,6 +195,15 @@ function Home() {
 
                 </div>
             </div>
+
+            {/* button to scroll to top of page */}
+            <ScrollToTop />
+
+            {/* Footer UI part */}
+            <Footer />
+
+            {/* be at top of page after loading */}
+            <BeAtTop />
         </>
     )
 }
