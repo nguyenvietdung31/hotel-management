@@ -5,17 +5,23 @@ import BeAtTop from '../Utilities/BeAtTop'
 import './Detail.scss'
 import axios from "axios"
 import AOS from 'aos'
-import { DatePicker, Space, Spin, Skeleton } from 'antd';
+import { DatePicker, Space, Spin, Skeleton, Modal, Button } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat"
 import { useSearchParams } from 'react-router-dom'
+import Booking_Form from '../Form/Booking_Form'
 
 dayjs.extend(customParseFormat)
 const { RangePicker } = DatePicker;
 
 function Detail() {
+    // const [isModalOpen, setIsModalOpen] = useState(false);
+    // const showModal = () => {
+    //     setIsModalOpen(true);
+    // };
+
     /* API */
     const API = 'https://639003d065ff41831106d1c8.mockapi.io/api/login/rooms'
 
@@ -206,6 +212,16 @@ function Detail() {
                             <div className="wrap_button">
                                 <a href='/booking_form' className='btn btn-success'>Book now!</a>
                             </div>
+                            {/* <Button className="wrap_button" onClick={showModal}>
+                                Book Now
+                            </Button>
+                            <Modal
+                                width='80%'
+                                open={isModalOpen}
+                                onCancel={() => setIsModalOpen(false)}
+                                footer={null}>
+                                <Booking_Form />
+                            </Modal> */}
 
 
                         </div>
