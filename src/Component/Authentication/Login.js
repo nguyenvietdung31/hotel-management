@@ -58,9 +58,7 @@ function Login() {
                                         placeholder="Password"
                                     />
                                 </Form.Item>
-                                {/* <Form.Item name="remember" valuePropName="checked" noStyle style={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <Checkbox className='text-light'>Remember me</Checkbox>
-                        </Form.Item> */}
+                                
                                 <a className="login-form-forgot text-primary forgotpass" href="/forgot-password">
                                     Forgot password
                                 </a><br />

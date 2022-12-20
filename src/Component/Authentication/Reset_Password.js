@@ -45,6 +45,10 @@ function Reset_Password() {
                                             max: 24,
                                             message: 'Please input your password >=6 characters and <= 24 characters'
                                         },
+                                        {
+                                            pattern: /^\S*$/,
+                                            message: 'Please input your password without whitespace'
+                                        },
                                     ]}
                                 >
                                     <Input.Password className='input_tag'
@@ -66,6 +70,10 @@ function Reset_Password() {
                                             min: 6,
                                             max: 24,
                                             message: 'Please input your password >=6 characters and <= 24 characters'
+                                        },
+                                        {
+                                            pattern: /^\S*$/,
+                                            message: 'Please input your password without whitespace'
                                         },
                                         ({ getFieldValue }) => ({
                                             validator(_, value) {

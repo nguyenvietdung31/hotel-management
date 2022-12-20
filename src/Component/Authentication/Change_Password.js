@@ -40,9 +40,18 @@ function Change_Password() {
                                             required: true,
                                             message: 'Please input your old password!',
                                         },
+                                        {
+                                            min: 6,
+                                            max: 24,
+                                            message: 'Please input your password >=6 characters and <= 24 characters'
+                                        },
+                                        {
+                                            pattern: /^\S*$/,
+                                            message: 'Please input your password without whitespace'
+                                        }
                                     ]}
                                 >
-                                    <Input className='input_tag'
+                                    <Input.Password className='input_tag'
                                         prefix={<FontAwesomeIcon className='mr-2' icon={faLock} />}
                                         type="password"
                                         placeholder="Old password" />
@@ -61,6 +70,10 @@ function Change_Password() {
                                             max: 24,
                                             message: 'Please input your password >=6 characters and <= 24 characters'
                                         },
+                                        {
+                                            pattern: /^\S*$/,
+                                            message: 'Please input your password without whitespace'
+                                        }
                                     ]}
                                 >
                                     <Input.Password className='input_tag'
@@ -82,6 +95,10 @@ function Change_Password() {
                                             min: 6,
                                             max: 24,
                                             message: 'Please input your password >=6 characters and <= 24 characters'
+                                        },
+                                        {
+                                            pattern: /^\S*$/,
+                                            message: 'Please input your password without whitespace'
                                         },
                                         ({ getFieldValue }) => ({
                                             validator(_, value) {
