@@ -51,6 +51,7 @@ function Register() {
 
                                 <Form.Item
                                     name="fullname"
+                                    hasFeedback
                                     rules={[
                                         {
                                             required: true,
@@ -65,11 +66,16 @@ function Register() {
                                 </Form.Item>
                                 <Form.Item
                                     name="email"
+                                    hasFeedback
                                     rules={[
                                         {
                                             required: true,
                                             message: 'Please input your email!',
                                         },
+                                        {
+                                            pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                                            message: 'Please enter a valid email address. Ex: abc@gmail.com'
+                                        }
                                     ]}
                                 >
                                     <Input className='input_tag'
@@ -80,23 +86,58 @@ function Register() {
                                 </Form.Item>
                                 <Form.Item
                                     name="password"
+                                    hasFeedback
                                     rules={[
                                         { required: true, message: 'Please input your password!', },
-                                        { min: 6, message: 'Please enter at least 6 characters' },
-                                        { max: 24, message: 'Please enter at least 24 characters' },
+                                        { 
+                                            min: 6,
+                                            max: 24,
+                                            message: 'Please input your password >=6 characters and <= 24 characters'
+                                         },
                                     ]}
                                 >
-                                    <Input className='input_tag'
+                                    <Input.Password className='input_tag'
                                         prefix={<FontAwesomeIcon className='mr-2' icon={faLock} />}
                                         type="password"
                                         placeholder="Password"
                                     />
                                 </Form.Item>
                                 <Form.Item
+                                    name="cf_password"
+                                    dependencies={['password']}
+                                    hasFeedback
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: 'Please input your confirm password!',
+                                        },
+                                        {
+                                            min: 6,
+                                            max: 24,
+                                            message: 'Please input your password >=6 characters and <= 24 characters'
+                                        },
+                                        ({ getFieldValue }) => ({
+                                            validator(_, value) {
+                                                if (!value || getFieldValue('password') === value) {
+                                                    return Promise.resolve();
+                                                }
+                                                return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                                            },
+                                        }),
+                                    ]}
+                                >
+                                    <Input.Password className='input_tag'
+                                        prefix={<FontAwesomeIcon className='mr-2' icon={faLock} />}
+                                        type="password"
+                                        placeholder="Confirm password"
+                                    />
+                                </Form.Item>
+                                <Form.Item
                                     name="phone"
+                                    hasFeedback
                                     rules={[
                                         { required: true, message: 'Please input your phone!', },
-                                        { pattern: /(0)\d{9}/, message: 'Please enter phone number starts with 0 and the length is 10 characters' },
+                                        { pattern: /^[0-9]{10}$/, message: 'Please enter phone number starts with 0 and the length is 10 characters' },
                                     ]}
                                 >
                                     <Input className='input_tag'
@@ -106,6 +147,7 @@ function Register() {
                                 </Form.Item>
                                 <Form.Item
                                     name="address"
+                                    hasFeedback
                                     rules={[
                                         {
                                             required: true,
