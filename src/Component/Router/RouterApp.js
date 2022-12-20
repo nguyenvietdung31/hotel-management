@@ -8,6 +8,9 @@ import Rooms from '../Rooms/Rooms'
 import Detail from '../Rooms/Detail'
 import NotFound from '../NotFound/NotFound'
 import Booking_Form from '../Form/Booking_Form'
+import Change_Password from '../Authentication/Change_Password'
+import Forgot_Password from '../Authentication/Forgot_Password'
+import Reset_Password from '../Authentication/Reset_Password'
 function RouterApp() {
 
     return (
@@ -19,6 +22,9 @@ function RouterApp() {
                 {/* <Route path="/login" element={<RequireLogin><Login /></RequireLogin>} /> */}
                 <Route path="/login" element={<Login />} />
                 <Route path='/register' element={<Register />} /> 
+                <Route path='/change_password' element={<Change_Password />} />
+                <Route path='/forgot_password' element={<Forgot_Password />} />
+                <Route path='/reset_password' element={<Reset_Password />} />
                 <Route path='/about' element={<About />} />
                 <Route path='/contact' element={<Contact />} />
                 <Route path='/rooms' element={<Rooms />} />
