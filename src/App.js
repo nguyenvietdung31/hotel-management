@@ -1,15 +1,16 @@
 import './App.css';
+import RouterApp from './Component/Router/RouterApp';
 
-import Home from './Component/Home/Home';
-import Booking_Form from './Component/Form/Booking_Form';
+// import Home from './Component/Home/Home';
+// import Booking_Form from './Component/Form/Booking_Form';
 
 
 function App() {
   return (
-    <div className="App">
-      <Home />
-    </div>
-  );
+    <>
+        <RouterApp/> 
+    </>
+  )
 }
 
 export default App;

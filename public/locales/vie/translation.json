@@ -55,7 +55,8 @@
       "rooms_sort_option2": "Giá (tăng dần)",
       "rooms_sort_option3": "Giá (giảm dần)",
       "rooms_sort_option4": "Tên (A-Z)",
-      "rooms_sort_option5": "Tên (Z-A)"
+      "rooms_sort_option5": "Tên (Z-A)",
+      "rooms_empty": "Không tìm được phòng!"
     },
 
     "about": {
@@ -94,6 +95,37 @@
         "detail_reservation_startDate": "Ngày thuê",
         "detail_reservation_endDate": "Ngày trả",
         "detail_reservation_button_book": "Đặt lịch ngay!"
+    },
 
+    "title": {
+        "title_home": "Trang chủ",
+        "title_rooms": "Trang xem phòng",
+        "title_about": "Trang thông tin về chúng tôi",
+        "title_contact": "Trang liên hệ",
+        "title_dashboard": "Trang điều khiển",
+        "title_booking_form": "Trang đặt phòng",
+        "title_detail": "Trang chi tiết phòng"
+    },
+
+    "booking": {
+        "booking_button_rooms": "Xem các phòng khác",
+        "booking_room_title": "Thông tin phòng",
+        "booking_room": "Tên Phòng",
+        "booking_room_price": "Giá",
+        "booking_room_startdate": "Ngày thuê",
+        "booking_room_enddate": "Ngày trả",
+        "booking_form_title": "Đặt Phòng",
+        "booking_form_description": "Điền vào biểu mẫu bên dưới để đặt phòng của bạn.",
+        "booking_form_name": "Tên",
+        "booking_form_ID": "Thẻ CCCD",
+        "booking_form_phone": "Số điện thoại",
+        "booking_form_note": "Ghi chú",
+        "booking_form_name_plh": "Tên của bạn...",
+        "booking_form_ID_plh": "Số CCCD của bạn...",
+        "booking_form_phone_plh": "Số điện thoại của bạn...",
+        "booking_form_note_plh": "Ghi chú của bạn nếu có...",
+        "booking_form_confirm": "Hãy xác nhận để đặt phòng",
+        "booking_form_confirm_err": "Hãy xác nhận, nếu bạn muốn đặt phòng",
+        "booking_form_button": "Đặt phòng"
     }
 }

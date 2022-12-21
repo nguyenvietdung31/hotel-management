@@ -2,7 +2,8 @@ import logo from '../../Image/hotel_logo.png'
 import './Login.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
-import { Form, Input } from 'antd';
+import { Form, Input } from 'antd'
+import PageTitle from '../Utilities/PageTitle'
 
 
 function Change_Password() {
@@ -10,11 +11,14 @@ function Change_Password() {
     /* When submit form Login -> do something */
     const onFinish = (values) => {
         /* write code here */
-        
+
     }
 
     return (
         <>
+            {/* set title of page */}
+            <PageTitle title='Change password page' />
+
             <div className="container-fluid">
                 <div className="row">
                     <div className="wrapper col-md-12 col-sm-12 col-xs-12">
@@ -40,9 +44,18 @@ function Change_Password() {
                                             required: true,
                                             message: 'Please input your old password!',
                                         },
+                                        {
+                                            min: 6,
+                                            max: 24,
+                                            message: 'Please input your password >=6 characters and <= 24 characters'
+                                        },
+                                        {
+                                            pattern: /^\S*$/,
+                                            message: 'Please input your password without whitespace'
+                                        }
                                     ]}
                                 >
-                                    <Input className='input_tag'
+                                    <Input.Password className='input_tag'
                                         prefix={<FontAwesomeIcon className='mr-2' icon={faLock} />}
                                         type="password"
                                         placeholder="Old password" />
@@ -61,6 +74,10 @@ function Change_Password() {
                                             max: 24,
                                             message: 'Please input your password >=6 characters and <= 24 characters'
                                         },
+                                        {
+                                            pattern: /^\S*$/,
+                                            message: 'Please input your password without whitespace'
+                                        }
                                     ]}
                                 >
                                     <Input.Password className='input_tag'
@@ -82,6 +99,10 @@ function Change_Password() {
                                             min: 6,
                                             max: 24,
                                             message: 'Please input your password >=6 characters and <= 24 characters'
+                                        },
+                                        {
+                                            pattern: /^\S*$/,
+                                            message: 'Please input your password without whitespace'
                                         },
                                         ({ getFieldValue }) => ({
                                             validator(_, value) {

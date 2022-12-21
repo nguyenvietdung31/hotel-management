@@ -2,47 +2,58 @@ import { useState, useEffect } from 'react'
 import Header from '../Header_Footer/Header'
 import Footer from '../Header_Footer/Footer'
 import BeAtTop from '../Utilities/BeAtTop'
+import PageTitle from '../Utilities/PageTitle'
 import './Detail.scss'
 import axios from "axios"
 import AOS from 'aos'
-import { DatePicker, Space, Spin, Skeleton, Modal, Button } from 'antd';
+import { DatePicker, Space, Spin, Skeleton } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat"
-import { useSearchParams } from 'react-router-dom'
-import Booking_Form from '../Form/Booking_Form'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { useDispatch } from "react-redux"
+import { setRoomBooked } from '../../Redux/Slice/roomSlice'
+
 
 dayjs.extend(customParseFormat)
 const { RangePicker } = DatePicker;
 
 function Detail() {
-    // const [isModalOpen, setIsModalOpen] = useState(false);
-    // const showModal = () => {
-    //     setIsModalOpen(true);
-    // };
 
     /* API */
     const API = 'https://639003d065ff41831106d1c8.mockapi.io/api/login/rooms'
 
+    /* to call the action in reducer */
+    const dispatch = useDispatch()
+
+    /* room data of detail page */
     const [room, setRoom] = useState({})
     const [loading, setLoading] = useState(false)
 
+    const [bookDate, setBookDate] = useState({
+        startDate: null,
+        endDate: null
+    })
+
     // searchParams return a object
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams()
     const roomID = Number(searchParams.get("roomID"))
+
+    let navigate = useNavigate()
 
     /* i18next */
     const { t, i18n } = useTranslation()
 
+
     /* when 'refresh' change => call getAllData() again to refresh new data */
     useEffect(() => {
-        getAllData()
+        getData()
     }, [])
 
     /* Get data from api */
-    const getAllData = async () => {
+    const getData = async () => {
         setLoading(true)
         await axios.get(`${API}/${roomID}`)
             .then(resp => {
@@ -65,14 +76,6 @@ function Detail() {
             {
                 startDate: "2022-12-13",
                 endDate: "2022-12-15"
-            },
-            {
-                startDate: "2022-12-18",
-                endDate: "2022-12-19"
-            },
-            {
-                startDate: "2022-12-22",
-                endDate: "2022-12-24"
             }
         ];
 
@@ -81,10 +84,35 @@ function Detail() {
                 return true;
         }
         return false;
-    };
+    }
+
+    /* after choosing date */
+    const handleChangeDate = (dayjs, stringDate) => {
+        setBookDate({
+            startDate: stringDate[0].trim(),
+            endDate: stringDate[1].trim()
+        })
+
+        /* set current value of booked room */
+        dispatch(setRoomBooked({
+            name: room.name,
+            price: room.price,
+            startDate: stringDate[0],
+            endDate: stringDate[1]
+        }))
+
+    }
+
+
+    const handleBookRoom = () => {
+        navigate(`/booking_form?roomName=${room.name}&startDate=${bookDate.startDate}&endDate=${bookDate.endDate}`)
+    }
 
     return (
         <>
+            {/* set title of page */}
+            <PageTitle title={t('title.title_detail')} />
+
             {/* Header UI part */}
             <Header />
 
@@ -208,25 +236,23 @@ function Detail() {
                                             size='large'
                                             placeholder={[`${t('detail.detail_reservation_startDate')}`, `${t('detail.detail_reservation_endDate')}`]}
                                             disabledDate={disabledDate}
+                                            onChange={handleChangeDate}
+
+                                            /* check logged in. If logged => disabled = false, else disabled = true */
+                                            disabled={false}
                                         />
                                     </Space>
 
                                 </div>
                             </div>
                             <div className="wrap_button">
-                                <a href='/booking_form' className='btn btn-success'>{t('detail.detail_reservation_button_book')}</a>
-                            </div>
-                            {/* <Button className="wrap_button" onClick={showModal}>
-                                Book Now
-                            </Button>
-                            <Modal
-                                width='80%'
-                                open={isModalOpen}
-                                onCancel={() => setIsModalOpen(false)}
-                                footer={null}>
-                                <Booking_Form />
-                            </Modal> */}
+                                <button className='btn btn-success' disabled={bookDate.startDate !== null && bookDate.endDate !== null ? false : true}
+                                    onClick={handleBookRoom}
+                                >
+                                    {t('detail.detail_reservation_button_book')}
+                                </button>
 
+                            </div>
 
                         </div>
                     </div>

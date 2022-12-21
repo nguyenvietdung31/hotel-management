@@ -1,10 +1,32 @@
 import { Button, Checkbox, Form, Input, Typography, message } from 'antd'
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import './Booking_Form.scss'
+import PageTitle from '../Utilities/PageTitle'
+import { useTranslation } from 'react-i18next'
+import Header from '../Header_Footer/Header'
+import Footer from '../Header_Footer/Footer'
+import { useSelector } from "react-redux"
+
 
 function Booking_Form() {
+
+  /* get room name from url */
+  const [searchParams, setSearchParams] = useSearchParams()
+  const roomName = String(searchParams.get("roomName"))
+  const startDate = String(searchParams.get("startDate"))
+  const endDate = String(searchParams.get("endDate"))
+
+  /* using to redirect page */
   const navigate = useNavigate()
+
+  const { t, i18n } = useTranslation()
+
+  const storeRoom = useSelector(state => state.room)
+
+
   const [messageApi, contextHolder] = message.useMessage()
+
   const test = (e) => {
     console.log(e)
     messageApi.open({
@@ -12,15 +34,16 @@ function Booking_Form() {
       content: 'Booking room success',
     });
   }
+
   const { Title } = Typography
+
   const formItemLayout = {
     labelCol: {
       xs: {
         span: 24,
       },
       sm: {
-        span: 5,
-        // offset:12,
+        span: 6,
       },
     },
     wrapperCol: {
@@ -32,6 +55,7 @@ function Booking_Form() {
       },
     },
   }
+
   const tailFormItemLayOut = {
     wrapperCol: {
       xs: {
@@ -48,116 +72,156 @@ function Booking_Form() {
 
 
   return (
-    <div className='container'>
-      <div className='mt-4'>
-        <Button
+    <>
+      {/* set title of page */}
+      <PageTitle title={t('title.title_booking_form')} />
+
+      <Header />
+
+      <div className='container' style={{ paddingTop: '80px' }}>
+        <div className="row">
+          <div className='col-lg-12 col-sm-12- col-xs-12 mt-5 mb-5'>
+            <Button className='font-weight-bold'
               onClick={() => navigate(`/rooms`, { replace: true })}
               type='primary'
               style={{ backgroundColor: 'rgb(22 163 74)' }}
             >
-              See another room
+              {t('booking.booking_button_rooms')}
             </Button>
-        <Title level={2} className='text-center mt-4'>Booking Room</Title>
-        <p className='text-center'>Fill the form below to book your room, specify the guests expected and number of days likely to stay and will get back
-          to you shortly
-        </p>
-        <hr />
-      </div>
-      <div>
-        <Form
-          {...formItemLayout}
-          name='booking'
-          onFinish={test}
-          scrollToFirstError
-          style={{width:'100%'}}
-        >
-          <Form.Item
-            name='fullname'
-            label='Your name'
-            rules={[{
-              required: true,
-              message: 'Please fill your name'
-            },
-            {
-              pattern: /^[^-\s][a-zA-Z_\s-]+$/,
-              message: 'Please fill correct name (character format string a to z)'
-            }
-            ]}
-          >
-            <Input placeholder='What is your name?' />
-          </Form.Item>
-          <Form.Item
-            name='id'
-            label='ID or citizen identification'
-            rules={[{
-              required: true,
-              message: 'Please fill your ID or citizen identification'
-            },
-            {
-              pattern: /\d{12}/,
-              message: 'Please fill correct ID (only number and 12 characters)'
-            }
-            ]}>
-            <Input placeholder='What is your ID?'
-              maxLength={12} />
-          </Form.Item>
-          <Form.Item
-            name='phone'
-            label='Number Phone'
-            rules={[{
-              required: true,
-              message: 'Please fill your number phone'
-            },
-            {
-              pattern: /(0)\d{9}/,
-              message: 'Please fill correct number phone (start with 0 and the length is 10 characters)'
-            },
-            ]}>
-            <Input placeholder='What is your number phone?'
-              maxLength={10} />
-          </Form.Item>
-          <Form.Item
-            name='note'
-            label='Note'>
-            <Input.TextArea
-              placeholder='Fill it if you need anything'
-              showCount
-              maxLength={500}
-              style={{
-                height: '120px',
-                resize: 'none'
-              }} />
-          </Form.Item>
-          <Form.Item
-            {...tailFormItemLayOut}
-            name='confirm'
-            valuePropName='checked'
-            rules={[
-              {
-                validator: (_, value) =>
-                  value ? Promise.resolve() : Promise.reject(new Error('Please confirm the order if you wanna book a room')),
-              },
-            ]}
-          >
-            <Checkbox>
-              Please confirm to complete the order
-            </Checkbox>
-          </Form.Item>
-          <Form.Item
-            {...tailFormItemLayOut}
-          >
-            {contextHolder}
-            <Button type='primary' htmlType='submit'>
-              Booking our room
-            </Button>
-            &emsp; {/* tab character */}
-            &emsp; {/* tab character */}
-            
-          </Form.Item>
-        </Form>
-      </div>
+          </div>
 
-    </div>
+          <div className="col-lg-3 col-sm-12 col-xs-12 mt-3">
+            <div className="wrap_room_infor">
+              <div className="contain_title">
+                <p>{t('booking.booking_room_title')}</p>
+              </div>
+              <table className='table table-striped'>
+                <tbody>
+                  <tr>
+                    <td>{t('booking.booking_room')}</td>
+                    <td>{storeRoom.name}</td>
+                  </tr>
+                  <tr>
+                    <td>{t('booking.booking_room_price')}</td>
+                    <td>{storeRoom.price}</td>
+                  </tr>
+                  <tr>
+                    <td>{t('booking.booking_room_startdate')}</td>
+                    <td>{storeRoom.startDate}</td>
+                  </tr>
+                  <tr>
+                    <td>{t('booking.booking_room_enddate')}</td>
+                    <td>{storeRoom.endDate}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div className='col-lg-9 col-sm-12 col-xs-12 mt-3 mb-4'>
+            <div className="wrap_form pt-4 pb-4 pl-5 pr-5">
+              <Title level={2} className='text-center'>{t('booking.booking_form_title')}</Title>
+              <p className='text-center'>{t('booking.booking_form_description')}</p>
+              <hr />
+              <Form
+                {...formItemLayout}
+                name='booking'
+                onFinish={test}
+                scrollToFirstError
+                style={{ width: '100%', marginTop: '10px' }}
+                initialValues={{
+                  remember: true,
+                }}
+              >
+                <Form.Item className='font-weight-bold'
+                  name='fullname'
+                  label={t('booking.booking_form_name')}
+                  rules={[{
+                    required: true,
+                    message: 'Please fill your name'
+                  },
+                  {
+                    pattern: /^[^-\s][a-zA-Z_\s-]+$/,
+                    message: 'Please fill correct name (character format string a to z)'
+                  }
+                  ]}
+                >
+                  <Input placeholder={t('booking.booking_form_name_plh')} />
+                </Form.Item>
+                <Form.Item className='font-weight-bold'
+                  name='id'
+                  label={t('booking.booking_form_ID')}
+                  rules={[{
+                    required: true,
+                    message: 'Please fill your citizen identification'
+                  },
+                  {
+                    pattern: /\d{12}/,
+                    message: 'Please fill correct citizen identification (only number and 12 characters)'
+                  }
+                  ]}>
+                  <Input placeholder={t('booking.booking_form_ID_plh')}
+                    maxLength={12} />
+                </Form.Item>
+                <Form.Item className='font-weight-bold'
+                  name='phone'
+                  label={t('booking.booking_form_phone')}
+                  rules={[{
+                    required: true,
+                    message: 'Please fill your number phone'
+                  },
+                  {
+                    pattern: /(0)\d{9}/,
+                    message: 'Please fill correct number phone (start with 0 and the length is 10 characters)'
+                  },
+                  ]}>
+                  <Input placeholder={t('booking.booking_form_phone_plh')}
+                    maxLength={10} />
+                </Form.Item>
+                <Form.Item className='font-weight-bold'
+                  name='note'
+                  label={t('booking.booking_form_note')}
+                >
+                  <Input.TextArea
+                    placeholder={t('booking.booking_form_note_plh')}
+                    showCount
+                    maxLength={500}
+                    style={{
+                      height: '120px',
+                      resize: 'none'
+                    }} />
+                </Form.Item>
+                <Form.Item className='font-weight-bold'
+                  {...tailFormItemLayOut}
+                  name='confirm'
+                  valuePropName='checked'
+                  rules={[
+                    {
+                      validator: (_, value) =>
+                        value ? Promise.resolve() : Promise.reject(new Error(t('booking.booking_form_confirm_err'))),
+                    },
+                  ]}
+                >
+                  <Checkbox>
+                    {t('booking.booking_form_confirm')}
+                  </Checkbox>
+                </Form.Item>
+                <Form.Item className='font-weight-bold'
+                {...tailFormItemLayOut}
+                >
+                  {contextHolder}
+                  <Button type='primary' htmlType='submit'>
+                    {t('booking.booking_form_button')}
+                  </Button>
+
+                </Form.Item>
+              </Form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <Footer />
+    </>
   )
 }
 

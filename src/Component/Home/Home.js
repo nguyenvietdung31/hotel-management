@@ -8,6 +8,7 @@ import Header from '../Header_Footer/Header';
 import Footer from '../Header_Footer/Footer';
 import Slider from "../Utilities/Slider"
 import BeAtTop from "../Utilities/BeAtTop";
+import PageTitle from "../Utilities/PageTitle";
 import ScrollToTop from "../Utilities/ScrollToTop";
 import slide_img1 from '../../Image/slide_img_1.jpg'
 import img_avt_team from '../../Image/img_avt_team.jpg'
@@ -91,6 +92,9 @@ function Home() {
 
     return (
         <>
+            {/* set title of page */}
+            <PageTitle title={t('title.title_home')} />
+
             {/* Header UI part */}
             <Header />
 
@@ -128,7 +132,7 @@ function Home() {
                                 >
                                     <Skeleton loading={loading} avatar active>
                                         <Meta title={el.title} description={el.description} className="mt-1" />
-                                        <Meta title={el.price} className="mt-2 contain_price" />
+                                        <Meta title={`$ ${el.price}`} className="mt-2 contain_price" />
                                     </Skeleton>
                                 </Card>
                             </div>
@@ -196,9 +200,6 @@ function Home() {
 
                 </div>
             </div>
-
-            {/* scroll top top button */}
-            <ScrollToTop />
 
             {/* button to scroll to top of page */}
             <ScrollToTop />

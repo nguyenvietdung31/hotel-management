@@ -55,7 +55,8 @@
         "rooms_sort_option2": "Price (Asc)",
         "rooms_sort_option3": "Price (Desc)",
         "rooms_sort_option4": "Name (A-Z)",
-        "rooms_sort_option5": "Name (Z-A)"
+        "rooms_sort_option5": "Name (Z-A)",
+        "rooms_empty": "There is no room available!"
     },
 
     "about": {
@@ -94,7 +95,38 @@
         "detail_reservation_startDate": "Check In",
         "detail_reservation_endDate": "Check Out",
         "detail_reservation_button_book": "Book Now!"
+    },
 
+    "title": {
+        "title_home": "Home page",
+        "title_rooms": "Rooms page",
+        "title_about": "About page",
+        "title_contact": "Contact page",
+        "title_dashboard": "Dashboard page",
+        "title_booking_form": "Booking form page",
+        "title_detail": "Room detail page"
+    },
+
+    "booking": {
+        "booking_button_rooms": "See other rooms",
+        "booking_room_title": "Room Information",
+        "booking_room": "Room name",
+        "booking_room_price": "Price",
+        "booking_room_startdate": "Start Date",
+        "booking_room_enddate": "End Date",
+        "booking_form_title": "Booking Room",
+        "booking_form_description": "Fill the form below to book your room.",
+        "booking_form_name": "Name",
+        "booking_form_ID": "Identity card",
+        "booking_form_phone": "Phone",
+        "booking_form_note": "Note",
+        "booking_form_name_plh": "Your name...",
+        "booking_form_ID_plh": "Your identity card number...",
+        "booking_form_phone_plh": "Your phone number...",
+        "booking_form_note_plh": "Taking note anything you want...",
+        "booking_form_confirm": "Please confirm to complete the booking",
+        "booking_form_confirm_err": "Please confirm, if you wanna book a room",
+        "booking_form_button": "Booking room"
     }
 
 }

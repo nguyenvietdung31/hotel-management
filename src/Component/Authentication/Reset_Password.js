@@ -2,19 +2,22 @@ import logo from '../../Image/hotel_logo.png'
 import './Login.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
-import { Form, Input } from 'antd';
+import { Form, Input } from 'antd'
+import PageTitle from '../Utilities/PageTitle'
 
 
 function Reset_Password() {
-
     /* When submit form Login -> do something */
     const onFinish = (values) => {
         /* write code here */
-    
+
     }
 
     return (
         <>
+            {/* set title of page */}
+            <PageTitle title='Reset password page' />
+
             <div className="container-fluid">
                 <div className="row">
                     <div className="wrapper col-md-12 col-sm-12 col-xs-12">
@@ -45,6 +48,10 @@ function Reset_Password() {
                                             max: 24,
                                             message: 'Please input your password >=6 characters and <= 24 characters'
                                         },
+                                        {
+                                            pattern: /^\S*$/,
+                                            message: 'Please input your password without whitespace'
+                                        },
                                     ]}
                                 >
                                     <Input.Password className='input_tag'
@@ -66,6 +73,10 @@ function Reset_Password() {
                                             min: 6,
                                             max: 24,
                                             message: 'Please input your password >=6 characters and <= 24 characters'
+                                        },
+                                        {
+                                            pattern: /^\S*$/,
+                                            message: 'Please input your password without whitespace'
                                         },
                                         ({ getFieldValue }) => ({
                                             validator(_, value) {
