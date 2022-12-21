@@ -10,6 +10,7 @@ import AOS from 'aos'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationDot, faPhone, faEnvelope, faClock } from '@fortawesome/free-solid-svg-icons'
 import { faFacebook, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons'
+import PageTitle from "../Utilities/PageTitle";
 
 
 function Contact() {
@@ -24,6 +25,9 @@ function Contact() {
 
     return (
         <>
+            {/* set title of page */}
+            <PageTitle title={t('title.title_contact')} />
+
             {/* Header part */}
             <Header />
 

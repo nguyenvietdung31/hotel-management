@@ -2,7 +2,8 @@ import logo from '../../Image/hotel_logo.png'
 import './Login.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
-import { Form, Input } from 'antd';
+import { Form, Input } from 'antd'
+import PageTitle from '../Utilities/PageTitle'
 
 
 function Change_Password() {
@@ -10,11 +11,14 @@ function Change_Password() {
     /* When submit form Login -> do something */
     const onFinish = (values) => {
         /* write code here */
-        
+
     }
 
     return (
         <>
+            {/* set title of page */}
+            <PageTitle title='Change password page' />
+
             <div className="container-fluid">
                 <div className="row">
                     <div className="wrapper col-md-12 col-sm-12 col-xs-12">

@@ -117,7 +117,7 @@ function Header() {
                   <img src={img_logo} width={50} height={50} className='rounded-circle' alt="avatar" role="button"
                     id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" />
                   <div className="dropdown-menu">
-                    <a className="dropdown-item" href="/change-password">{t('header.change_pass')}</a>
+                    <a className="dropdown-item" href="/change_password">{t('header.change_pass')}</a>
                     <a className="dropdown-item" href="/login">{t('header.log_out')}</a>
                   </div>
                 </div>
@@ -157,7 +157,7 @@ function Header() {
           {/* When the isHiddenUserMore = false then display the menu of user */}
           {!isHiddenUserMore &&
             <div className="list_dropdown_menu">
-              <a href="/change-password"><div className="item_dropdown_menu">{t('header.change_pass')}</div></a>
+              <a href="/change_password"><div className="item_dropdown_menu">{t('header.change_pass')}</div></a>
               <a href="/log-out"><div className="item_dropdown_menu">{t('header.log_out')}</div></a>
             </div>
           }

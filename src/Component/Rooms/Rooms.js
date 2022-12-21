@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Slider from "../Utilities/Slider"
+import { useTranslation } from 'react-i18next'
 import Header from "../Header_Footer/Header";
 import Footer from "../Header_Footer/Footer";
+import Slider from "../Utilities/Slider"
 import ScrollToTop from "../Utilities/ScrollToTop";
-import { useTranslation } from 'react-i18next'
+import PageTitle from "../Utilities/PageTitle";
 import BeAtTop from "../Utilities/BeAtTop";
 import axios from "axios";
 import AOS from 'aos'
 import './Rooms.scss'
-import { Pagination, Card, Select, Input, Slider as Slide, Space, Spin, Skeleton, Radio } from 'antd';
-
+import { Pagination, Card, Select, Input, Slider as Slide, 
+    Space, Spin, Skeleton, Radio, Empty } from 'antd';
 const { Meta } = Card
 
 
@@ -192,7 +193,8 @@ function Rooms() {
 
     return (
         <>
-            {/* <Suspense fallback={<Loader />}> */}
+            {/* set title of page */}
+            <PageTitle title={t('title.title_rooms')} />
 
             {/* Header part */}
             <Header />
@@ -293,7 +295,9 @@ function Rooms() {
                                             </div>
                                         ))
 
-                                        : <div className="contain_no_room_found"><p className="no_room_found font-weight-bold">There is no room!</p></div>
+                                        :   <div className="contain_no_room_found">
+                                                <Empty description={t('rooms.rooms_empty')}/>
+                                            </div>
                                     )
                             }
 
@@ -321,7 +325,6 @@ function Rooms() {
 
             {/* Footer part */}
             <Footer />
-            {/* </Suspense> */}
             <BeAtTop />
         </>
     )

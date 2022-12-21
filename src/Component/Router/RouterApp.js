@@ -3,7 +3,7 @@ import { lazy, Suspense } from 'react'
 import Loader from '../Utilities/Loader'
 
 /* Only when use these component => import them */
-const App = lazy(() => import('../../App'))
+const Home = lazy(() => import('../Home/Home'))
 const About = lazy(() => import('../About_Contact/About'))
 const Contact = lazy(() => import('../About_Contact/Contact'))
 const Login = lazy(() => import('../Authentication/Login'))
@@ -25,7 +25,7 @@ function RouterApp() {
 
                 <Route path="/" element={
                     <Suspense fallback={<Loader />}>
-                        <App />
+                        <Home />
                     </Suspense>
                 } />
                 {/* <Route path="/login" element={<RequireLogin><Login /></RequireLogin>} /> */}

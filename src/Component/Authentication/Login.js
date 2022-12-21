@@ -2,7 +2,8 @@ import logo from '../../Image/hotel_logo.png'
 import './Login.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock, faUser } from '@fortawesome/free-solid-svg-icons'
-import { Form, Input } from 'antd';
+import { Form, Input } from 'antd'
+import PageTitle from '../Utilities/PageTitle'
 
 function Login() {
 
@@ -13,6 +14,9 @@ function Login() {
 
     return (
         <>
+            {/* set title of page */}
+            <PageTitle title='Login page'/>
+
             {/* Login UI part */}
             <div className="container-fluid">
                 <div className="row">

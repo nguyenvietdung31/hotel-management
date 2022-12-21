@@ -9,13 +9,14 @@ import { useTranslation } from 'react-i18next'
 import './About.scss'
 import AOS from 'aos'
 import img_avt_team from '../../Image/img_avt_team.jpg'
+import PageTitle from '../Utilities/PageTitle';
 
 /*  to display UI elements */
 const { Meta } = Card;
 
 function About() {
 
-    const { t, i18n } = useTranslation();
+    const { t, i18n } = useTranslation()
 
     // set time for aos animation
     useEffect(() => {
@@ -24,6 +25,9 @@ function About() {
 
     return (
         <>
+            {/* set title of page */}
+            <PageTitle title={t('title.title_about')} />
+
             {/* Header part */}
             <Header />
 

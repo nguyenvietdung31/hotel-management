@@ -2,11 +2,9 @@ import { useState } from 'react';
 import logo from '../../Image/hotel_logo.png'
 import './Login.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-    faLock, faEnvelope, faSignature,
-    faPhone, faLocationDot
-} from '@fortawesome/free-solid-svg-icons'
-import { Form, Input } from 'antd';
+import { faLock, faEnvelope, faSignature, faPhone, faLocationDot } from '@fortawesome/free-solid-svg-icons'
+import { Form, Input } from 'antd'
+import PageTitle from '../Utilities/PageTitle'
 
 function Register() {
 
@@ -16,6 +14,7 @@ function Register() {
     const [password, setPassword] = useState('')
     const [phone, setPhone] = useState('')
     const [addres, setAddress] = useState('')
+
 
     /* When submit form Register set value for 5 states below */
     const onFinish = (values) => {
@@ -31,6 +30,9 @@ function Register() {
 
     return (
         <>
+            {/* set title of page */}
+            <PageTitle title='Register page' />
+
             {/* Register UI part */}
             <div className="container-fluid">
                 <div className="row">
