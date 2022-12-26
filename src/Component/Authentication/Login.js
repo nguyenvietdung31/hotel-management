@@ -4,13 +4,37 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock, faUser } from '@fortawesome/free-solid-svg-icons'
 import { Form, Input } from 'antd'
 import PageTitle from '../Utilities/PageTitle'
+import { useState } from 'react'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 function Login() {
+
+    const API = 'api'
+    const navigate = useNavigate()
+
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
     /* When submit form Login -> do something */
     const onFinish = (values) => {
         /* write code here */
-    };
+
+        handleLogin()
+    }
+
+    const handleLogin = async () => {
+        // await axios.post(API)
+        // .then(res => {
+        //     console.log(res.data)
+
+        //     /* get token and save it into LocalStorage */
+        // })
+
+        /* Fake token to demo */
+        localStorage.setItem('userToken', 'nmthanhToken')
+        navigate(-1)
+    }
 
     return (
         <>
@@ -36,34 +60,38 @@ function Login() {
                                 <p className='title mb-5 font-weight-bold'>LOG IN</p>
 
                                 <Form.Item
-                                    name="username"
+                                    name="email"
                                     rules={[
                                         {
                                             required: true,
-                                            message: 'Please input your Username!',
+                                            message: 'Please input your email!',
                                         },
                                     ]}
                                 >
-                                    <Input className='input_tag'
-                                        prefix={<FontAwesomeIcon className='mr-2' icon={faUser} />} placeholder="Username" />
+                                    <Input className='input_tag' type='email'
+                                        prefix={<FontAwesomeIcon className='mr-2' icon={faUser} />} 
+                                        placeholder="Username" value={email}
+                                        onChange={(e) => setEmail(e.target.value.trim())}
+                                        />
                                 </Form.Item>
                                 <Form.Item
                                     name="password"
                                     rules={[
                                         {
                                             required: true,
-                                            message: 'Please input your Password!',
+                                            message: 'Please input your password!',
                                         },
                                     ]}
                                 >
-                                    <Input className='input_tag'
+                                    <Input.Password className='input_tag'
                                         prefix={<FontAwesomeIcon className='mr-2' icon={faLock} />}
                                         type="password"
-                                        placeholder="Password"
+                                        placeholder="Password" value={password}
+                                        onChange={(e) => setPassword(e.target.value.trim())}
                                     />
                                 </Form.Item>
                                 
-                                <a className="login-form-forgot text-primary forgotpass" href="/forgot-password">
+                                <a className="login-form-forgot text-primary forgotpass" href="/forgot_password">
                                     Forgot password
                                 </a><br />
                                 <div className="contain_button mt-4">

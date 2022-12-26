@@ -7,11 +7,13 @@ import Slider from "../Utilities/Slider"
 import ScrollToTop from "../Utilities/ScrollToTop";
 import PageTitle from "../Utilities/PageTitle";
 import BeAtTop from "../Utilities/BeAtTop";
+import AosAnimation from '../Utilities/AosAnimation'
 import axios from "axios";
-import AOS from 'aos'
 import './Rooms.scss'
-import { Pagination, Card, Select, Input, Slider as Slide, 
-    Space, Spin, Skeleton, Radio, Empty } from 'antd';
+import {
+    Pagination, Card, Select, Input, Slider as Slide,
+    Space, Spin, Skeleton, Radio, Empty
+} from 'antd';
 const { Meta } = Card
 
 
@@ -28,9 +30,15 @@ function Rooms() {
 
     /* Decide when recall useEffect */
     const [refresh, setRefresh] = useState(false)
+
+    /* State for filtering */
     const [type, setType] = useState('all')
     const [search, setSearch] = useState('')
     const [sortType, setSortType] = useState('DF')
+
+    /* Initialize minPrice and maxPrice => to filter */
+    const [minPrice, setMinPrice] = useState(0)
+    const [maxPrice, setMaxPrice] = useState(1000)
 
     // Initialize the page size options
     const pageSizeOpt = [6, 9, 12]
@@ -39,10 +47,6 @@ function Rooms() {
     // Use in Pagination
     const [minValue, setMinValue] = useState(0)
     const [maxValue, setMaxValue] = useState(pageSizeOpt[0])
-
-    /* Initialize minPrice and maxPrice => to filter */
-    const [minPrice, setMinPrice] = useState(0)
-    const [maxPrice, setMaxPrice] = useState(1000)
 
     /* i18next */
     const { t, i18n } = useTranslation();
@@ -59,11 +63,6 @@ function Rooms() {
     useEffect(() => {
         getAllData()
     }, [refresh])
-
-    // set time for aos animation
-    useEffect(() => {
-        AOS.init({ duration: 1000 })
-    }, [])
 
     /* Get data from api */
     const getAllData = async () => {
@@ -196,6 +195,9 @@ function Rooms() {
             {/* set title of page */}
             <PageTitle title={t('title.title_rooms')} />
 
+            {/* animation with aos */}
+            <AosAnimation />
+
             {/* Header part */}
             <Header />
 
@@ -295,9 +297,9 @@ function Rooms() {
                                             </div>
                                         ))
 
-                                        :   <div className="contain_no_room_found">
-                                                <Empty description={t('rooms.rooms_empty')}/>
-                                            </div>
+                                        : <div className="contain_no_room_found">
+                                            <Empty description={t('rooms.rooms_empty')} />
+                                        </div>
                                     )
                             }
 

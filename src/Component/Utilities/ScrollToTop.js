@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react'
-import AOS from 'aos'
+import { useState } from 'react'
 
 function ScrollToTop() {
     /* Initialize the variable to check when scroll button appear */
@@ -16,16 +15,11 @@ function ScrollToTop() {
         borderBottom: '3px solid #42C2FF',
         outline: 'none',
         backgroundColor: 'transparent',
-        color: '#79d0f9',
+        color: 'rgb(47 189 255)',
         cursor: 'pointer',
         padding: '5px',
         fontWeight: 'bold'
     }
-
-    /* set time for aos animation */
-    useEffect(() => {
-        AOS.init({ duration: 1000 })
-    }, [])
 
     /* when event scroll happen, call function scrollFunction to handle */
     window.onscroll = () => {

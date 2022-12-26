@@ -4,14 +4,37 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { Form, Input } from 'antd'
 import PageTitle from '../Utilities/PageTitle'
+import { useState } from 'react'
+import axios from 'axios'
 
 
 function Forgot_Password() {
+
+    const API = 'aaa'
+
+    const [email, setEmail] = useState('')
+    const [notifyCheckMail, setNotifyCheckMail] = useState(false)
 
     /* When submit form Login -> do something */
     const onFinish = (values) => {
         /* write code here */
 
+        handleForgotPassword()
+        handleResetInputField()
+    }
+
+    /* forgot password */
+    const handleForgotPassword = async () => {
+        await axios.post(`${API}`, {
+            email: email
+        })
+            .then(res => setNotifyCheckMail(true))
+            .catch(err => console.error(err))
+    }
+
+    /* reset input field */
+    const handleResetInputField = () => {
+        setEmail('')
     }
 
     return (
@@ -36,6 +59,15 @@ function Forgot_Password() {
                                 </div>
                                 <p className='title mb-5 font-weight-bold'>FORGOT PASSWORD</p>
 
+                                {notifyCheckMail &&
+                                    <div className='p-2 mb-3 d-flex'
+                                        style={{
+                                            alignItem: 'center', justifyContent: 'center', borderRadius: '4px',
+                                            background: 'linear-gradient(to right bottom, #95f84f, #9ce469, #d1f7d1)'
+                                        }}>
+                                        <p className='text-light mb-0'>Please check your email to get link to reset password!</p>
+                                    </div>
+                                }
                                 <Form.Item
                                     name="Email"
                                     hasFeedback
@@ -49,7 +81,8 @@ function Forgot_Password() {
                                     <Input className='input_tag'
                                         prefix={<FontAwesomeIcon className='mr-2' icon={faEnvelope} />}
                                         type="email"
-                                        placeholder="Email" />
+                                        placeholder="Email"
+                                        onChange={e => setEmail(e.target.value.trim())} />
 
                                 </Form.Item>
 

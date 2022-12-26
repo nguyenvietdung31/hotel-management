@@ -5,7 +5,7 @@ export const roomSlice = createSlice({
   name: 'room',
 
   initialState: {
-    name: 'aloha room',
+    name: null,
     price: 0,
     startDate: null,
     endDate: null

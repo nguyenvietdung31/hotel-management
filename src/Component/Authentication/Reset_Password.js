@@ -4,13 +4,36 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
 import { Form, Input } from 'antd'
 import PageTitle from '../Utilities/PageTitle'
-
+import AxiosInstance from '../../Axios Interceptor/AxiosInstance'
+import { useState } from 'react'
+import Notify from '../Notification/Notify'
 
 function Reset_Password() {
+
+    const API = 'api'
+
+    const [password, setPassword] = useState('')
+    const [notify, setNotify] = useState(false)
+
     /* When submit form Login -> do something */
     const onFinish = (values) => {
         /* write code here */
+        handleResetPassword()
+        setNotify(true)
+    }
 
+    /* reset password */
+    const handleResetPassword = async () => {
+        await AxiosInstance.patch(`${API}`, {
+            password: password
+        })
+    }
+
+    /* hide notification */
+    const handleNotify = () => {
+        setTimeout(() => {
+            setNotify(false)
+        }, 2000)
     }
 
     return (
@@ -20,6 +43,7 @@ function Reset_Password() {
 
             <div className="container-fluid">
                 <div className="row">
+                    <Notify message='You have reseted password successfully!' type='success' />
                     <div className="wrapper col-md-12 col-sm-12 col-xs-12">
                         <div className="wrap_form">
                             <Form
@@ -58,6 +82,7 @@ function Reset_Password() {
                                         prefix={<FontAwesomeIcon className='mr-2' icon={faLock} />}
                                         type="password"
                                         placeholder="Password"
+                                        onChange={e => setPassword(e.target.value.trim())}
                                     />
                                 </Form.Item>
                                 <Form.Item
