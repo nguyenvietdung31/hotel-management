@@ -46,10 +46,7 @@ function Rooms() {
     // using this to redirect to another page
     const navigate = useNavigate()
 
-    /* scroll at top when reload */
-    window.onbeforeunload = function () {
-        window.scrollTo(0, 0);
-    }
+    
 
     /* when 'refresh' change => call getAllData() again to refresh new data */
     useEffect(() => {

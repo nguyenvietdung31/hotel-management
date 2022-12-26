@@ -12,10 +12,6 @@ function BeAtTop() {
       }
     }, [location]);
 
-    /* scroll to top when reload page */
-    window.onbeforeunload = function () {
-        window.scrollTo(0, 0);
-    }
 
     return (
         <></>

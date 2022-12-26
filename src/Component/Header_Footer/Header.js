@@ -3,6 +3,7 @@ import './Header.scss'
 import img_logo from '../../Image/hotel_logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom'
 
 function Header() {
   /* Define state */
@@ -43,6 +44,12 @@ function Header() {
               </div>
               <div className="item_menu">
                 <a href="/contact">Contact</a>
+              </div>
+              <div className="item_menu">
+                <a href="/dashboard">Go to dashboard</a>
+              </div>
+              <div className="item_menu">
+                <Link to='/dashboard'>Dashboard</Link>
               </div>
             </div>
 

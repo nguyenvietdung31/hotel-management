@@ -8,6 +8,12 @@ import Rooms from '../Rooms/Rooms'
 import Detail from '../Rooms/Detail'
 import NotFound from '../NotFound/NotFound'
 import Booking_Form from '../Form/Booking_Form'
+import Dashboard from '../Admin/Dashboard'
+import RoomManage from '../Admin/Page/RoomManage'
+import StaffManage from '../Admin/Page/StaffManage'
+import UserManage from '../Admin/Page/UserManage'
+import OrderManage from '../Admin/Page/OrderManage'
+import ExportData from '../Admin/Page/ExportData'
 function RouterApp() {
 
     return (
@@ -32,6 +38,15 @@ function RouterApp() {
                 <Route path='/*' element={<NotFound />} />
 
                 {/* With each path will redirect to a page */}
+
+
+                {/* Link to admin site */}
+                <Route path='/dashboard' element={<Dashboard/>}/>
+                <Route path='/roommanage' element={<RoomManage />}/>
+                <Route path='/staffmanage' element={<StaffManage/>}/>
+                <Route path='/usermanage' element={<UserManage/>}/>
+                <Route path='/ordermanage' element={<OrderManage/>}/>
+                <Route path='/exportdata' element={<ExportData/>}/>
             </Routes>
         </>
     )
