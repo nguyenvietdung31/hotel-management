@@ -5,28 +5,76 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock, faEnvelope, faSignature, faPhone, faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { Form, Input } from 'antd'
 import PageTitle from '../Utilities/PageTitle'
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import Notify from '../Notification/Notify';
 
 function Register() {
+
+    /* API */
+    const API = 'https://639003d065ff41831106d1c8.mockapi.io/api/login/Account'
 
     /* Initialize state */
     const [fullname, setFullname] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [cfpassword, setCFPassword] = useState('')
     const [phone, setPhone] = useState('')
-    const [addres, setAddress] = useState('')
+    const [address, setAddress] = useState('')
 
+    const [notify, setNotify] = useState(false)
+    const [notifyActive, setNotifyActive] = useState(false)
+
+    /* use this to redirect page */
+    const navigate = useNavigate()
 
     /* When submit form Register set value for 5 states below */
     const onFinish = (values) => {
-        setFullname(values.fullname)
-        setEmail(values.email)
-        setPassword(values.password)
-        setPhone(values.phone)
-        setAddress(values.address)
-
         /* handle register here */
+        postData()
 
-    };
+        /* reset input field */
+        handleResetInputField()
+
+        /* set notification */
+        setNotify(true)
+        setNotifyActive(true)
+        handleNotify()
+    }
+
+    /* post data */
+    const postData = async () => {
+        await axios.post(API, {
+            Email: email,
+            Password: password
+        })
+            .then(res => handleRedirect('/login'))
+            .catch(err => console.log(err))
+    }
+
+    /* reset input field */
+    const handleResetInputField = () => {
+        setFullname('')
+        setEmail('')
+        setPassword('')
+        setCFPassword('')
+        setPhone('')
+        setAddress('')
+    }
+
+    /* redirect to another page */
+    const handleRedirect = (path) => {
+        setTimeout(() => {
+            navigate(`${path}`, { replace: true })
+        }, 2000)
+    }
+
+    /* display notify */
+    const handleNotify = () => {
+        setTimeout(() => {
+            setNotify(false)
+        }, [2000])
+    }
 
     return (
         <>
@@ -35,6 +83,8 @@ function Register() {
 
             {/* Register UI part */}
             <div className="container-fluid">
+                {notify && <Notify message='You have registed successfully!' type='success' />}
+
                 <div className="row">
                     <div className="wrapper col-md-12 col-sm-12 col-xs-12">
                         <div className="wrap_form">
@@ -46,11 +96,21 @@ function Register() {
                                 }}
                                 onFinish={onFinish}
                             >
-                                <div className="contain_logo m-4">
-                                    <img src={logo} alt="avt" />
+                                <div className="contain_logo mb-4">
+                                    <img onClick={() => navigate('/')} src={logo} alt="avt" style={{ cursor: 'pointer' }} />
                                 </div>
-                                <p className='title mb-5 font-weight-bold'>REGISTER</p>
+                                <p className='title mb-3 font-weight-bold'>REGISTER</p>
 
+                                {
+                                    !notifyActive &&
+                                    <div className='p-3 mb-3 d-flex'
+                                        style={{
+                                            alignItem: 'center', justifyContent: 'center', borderRadius: '4px',
+                                            background: 'linear-gradient(to right bottom, #95f84f, #9ce469, #d1f7d1)'
+                                        }}>
+                                        <p className='text-light mb-0'>Please check your email to activate your account!</p>
+                                    </div>
+                                }
                                 <Form.Item
                                     name="fullname"
                                     hasFeedback
@@ -64,6 +124,7 @@ function Register() {
                                     <Input className='input_tag'
                                         prefix={<FontAwesomeIcon className='mr-2' icon={faSignature} />}
                                         placeholder="Full name"
+                                        onChange={(e) => setFullname(e.target.value.trim())}
                                     />
                                 </Form.Item>
                                 <Form.Item
@@ -84,6 +145,7 @@ function Register() {
                                         prefix={<FontAwesomeIcon className='mr-2' icon={faEnvelope} />}
                                         type="email"
                                         placeholder="Email"
+                                        onChange={(e) => setEmail(e.target.value.trim())}
                                     />
                                 </Form.Item>
                                 <Form.Item
@@ -106,6 +168,7 @@ function Register() {
                                         prefix={<FontAwesomeIcon className='mr-2' icon={faLock} />}
                                         type="password"
                                         placeholder="Password"
+                                        onChange={(e) => setPassword(e.target.value.trim())}
                                     />
                                 </Form.Item>
                                 <Form.Item
@@ -140,6 +203,7 @@ function Register() {
                                         prefix={<FontAwesomeIcon className='mr-2' icon={faLock} />}
                                         type="password"
                                         placeholder="Confirm password"
+                                        onChange={(e) => setCFPassword(e.target.value.trim())}
                                     />
                                 </Form.Item>
                                 <Form.Item
@@ -153,6 +217,7 @@ function Register() {
                                     <Input className='input_tag'
                                         prefix={<FontAwesomeIcon className='mr-2' icon={faPhone} />}
                                         placeholder="Phone"
+                                        onChange={(e) => setPhone(e.target.value.trim())}
                                     />
                                 </Form.Item>
                                 <Form.Item
@@ -168,6 +233,7 @@ function Register() {
                                     <Input className='input_tag'
                                         prefix={<FontAwesomeIcon className='mr-2' icon={faLocationDot} />}
                                         placeholder="Address"
+                                        onChange={(e) => setAddress(e.target.value.trim())}
                                     />
                                 </Form.Item>
 

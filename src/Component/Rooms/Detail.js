@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react'
 import Header from '../Header_Footer/Header'
 import Footer from '../Header_Footer/Footer'
 import BeAtTop from '../Utilities/BeAtTop'
+import ScrollToTop from '../Utilities/ScrollToTop'
 import PageTitle from '../Utilities/PageTitle'
 import './Detail.scss'
 import axios from "axios"
-import AOS from 'aos'
+import AosAnimation from '../Utilities/AosAnimation'
 import { DatePicker, Space, Spin, Skeleton } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
@@ -24,6 +25,9 @@ function Detail() {
 
     /* API */
     const API = 'https://639003d065ff41831106d1c8.mockapi.io/api/login/rooms'
+
+    /* get token from localStorage */
+    const [userToken, setUserToken] = useState(localStorage.getItem('userToken'))
 
     /* to call the action in reducer */
     const dispatch = useDispatch()
@@ -65,11 +69,6 @@ function Detail() {
             )
     }
 
-    // set time for aos animation
-    useEffect(() => {
-        AOS.init({ duration: 1000 })
-    }, [])
-
     /* To disable date that booked */
     const disabledDate = (current) => {
         const arr = [
@@ -103,15 +102,13 @@ function Detail() {
 
     }
 
-
-    const handleBookRoom = () => {
-        navigate(`/booking_form?roomName=${room.name}&startDate=${bookDate.startDate}&endDate=${bookDate.endDate}`)
-    }
-
     return (
         <>
             {/* set title of page */}
             <PageTitle title={t('title.title_detail')} />
+
+            {/* animation with aos */}
+            <AosAnimation />
 
             {/* Header UI part */}
             <Header />
@@ -237,9 +234,10 @@ function Detail() {
                                             placeholder={[`${t('detail.detail_reservation_startDate')}`, `${t('detail.detail_reservation_endDate')}`]}
                                             disabledDate={disabledDate}
                                             onChange={handleChangeDate}
+                                            required
 
                                             /* check logged in. If logged => disabled = false, else disabled = true */
-                                            disabled={false}
+                                            disabled={userToken ? false : true}
                                         />
                                     </Space>
 
@@ -247,7 +245,7 @@ function Detail() {
                             </div>
                             <div className="wrap_button">
                                 <button className='btn btn-success' disabled={bookDate.startDate !== null && bookDate.endDate !== null ? false : true}
-                                    onClick={handleBookRoom}
+                                    onClick={() => navigate('/booking_form', { replace: true })}
                                 >
                                     {t('detail.detail_reservation_button_book')}
                                 </button>
@@ -261,6 +259,7 @@ function Detail() {
 
             {/* Body Detail UI part */}
 
+            <ScrollToTop />
             {/* Footer UI part */}
             <Footer />
             <BeAtTop />

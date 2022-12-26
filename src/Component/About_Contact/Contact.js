@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { Col, Row } from 'antd';
 import Header from "../Header_Footer/Header";
 import Footer from "../Header_Footer/Footer";
@@ -6,27 +6,43 @@ import ScrollToTop from "../Utilities/ScrollToTop";
 import { useTranslation } from 'react-i18next'
 import BeAtTop from "../Utilities/BeAtTop";
 import './Contact.scss'
-import AOS from 'aos'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationDot, faPhone, faEnvelope, faClock } from '@fortawesome/free-solid-svg-icons'
 import { faFacebook, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons'
-import PageTitle from "../Utilities/PageTitle";
+import PageTitle from "../Utilities/PageTitle"
+import Notify from "../Notification/Notify"
+import AosAnimation from "../Utilities/AosAnimation"
 
 
 function Contact() {
 
+    const [notify, setNotify] = useState(false)
+
     /* i18next */
     const { t, i18n } = useTranslation()
 
-    /* set time for aos animation */
-    useEffect(() => {
-        AOS.init({ duration: 1000 })
-    }, [])
+    /* submit form */
+    const handleSubmitForm = () => {
+        setNotify(true)
+        handleNotify()
+    }
+
+    /* display notify */
+    const handleNotify = () => {
+        setTimeout(() => {
+            setNotify(false)
+        }, [2000])
+    }
 
     return (
         <>
             {/* set title of page */}
             <PageTitle title={t('title.title_contact')} />
+
+            {/* animation with aos lib */}
+            <AosAnimation />
+
+            {notify && <Notify message='You have sent successfully!' type='success' />}
 
             {/* Header part */}
             <Header />
@@ -64,7 +80,7 @@ function Contact() {
                                         <textarea className="form-control" id="inputMessage" rows="5" placeholder={t('contact.contact_form_message_plh')} required></textarea>
                                     </div>
 
-                                    <button type='submit' className="btn btn-success">{t('contact.contact_form_button')}</button>
+                                    <button type='reset' onClick={handleSubmitForm} className="btn btn-success">{t('contact.contact_form_button')}</button>
                                 </form>
                             </Col>
                             <Col md={9} sm={24}>

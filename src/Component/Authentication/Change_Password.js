@@ -4,15 +4,65 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
 import { Form, Input } from 'antd'
 import PageTitle from '../Utilities/PageTitle'
+import AxiosInstance from '../../Axios Interceptor/AxiosInstance'
+import { useState } from 'react'
+import Notify from '../Notification/Notify'
+import { useNavigate } from 'react-router-dom'
 
 
 function Change_Password() {
+
+    /* API */
+    const API = 'abc'
+
+    /* userID */
+    const [userID, setUserID] = useState(null)
+
+    /* old pass and new pass state */
+    const [oldPass, setOldPass] = useState('')
+    const [newPass, setNewPass] = useState('')
+    
+    /* notification state */
+    const [notify, setNotify] = useState(false)
+
+    const navigate = useNavigate()
 
     /* When submit form Login -> do something */
     const onFinish = (values) => {
         /* write code here */
 
+        handleChangePassword()
+        handleResetField()
+        setNotify(true)
     }
+
+    /* change password */
+    const handleChangePassword = async () => {
+        await AxiosInstance.patch(`${API}/${userID}`, {
+            oldPass: oldPass,
+            password: newPass
+        })
+        .then(() => handleRedirect('/'))
+        .catch((error) => console.log(error))
+    }
+
+    /* redirect to another page */
+    const handleRedirect = (path) => {
+        setTimeout(() => {
+            navigate(`${path}`, { replace: true })
+        })
+    }
+
+    /* reset field after submit form */
+    const handleResetField = () => {
+        setOldPass('')
+        setNewPass('')
+    }
+
+    /* hide notification */
+    setTimeout(() => {
+        setNotify(false)
+    }, [2000])
 
     return (
         <>
@@ -21,6 +71,8 @@ function Change_Password() {
 
             <div className="container-fluid">
                 <div className="row">
+                    {notify && <Notify message='You have changed password successfully!' type='success' />}
+
                     <div className="wrapper col-md-12 col-sm-12 col-xs-12">
                         <div className="wrap_form">
                             <Form
@@ -58,7 +110,8 @@ function Change_Password() {
                                     <Input.Password className='input_tag'
                                         prefix={<FontAwesomeIcon className='mr-2' icon={faLock} />}
                                         type="password"
-                                        placeholder="Old password" />
+                                        placeholder="Old password"
+                                        onChange={e => setOldPass(e.target.value.trim())} />
 
                                 </Form.Item>
                                 <Form.Item
@@ -84,6 +137,7 @@ function Change_Password() {
                                         prefix={<FontAwesomeIcon className='mr-2' icon={faLock} />}
                                         type="password"
                                         placeholder="Password"
+                                        onChange={e => setNewPass(e.target.value.trim())}
                                     />
                                 </Form.Item>
                                 <Form.Item

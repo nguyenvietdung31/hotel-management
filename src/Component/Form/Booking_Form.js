@@ -20,8 +20,10 @@ function Booking_Form() {
   /* using to redirect page */
   const navigate = useNavigate()
 
+  /* i18next */
   const { t, i18n } = useTranslation()
 
+  /* store in redux */
   const storeRoom = useSelector(state => state.room)
 
 

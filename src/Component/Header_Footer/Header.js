@@ -5,6 +5,7 @@ import './Header.scss'
 import img_logo from '../../Image/hotel_logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faGlobe } from '@fortawesome/free-solid-svg-icons'
+import { useNavigate } from 'react-router-dom'
 
 function Header() {
   /* Define state */
@@ -14,6 +15,11 @@ function Header() {
 
   /* i18next */
   const { t, i18n } = useTranslation()
+
+  const navigate = useNavigate()
+
+  /* get token from localStorage */
+  const [userToken, setUserToken] = useState(localStorage.getItem('userToken'))
 
   /* To toggle menu of link */
   /* when the menu of link opens -> hidden menu of user, menu of language */
@@ -38,6 +44,11 @@ function Header() {
     setIsHiddenUserMore(!isHiddenUserMore)
     setIsHiddenMenuLink(true)
     setIsHiddenLanguage(true)
+  }
+
+  const handleLogOut = () => {
+    localStorage.clear('userToken')
+    navigate(0)
   }
 
   return (
@@ -71,24 +82,27 @@ function Header() {
               <div className="contain_multi_lang_responsive">
                 <div className="dropdown">
                   <FontAwesomeIcon icon={faGlobe} role="button" id="dropdownMenuLink"
-                  className='text-light'
-                  style={{ transform: isHiddenLanguage ? 'none' : 'rotate(45deg)', fontSize: '30px' }} 
+                    className='text-light'
+                    style={{ transform: isHiddenLanguage ? 'none' : 'rotate(45deg)', fontSize: '30px' }}
                     onClick={handleOpenLanguage} />
 
                 </div>
               </div>
 
-              <div className="contain_avt_user">
-                <img src={img_logo} width={50} height={50} className='rounded-circle' alt="avatar"
-                  id="dropdownMenuLink" onClick={handleOpenUserMore} />
-              </div>
+              {
+                userToken &&
+                <div className="contain_avt_user">
+                  <img src={img_logo} width={50} height={50} className='rounded-circle' alt="avatar"
+                    id="dropdownMenuLink" onClick={handleOpenUserMore} />
+                </div>
+              }
 
             </div>
 
 
             <div className="right_menu">
 
-              <div className="contain_multi_lang">
+              <div className="contain_multi_lang mr-3">
                 <div className="dropdown">
                   <FontAwesomeIcon icon={faGlobe} role="button"
                     id="dropdownMenuLink" className='text-light' data-toggle="dropdown"
@@ -101,27 +115,33 @@ function Header() {
                 </div>
               </div>
 
-              {/* Not logged in will display this */}
-              {/* <div className="login_register">
-              <div className='item_menu'>
-                <a href="#" className='btn btn-outline-light'>{t('header.log_in')}</a>
-              </div>
-              <div className='item_menu'>
-                <a href="#" className='btn btn-outline-light'>{t('header.register')}</a>
-              </div>
-            </div> */}
-
-              {/* Already Logged in will display this */}
-              <div className="user_logged_in">
-                <div className="dropdown">
-                  <img src={img_logo} width={50} height={50} className='rounded-circle' alt="avatar" role="button"
-                    id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" />
-                  <div className="dropdown-menu">
-                    <a className="dropdown-item" href="/change_password">{t('header.change_pass')}</a>
-                    <a className="dropdown-item" href="/login">{t('header.log_out')}</a>
-                  </div>
-                </div>
-              </div>
+              {
+                userToken ?
+                  (
+                    /* Already logged in will display this */
+                    < div className="user_logged_in">
+                      <div className="dropdown">
+                        <img src={img_logo} width={50} height={50} className='rounded-circle' alt="avatar" role="button"
+                          id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" />
+                        <div className="dropdown-menu">
+                          <a className="dropdown-item" href="/change_password">{t('header.change_pass')}</a>
+                          <a className="dropdown-item" style={{ cursor: 'pointer' }} onClick={handleLogOut}>{t('header.log_out')}</a>
+                        </div>
+                      </div>
+                    </div>
+                  ) :
+                  (
+                    /* Not logged in will display this */
+                    <div className="login_register">
+                      <div className='right_item_menu'>
+                        <a href="/login" className='btn btn-light'>{t('header.log_in')}</a>
+                      </div>
+                      <div className='right_item_menu'>
+                        <a href="/register" className='btn btn-light'>{t('header.register')}</a>
+                      </div>
+                    </div>
+                  )
+              }
 
             </div>
           </div>
@@ -134,10 +154,13 @@ function Header() {
               <a href="/about"><div className="item_dropdown_menu">{t('header.about')}</div></a>
               <a href="/contact"><div className="item_dropdown_menu">{t('header.contact')}</div></a>
 
-              {/* check if user logged in => not display */}
-              <a href="/login"><div className="item_dropdown_menu">{t('header.log_in')}</div></a>
-              <a href="/register"><div className="item_dropdown_menu">{t('header.register')}</div></a>
-              {/* check if user logged in => not display */}
+              {userToken === null &&
+                <div>
+                  <a href="/login"><div className="item_dropdown_menu">{t('header.log_in')}</div></a>
+                  <a href="/register"><div className="item_dropdown_menu">{t('header.register')}</div></a>
+                </div>
+              }
+
 
             </div>
           }

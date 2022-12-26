@@ -1,23 +1,25 @@
 import { useTranslation } from 'react-i18next'
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import AOS from 'aos'
-import axios from 'axios';
+import axios from 'axios'
 import './Home.scss'
-import Header from '../Header_Footer/Header';
-import Footer from '../Header_Footer/Footer';
+import Header from '../Header_Footer/Header'
+import Footer from '../Header_Footer/Footer'
 import Slider from "../Utilities/Slider"
-import BeAtTop from "../Utilities/BeAtTop";
-import PageTitle from "../Utilities/PageTitle";
-import ScrollToTop from "../Utilities/ScrollToTop";
+import BeAtTop from "../Utilities/BeAtTop"
+import PageTitle from "../Utilities/PageTitle"
+import ScrollToTop from "../Utilities/ScrollToTop"
 import slide_img1 from '../../Image/slide_img_1.jpg'
 import img_avt_team from '../../Image/img_avt_team.jpg'
-import { Card, Row, Col, Skeleton, Space, Spin } from "antd";
+import { Card, Row, Col, Skeleton, Space, Spin } from "antd"
+import AosAnimation from '../Utilities/AosAnimation'
 
 function Home() {
 
     /* i18next */
-    const { t, i18n } = useTranslation();
+    const { t, i18n } = useTranslation()
+    
     /* API */
     const API = 'https://639003d065ff41831106d1c8.mockapi.io/api/login/rooms'
 
@@ -43,11 +45,7 @@ function Home() {
             )
     }
 
-    // set time for aos animation
-    useEffect(() => {
-        AOS.init({ duration: 1000 })
-    }, [])
-
+    /* information about managers of hotel */
     const home_staff = [
         {
             name: `${t('home.introduce_member_name1')}`,
@@ -72,6 +70,7 @@ function Home() {
         ,
     ]
 
+    /* some information of home page */
     const home_more_infomation = [
         {
             title: `${t('home.introduce_side_infor_box_mission_title')}`,
@@ -94,6 +93,9 @@ function Home() {
         <>
             {/* set title of page */}
             <PageTitle title={t('title.title_home')} />
+
+            {/* animation with aos */}
+            <AosAnimation />
 
             {/* Header UI part */}
             <Header />
