@@ -7,6 +7,7 @@ import PageTitle from '../Utilities/PageTitle'
 import AxiosInstance from '../../Axios Interceptor/AxiosInstance'
 import { useState } from 'react'
 import Notify from '../Notification/Notify'
+import { useNavigate } from 'react-router-dom'
 
 function Reset_Password() {
 
@@ -15,11 +16,13 @@ function Reset_Password() {
     const [password, setPassword] = useState('')
     const [notify, setNotify] = useState(false)
 
+    const navigate = useNavigate()
     /* When submit form Login -> do something */
     const onFinish = (values) => {
         /* write code here */
         handleResetPassword()
         setNotify(true)
+        handleNotify()
     }
 
     /* reset password */
@@ -43,7 +46,7 @@ function Reset_Password() {
 
             <div className="container-fluid">
                 <div className="row">
-                    <Notify message='You have reseted password successfully!' type='success' />
+                    {notify && <Notify message='You have reseted password successfully!' type='success' />}
                     <div className="wrapper col-md-12 col-sm-12 col-xs-12">
                         <div className="wrap_form">
                             <Form
@@ -55,7 +58,7 @@ function Reset_Password() {
                                 onFinish={onFinish}
                             >
                                 <div className="contain_logo m-4">
-                                    <img src={logo} alt="avt" />
+                                    <img src={logo} alt="avt" style={{cursor: 'pointer'}} onClick={() => navigate('/')}  />
                                 </div>
                                 <p className='title mb-5 font-weight-bold'>RESET PASSWORD</p>
 

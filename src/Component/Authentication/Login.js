@@ -6,7 +6,7 @@ import { Form, Input } from 'antd'
 import PageTitle from '../Utilities/PageTitle'
 import { useState } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function Login() {
 
@@ -33,6 +33,8 @@ function Login() {
 
         /* Fake token to demo */
         localStorage.setItem('userToken', 'nmthanhToken')
+        /* if admin log in => access_admin = true, else access_user = true */
+        localStorage.setItem('access_user', true)
         navigate(-1)
     }
 
@@ -55,7 +57,7 @@ function Login() {
                                 onFinish={onFinish}
                             >
                                 <div className="contain_logo m-4">
-                                    <img src={logo} alt="avt" />
+                                    <img src={logo} alt="avt" style={{cursor: 'pointer'}} onClick={() => navigate('/')} />
                                 </div>
                                 <p className='title mb-5 font-weight-bold'>LOG IN</p>
 
@@ -91,14 +93,14 @@ function Login() {
                                     />
                                 </Form.Item>
                                 
-                                <a className="login-form-forgot text-primary forgotpass" href="/forgot_password">
+                                <Link className="login-form-forgot text-primary forgotpass" to="/forgot_password">
                                     Forgot password
-                                </a><br />
+                                </Link><br />
                                 <div className="contain_button mt-4">
                                     <button className='btn btn-success text-light btn_login'>Login</button>
                                 </div>
                                 <div className='text-center mt-3'>
-                                    <a className="text-primary forgotpass" href="/register">Register now!</a>
+                                    <Link className="text-primary forgotpass" to="/register">Register now!</Link>
                                 </div>
                             </Form>
                         </div>

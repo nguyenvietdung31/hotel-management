@@ -1,14 +1,16 @@
 import './App.css';
 import RouterApp from './Component/Router/RouterApp';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
-// import Home from './Component/Home/Home';
-// import Booking_Form from './Component/Form/Booking_Form';
-
+// Initialze the client
+const queryClient = new QueryClient()
 
 function App() {
   return (
     <>
-        <RouterApp/> 
+      <QueryClientProvider client={queryClient}>
+        <RouterApp />
+      </QueryClientProvider>
     </>
   )
 }

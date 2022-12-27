@@ -33,30 +33,29 @@ function RouterApp() {
                         <Home />
                     </Suspense>
                 } />
-                {/* <Route path="/login" element={<RequireLogin><Login /></RequireLogin>} /> */}
                 <Route path="/login" element={
                     <Suspense fallback={<Loader />}>
-                        <Login />
+                        <RequireLogOut><Login /></RequireLogOut>
                     </Suspense>
                 } />
                 <Route path='/register' element={
                     <Suspense fallback={<Loader />}>
-                        <Register />
+                        <RequireLogOut><Register /></RequireLogOut>
                     </Suspense>
                 } />
                 <Route path='/change_password' element={
                     <Suspense fallback={<Loader />}>
-                        <Change_Password />
+                        <RequireLoggedIn><Change_Password /></RequireLoggedIn>
                     </Suspense>
                 } />
                 <Route path='/forgot_password' element={
                     <Suspense fallback={<Loader />}>
-                        <Forgot_Password />
+                        <RequireLogOut><Forgot_Password /></RequireLogOut>
                     </Suspense>
                 } />
                 <Route path='/reset_password' element={
                     <Suspense fallback={<Loader />}>
-                        <Reset_Password />
+                        <RequireLogOut><Reset_Password /></RequireLogOut>
                     </Suspense>
                 } />
                 <Route path='/about' element={
@@ -81,15 +80,14 @@ function RouterApp() {
                 } />
                 <Route path='/booking_form' element={
                     <Suspense fallback={<Loader />}>
-                        <Booking_Form />
+                        <RequireLoggedIn><Booking_Form /></RequireLoggedIn>
                     </Suspense>
                 } />
+                {/* write more Route here */}
 
-                {/* <Route path='/search' element={<Search />} />  */}
-                {/*<Route path="/forgotpassword" element={<RequireForgotpass><Forgotpassword /></RequireForgotpass>} />
-                <Route path="/changepassword" element={<RequireChangepass><Changepassword /></RequireChangepass>} />*/}
-                {/*<Route path="/create" element={<RequireAdmin><Create /></RequireAdmin>} />
-                <Route path="/update" element={<RequireAdmin><Update /></RequireAdmin>} />*/}
+
+
+                {/* write more Route here */}
                 <Route path='/*' element={
                     <Suspense fallback={<Loader />}>
                         <NotFound />
@@ -130,3 +128,21 @@ function RouterApp() {
     )
 }
 export default RouterApp
+
+function RequireLoggedIn({ children }) {
+    if (!localStorage.getItem('access_user') && !localStorage.getItem('access_admin')){
+        /* Redirect them to the / page(home page) if they are not logged in */
+        return <Navigate to="/" replace={true} />
+    }
+    return children;
+}
+
+function RequireLogOut({ children }) {
+    if (localStorage.getItem('access_user') || localStorage.getItem('access_admin')){
+        /* Redirect them to the / page(home page) if they are logged in */
+        return <Navigate to="/" replace={true} />
+    }
+    return children;
+}
+
+

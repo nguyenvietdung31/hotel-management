@@ -49,7 +49,7 @@ function Change_Password() {
     /* redirect to another page */
     const handleRedirect = (path) => {
         setTimeout(() => {
-            navigate(`${path}`, { replace: true })
+            navigate(`${path}`)
         })
     }
 
@@ -84,7 +84,7 @@ function Change_Password() {
                                 onFinish={onFinish}
                             >
                                 <div className="contain_logo m-4">
-                                    <img src={logo} alt="avt" />
+                                    <img src={logo} alt="avt" style={{cursor: 'pointer'}} onClick={() => navigate('/')} />
                                 </div>
                                 <p className='title mb-5 font-weight-bold'>CHANGE PASSWORD</p>
 

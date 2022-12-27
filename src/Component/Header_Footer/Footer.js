@@ -4,6 +4,7 @@ import img_logo from '../../Image/hotel_logo.png'
 import { Suspense } from 'react';
 import Loader from '../Utilities/Loader';
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom';
 
 function Footer() {
 
@@ -29,10 +30,10 @@ function Footer() {
                         <Col md={8} xs={12}>
                             <div className='item_footer second_item'>
                                 <ul>
-                                    <li><a href="/">{t('header.home')}</a></li>
-                                    <li><a href="/rooms">{t('header.rooms')}</a></li>
-                                    <li><a href="/about">{t('header.about')}</a></li>
-                                    <li><a href="/contact">{t('header.contact')}</a></li>
+                                    <li><Link to="/">{t('header.home')}</Link></li>
+                                    <li><Link to="/rooms">{t('header.rooms')}</Link></li>
+                                    <li><Link to="/about">{t('header.about')}</Link></li>
+                                    <li><Link to="/contact">{t('header.contact')}</Link></li>
                                 </ul>
                             </div>
                         </Col>

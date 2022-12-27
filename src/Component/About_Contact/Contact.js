@@ -16,13 +16,23 @@ import AosAnimation from "../Utilities/AosAnimation"
 
 function Contact() {
 
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [subject, setSubject] = useState('')
+    const [message, setMessage] = useState('')
+
     const [notify, setNotify] = useState(false)
 
     /* i18next */
     const { t, i18n } = useTranslation()
 
     /* submit form */
-    const handleSubmitForm = () => {
+    const handleSubmitForm = (e) => {
+        e.preventDefault()
+        setName('')
+        setEmail('')
+        setSubject('')
+        setMessage('')
         setNotify(true)
         handleNotify()
     }
@@ -61,26 +71,34 @@ function Contact() {
                     <div className="container">
                         <Row gutter={24}>
                             <Col md={15} sm={24}>
-                                <form className='col-md-12' data-aos="fade-right">
+                                <form className='col-md-12' data-aos="fade-right"  onSubmit={handleSubmitForm}>
                                     <p className="text-light font-weight-bold title_form">{t('contact.contact_form_title')}</p>
                                     <div className="form-group">
                                         <label htmlFor="inputName" className="text-light">{t('contact.contact_form_name_lable')}</label>
-                                        <input type="text" className="form-control" id="inputName" placeholder={t('contact.contact_form_name_plh')} required />
+                                        <input onChange={e => setName(e.target.value.trim())} value={name} type="text" 
+                                        className="form-control" id="inputName" 
+                                        placeholder={t('contact.contact_form_name_plh')} required />
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="inputEmail" className="text-light">{t('contact.contact_form_email_lable')}</label>
-                                        <input type="email" className="form-control" id="inputEmail" placeholder={t('contact.contact_form_email_plh')} required />
+                                        <input onChange={e => setEmail(e.target.value.trim())} value={email} type="email" 
+                                        className="form-control" id="inputEmail" 
+                                        placeholder={t('contact.contact_form_email_plh')} required />
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="inputSubject" className="text-light">{t('contact.contact_form_subject_lable')}</label>
-                                        <input type="text" className="form-control" id="inputSubject" placeholder={t('contact.contact_form_subject_plh')} required />
+                                        <input onChange={e => setSubject(e.target.value.trim())} value={subject} 
+                                        type="text" className="form-control" id="inputSubject" 
+                                        placeholder={t('contact.contact_form_subject_plh')} required />
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="inputMessage" className="text-light">{t('contact.contact_form_message_lable')}</label>
-                                        <textarea className="form-control" id="inputMessage" rows="5" placeholder={t('contact.contact_form_message_plh')} required></textarea>
+                                        <textarea onChange={e => setMessage(e.target.value.trim())} value={message} 
+                                        className="form-control" id="inputMessage" rows="5" 
+                                        placeholder={t('contact.contact_form_message_plh')} required></textarea>
                                     </div>
 
-                                    <button type='reset' onClick={handleSubmitForm} className="btn btn-success">{t('contact.contact_form_button')}</button>
+                                    <button type='submit' className="btn btn-success">{t('contact.contact_form_button')}</button>
                                 </form>
                             </Col>
                             <Col md={9} sm={24}>
