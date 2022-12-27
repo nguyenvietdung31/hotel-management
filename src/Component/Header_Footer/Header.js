@@ -73,9 +73,12 @@ function Header() {
                 <div className="item_menu">
                   <Link to="/contact">{t('header.contact')}</Link>
                 </div>
-                <div className="item_menu">
-                  <a href="/dashboard">{t('header.dashboard')}</a>
-                </div>
+                {
+                  localStorage.getItem('access_admin') &&
+                  <div className="item_menu">
+                    <a href="/dashboard">{t('header.dashboard')}</a>
+                  </div>
+                }
               </div>
 
               <div className="contain_btn_see_more">
@@ -156,6 +159,10 @@ function Header() {
               <Link to="/rooms"><div className="item_dropdown_menu">{t('header.rooms')}</div></Link>
               <Link to="/about"><div className="item_dropdown_menu">{t('header.about')}</div></Link>
               <Link to="/contact"><div className="item_dropdown_menu">{t('header.contact')}</div></Link>
+              {
+                localStorage.getItem('access_admin') &&
+                <Link to="/dashboard"><div className="item_dropdown_menu">{t('header.dashboard')}</div></Link>
+              }
 
               {userToken === null &&
                 <div>
@@ -163,7 +170,6 @@ function Header() {
                   <Link to="/register"><div className="item_dropdown_menu">{t('header.register')}</div></Link>
                 </div>
               }
-
 
             </div>
           }

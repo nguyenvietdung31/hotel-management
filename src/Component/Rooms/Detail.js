@@ -1,24 +1,24 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useDispatch } from "react-redux"
+import { useQuery } from 'react-query'
+import { setRoomBooked } from '../../Redux/Slice/roomSlice'
+import { useTranslation } from 'react-i18next'
+import { getRoomData } from '../../Service/Room_service/API_Service'
 import Header from '../Header_Footer/Header'
 import Footer from '../Header_Footer/Footer'
 import BeAtTop from '../Utilities/BeAtTop'
 import ScrollToTop from '../Utilities/ScrollToTop'
 import PageTitle from '../Utilities/PageTitle'
-import './Detail.scss'
-import axios from "axios"
 import AosAnimation from '../Utilities/AosAnimation'
-import { DatePicker, Space, Spin, Skeleton } from 'antd';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
-import dayjs from "dayjs";
-import customParseFormat from "dayjs/plugin/customParseFormat"
-import { useNavigate, useSearchParams } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
-import { useDispatch } from "react-redux"
-import { setRoomBooked } from '../../Redux/Slice/roomSlice'
-import { useQuery } from 'react-query'
 import Loader from '../Utilities/Loader'
 import Error from '../Utilities/Error'
+import './Detail.scss'
+import { DatePicker, Space, Skeleton } from 'antd';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
+import customParseFormat from "dayjs/plugin/customParseFormat"
+import dayjs from "dayjs";
 
 
 dayjs.extend(customParseFormat)
@@ -55,13 +55,12 @@ function Detail() {
 
     // Fetcher function
     const getData = async () => {
-        const res = await axios.get(`${API}/${roomID}`)
-        return res.data
+        const res = await getRoomData(roomID)
+        return res
     }
 
     // Using the hook
     const { data, error, isLoading, isError } = useQuery('Room', getData, { refetchInterval: 300000 })
-
 
     /* To disable date that booked */
     const disabledDate = (current) => {

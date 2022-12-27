@@ -1,6 +1,6 @@
 import { Layout } from 'antd'
 import React from 'react'
-import './Dashboard.css'
+import './Dashboard.scss'
 import Sidebar from './Sidebar';
 
 

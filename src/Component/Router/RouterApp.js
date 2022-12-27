@@ -33,57 +33,103 @@ function RouterApp() {
                         <Home />
                     </Suspense>
                 } />
+                
                 <Route path="/login" element={
                     <Suspense fallback={<Loader />}>
                         <RequireLogOut><Login /></RequireLogOut>
                     </Suspense>
                 } />
+
                 <Route path='/register' element={
                     <Suspense fallback={<Loader />}>
                         <RequireLogOut><Register /></RequireLogOut>
                     </Suspense>
                 } />
+
                 <Route path='/change_password' element={
                     <Suspense fallback={<Loader />}>
                         <RequireLoggedIn><Change_Password /></RequireLoggedIn>
                     </Suspense>
                 } />
+
                 <Route path='/forgot_password' element={
                     <Suspense fallback={<Loader />}>
                         <RequireLogOut><Forgot_Password /></RequireLogOut>
                     </Suspense>
                 } />
+
                 <Route path='/reset_password' element={
                     <Suspense fallback={<Loader />}>
                         <RequireLogOut><Reset_Password /></RequireLogOut>
                     </Suspense>
                 } />
+
                 <Route path='/about' element={
                     <Suspense fallback={<Loader />}>
                         <About />
                     </Suspense>
                 } />
+
                 <Route path='/contact' element={
                     <Suspense fallback={<Loader />}>
                         <Contact />
                     </Suspense>
                 } />
+
                 <Route path='/rooms' element={
                     <Suspense fallback={<Loader />}>
                         <Rooms />
                     </Suspense>
                 } />
+
                 <Route path='/detail' element={
                     <Suspense fallback={<Loader />}>
                         <Detail />
                     </Suspense>
                 } />
+
                 <Route path='/booking_form' element={
                     <Suspense fallback={<Loader />}>
                         <RequireLoggedIn><Booking_Form /></RequireLoggedIn>
                     </Suspense>
                 } />
-                {/* write more Route here */}
+                
+                {/* Link to admin site */}
+                <Route path='/dashboard' element={
+                    <Suspense fallback={<Loader />}>
+                        <RequireAdmin><Dashboard /></RequireAdmin>
+                    </Suspense>
+                } />
+
+                <Route path='/room_manage' element={
+                    <Suspense fallback={<Loader />}>
+                        <RequireAdmin><RoomManage /></RequireAdmin>
+                    </Suspense>
+                } />
+
+                <Route path='/staff_manage' element={
+                    <Suspense fallback={<Loader />}>
+                        <RequireAdmin><StaffManage /></RequireAdmin>
+                    </Suspense>
+                } />
+
+                <Route path='/user_manage' element={
+                    <Suspense fallback={<Loader />}>
+                        <RequireAdmin><UserManage /></RequireAdmin>
+                    </Suspense>
+                } />
+
+                <Route path='/booking_manage' element={
+                    <Suspense fallback={<Loader />}>
+                        <RequireAdmin><OrderManage /></RequireAdmin>
+                    </Suspense>
+                } />
+
+                <Route path='/export_data' element={
+                    <Suspense fallback={<Loader />}>
+                        <RequireAdmin><ExportData /></RequireAdmin>
+                    </Suspense>
+                } />
 
 
 
@@ -93,42 +139,14 @@ function RouterApp() {
                         <NotFound />
                     </Suspense>
                 } />
-
                 {/* With each path will redirect to a page */}
-
-
-                {/* Link to admin site */}
-                <Route path='/dashboard' element={
-                    <Suspense fallback={<Loader />}>
-                        <Dashboard />
-                    </Suspense>} />
-
-                <Route path='/roommanage' element={
-                    <Suspense fallback={<Loader />}>
-                        <RoomManage />
-                    </Suspense>} />
-                <Route path='/staffmanage' element={
-                    <Suspense fallback={<Loader />}>
-                        <StaffManage />
-                    </Suspense>} />
-                <Route path='/usermanage' element={
-                    <Suspense fallback={<Loader />}>
-                        <UserManage />
-                    </Suspense>} />
-                <Route path='/ordermanage' element={
-                    <Suspense fallback={<Loader />}>
-                        <OrderManage />
-                    </Suspense>} />
-                <Route path='/exportdata' element={
-                    <Suspense fallback={<Loader />}>
-                        <ExportData />
-                    </Suspense>} />
             </Routes>
         </>
     )
 }
 export default RouterApp
 
+/* require logged in that allow to access */
 function RequireLoggedIn({ children }) {
     if (!localStorage.getItem('access_user') && !localStorage.getItem('access_admin')){
         /* Redirect them to the / page(home page) if they are not logged in */
@@ -137,9 +155,19 @@ function RequireLoggedIn({ children }) {
     return children;
 }
 
+/* require logged in that not allow to access */
 function RequireLogOut({ children }) {
     if (localStorage.getItem('access_user') || localStorage.getItem('access_admin')){
         /* Redirect them to the / page(home page) if they are logged in */
+        return <Navigate to="/" replace={true} />
+    }
+    return children;
+}
+
+/* require be Admin that allow to access */
+function RequireAdmin({ children }) {
+    if (!localStorage.getItem('access_admin')){
+        /* Redirect them to the / page(home page) if they are not admin */
         return <Navigate to="/" replace={true} />
     }
     return children;
