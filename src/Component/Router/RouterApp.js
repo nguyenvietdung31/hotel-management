@@ -92,6 +92,15 @@ function RouterApp() {
                 } />
 
                 {/* With each path will redirect to a page */}
+
+
+                {/* Link to admin site */}
+                <Route path='/dashboard' element={<Dashboard/>}/>
+                <Route path='/roommanage' element={<RoomManage />}/>
+                <Route path='/staffmanage' element={<StaffManage/>}/>
+                <Route path='/usermanage' element={<UserManage/>}/>
+                <Route path='/ordermanage' element={<OrderManage/>}/>
+                <Route path='/exportdata' element={<ExportData/>}/>
             </Routes>
         </>
     )

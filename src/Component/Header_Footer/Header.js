@@ -6,6 +6,7 @@ import img_logo from '../../Image/hotel_logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faGlobe } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 function Header() {
   /* Define state */
