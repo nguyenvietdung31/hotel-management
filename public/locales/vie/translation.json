@@ -110,7 +110,7 @@
     "booking": {
         "booking_button_rooms": "Xem các phòng khác",
         "booking_room_title": "Thông tin phòng",
-        "booking_room": "Tên Phòng",
+        "booking_room": "Tên",
         "booking_room_price": "Giá",
         "booking_room_startdate": "Ngày thuê",
         "booking_room_enddate": "Ngày trả",

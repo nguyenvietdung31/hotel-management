@@ -11,12 +11,6 @@ import { useSelector } from "react-redux"
 
 function Booking_Form() {
 
-  /* get room name from url */
-  const [searchParams, setSearchParams] = useSearchParams()
-  const roomName = String(searchParams.get("roomName"))
-  const startDate = String(searchParams.get("startDate"))
-  const endDate = String(searchParams.get("endDate"))
-
   /* using to redirect page */
   const navigate = useNavigate()
 
@@ -30,7 +24,6 @@ function Booking_Form() {
   const [messageApi, contextHolder] = message.useMessage()
 
   const test = (e) => {
-    console.log(e)
     messageApi.open({
       type: 'success',
       content: 'Booking room success',
@@ -84,7 +77,7 @@ function Booking_Form() {
         <div className="row">
           <div className='col-lg-12 col-sm-12- col-xs-12 mt-5 mb-5'>
             <Button className='font-weight-bold'
-              onClick={() => navigate(`/rooms`, { replace: true })}
+              onClick={() => navigate(`/rooms`)}
               type='primary'
               style={{ backgroundColor: 'rgb(22 163 74)' }}
             >
@@ -209,7 +202,7 @@ function Booking_Form() {
                   </Checkbox>
                 </Form.Item>
                 <Form.Item className='font-weight-bold'
-                {...tailFormItemLayOut}
+                  {...tailFormItemLayOut}
                 >
                   {contextHolder}
                   <Button type='primary' htmlType='submit'>

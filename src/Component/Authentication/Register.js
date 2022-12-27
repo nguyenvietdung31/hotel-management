@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock, faEnvelope, faSignature, faPhone, faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { Form, Input } from 'antd'
 import PageTitle from '../Utilities/PageTitle'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Notify from '../Notification/Notify';
 
@@ -65,7 +65,7 @@ function Register() {
     /* redirect to another page */
     const handleRedirect = (path) => {
         setTimeout(() => {
-            navigate(`${path}`, { replace: true })
+            navigate(`${path}`)
         }, 2000)
     }
 
@@ -102,7 +102,7 @@ function Register() {
                                 <p className='title mb-3 font-weight-bold'>REGISTER</p>
 
                                 {
-                                    !notifyActive &&
+                                    notifyActive &&
                                     <div className='p-3 mb-3 d-flex'
                                         style={{
                                             alignItem: 'center', justifyContent: 'center', borderRadius: '4px',
@@ -241,7 +241,7 @@ function Register() {
                                     <button className='btn btn-success text-light btn_login'>Register</button>
                                 </div>
                                 <div className='text-center mt-3'>
-                                    <a className="text-primary forgotpass" href="/login">Log in now!</a>
+                                    <Link className="text-primary forgotpass" to="/login">Log in now!</Link>
                                 </div>
                             </Form>
                         </div>

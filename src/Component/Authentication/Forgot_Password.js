@@ -6,6 +6,7 @@ import { Form, Input } from 'antd'
 import PageTitle from '../Utilities/PageTitle'
 import { useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 
 function Forgot_Password() {
@@ -15,6 +16,7 @@ function Forgot_Password() {
     const [email, setEmail] = useState('')
     const [notifyCheckMail, setNotifyCheckMail] = useState(false)
 
+    const navigate = useNavigate()
     /* When submit form Login -> do something */
     const onFinish = (values) => {
         /* write code here */
@@ -55,7 +57,7 @@ function Forgot_Password() {
                                 onFinish={onFinish}
                             >
                                 <div className="contain_logo m-4">
-                                    <img src={logo} alt="avt" />
+                                    <img src={logo} alt="avt" style={{cursor: 'pointer'}} onClick={() => navigate('/')} />
                                 </div>
                                 <p className='title mb-5 font-weight-bold'>FORGOT PASSWORD</p>
 

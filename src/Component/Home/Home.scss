@@ -22,8 +22,8 @@ $MD: 1024px;
 
 @import '../Base/Base.scss';
 
-.home_link:link,
-.home_link:visited {
+.contain_btn_link a:link,
+.contain_btn_link a:visited {
     background-color: #b89f80;
     color: white;
     padding: 14px 25px;
@@ -32,8 +32,8 @@ $MD: 1024px;
     text-decoration: none;
 }
 
-.home_link:hover,
-.home_link:active {
+.contain_btn_link a:hover,
+.contain_btn_link a:active {
     background-color: #ac8b64;
 }
 

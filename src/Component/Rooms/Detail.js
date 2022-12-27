@@ -16,6 +16,9 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from "react-redux"
 import { setRoomBooked } from '../../Redux/Slice/roomSlice'
+import { useQuery } from 'react-query'
+import Loader from '../Utilities/Loader'
+import Error from '../Utilities/Error'
 
 
 dayjs.extend(customParseFormat)
@@ -32,14 +35,14 @@ function Detail() {
     /* to call the action in reducer */
     const dispatch = useDispatch()
 
-    /* room data of detail page */
-    const [room, setRoom] = useState({})
-    const [loading, setLoading] = useState(false)
-
+    /* date booked of room */
     const [bookDate, setBookDate] = useState({
         startDate: null,
-        endDate: null
+        endDate: null,
     })
+
+    /* Status that chose date */
+    const [dateChosen, setDateChosen] = useState(false)
 
     // searchParams return a object
     const [searchParams, setSearchParams] = useSearchParams()
@@ -50,39 +53,23 @@ function Detail() {
     /* i18next */
     const { t, i18n } = useTranslation()
 
-
-    /* when 'refresh' change => call getAllData() again to refresh new data */
-    useEffect(() => {
-        getData()
-    }, [])
-
-    /* Get data from api */
+    // Fetcher function
     const getData = async () => {
-        setLoading(true)
-        await axios.get(`${API}/${roomID}`)
-            .then(resp => {
-                setRoom(resp.data)
-
-                /* after get data, set loading to False */
-                setLoading(false)
-            }
-            )
+        const res = await axios.get(`${API}/${roomID}`)
+        return res.data
     }
+
+    // Using the hook
+    const { data, error, isLoading, isError } = useQuery('Room', getData, { refetchInterval: 300000 })
+
 
     /* To disable date that booked */
     const disabledDate = (current) => {
-        const arr = [
-            {
-                startDate: "2022-12-13",
-                endDate: "2022-12-15"
-            }
-        ];
-
-        for (let i = 0; i < arr.length; i++) {
-            if (current >= dayjs(arr[i].startDate) && current <= dayjs(arr[i].endDate))
-                return true;
+        for (let i = 0; i < data.order.length; i++) {
+            if (current >= dayjs(data.order[i].startDate) && current <= dayjs(data.order[i].endDate))
+                return true
         }
-        return false;
+        return false
     }
 
     /* after choosing date */
@@ -92,15 +79,23 @@ function Detail() {
             endDate: stringDate[1].trim()
         })
 
+        setDateChosen(true)
+
         /* set current value of booked room */
         dispatch(setRoomBooked({
-            name: room.name,
-            price: room.price,
+            name: data.name,
+            price: data.price,
             startDate: stringDate[0],
             endDate: stringDate[1]
         }))
 
     }
+
+    /* while loading data -> display this */
+    if (isLoading) return <Loader />
+
+    /* if error when call api -> display this */
+    if(isError) return <Error description={error.message} />
 
     return (
         <>
@@ -120,33 +115,21 @@ function Detail() {
                     <div className="col-lg-8 col-sm-12 col-xs-12">
                         <div data-aos="fade-right" id="myCarousel" className="carousel slide contain_slider mt-5" data-ride="carousel">
 
-                            {loading ?
-                                <div className="d-flex justify-content-center mt-5" style={{ height: '400px', alignItems: 'center' }}>
-                                    <Space direction="vertical"
-                                        style={{
-                                            width: '100%',
-                                        }}>
-                                        <Spin tip="Loading" size="large">
-                                            <div className="content" />
-                                        </Spin>
-                                    </Space>
+                            <div className="carousel-inner">
+                                <div className="carousel-item active">
+                                    <img className='img_slider' src={data.avatar} alt="Los Angeles" />
                                 </div>
-                                :
-                                <div className="carousel-inner">
-                                    <div className="carousel-item active">
-                                        <img className='img_slider' src={room.avatar} alt="Los Angeles" />
-                                    </div>
-                                    <div className="carousel-item">
-                                        <img className='img_slider' src={room.avatar} alt="Chicago" />
-                                    </div>
-                                    <div className="carousel-item">
-                                        <img className='img_slider' src={room.avatar} alt="New York" />
-                                    </div>
-                                    <div className="carousel-item">
-                                        <img className='img_slider' src={room.avatar} alt="New York" />
-                                    </div>
+                                <div className="carousel-item">
+                                    <img className='img_slider' src={data.avatar} alt="Chicago" />
                                 </div>
-                            }
+                                <div className="carousel-item">
+                                    <img className='img_slider' src={data.avatar} alt="New York" />
+                                </div>
+                                <div className="carousel-item">
+                                    <img className='img_slider' src={data.avatar} alt="New York" />
+                                </div>
+                            </div>
+
 
 
 
@@ -161,16 +144,16 @@ function Detail() {
 
                         <div className="row">
                             <div className="about_room col-lg-12 col-sm-12 col-xs-12">
-                                <Skeleton loading={loading} active>
+                                <Skeleton loading={isLoading} active>
                                     <div className="title" data-aos="fade-left">
-                                        <p className='room_name font-weight-bold'>{room.name}</p>
-                                        <p className='room_price font-weight-bold'>${room.price} / {t('detail.detail_night')}</p>
+                                        <p className='room_name font-weight-bold'>{data.name}</p>
+                                        <p className='room_price font-weight-bold'>${data.price} / {t('detail.detail_night')}</p>
                                     </div>
                                 </Skeleton>
 
                                 <div className="row">
                                     <div data-aos="fade-right" className="description col-lg-8 col-sm-6 col-xs-12">
-                                        <Skeleton loading={loading} active>
+                                        <Skeleton loading={isLoading} active>
                                             <table className="table table-striped">
                                                 <thead>
                                                     <tr>
@@ -181,9 +164,9 @@ function Detail() {
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td>{room.type}</td>
-                                                        <td>{room.bed}</td>
-                                                        <td>{room.size} m²</td>
+                                                        <td>{data.type}</td>
+                                                        <td>{data.bed}</td>
+                                                        <td>{data.size} m²</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -191,22 +174,23 @@ function Detail() {
 
                                         <div data-aos="fade-right" className="item_description mt-4">
                                             <p className='item_description_title font-weight-bold'>{t('detail.detail_description')}</p>
-                                            <Skeleton loading={loading} active>
-                                                <p className='room_description'>{room.description}</p>
+                                            <Skeleton loading={isLoading} active>
+                                                <p className='room_description'>{data.description}</p>
                                             </Skeleton>
 
                                         </div>
                                     </div>
                                     <div className="wrap_room_services col-lg-4 col-sm-6 col-xs-12">
-                                        <Skeleton loading={loading} active>
+                                        <Skeleton loading={isLoading} active>
                                             <div data-aos="fade-right" className="room_services">
                                                 <p className="room_services_title font-weight-bold">{t('detail.detail_room_service')}</p>
                                                 <ul>
-                                                    <li><FontAwesomeIcon icon={faCircleCheck} className='mr-2 text-success' />Private bathroom</li>
-                                                    <li><FontAwesomeIcon icon={faCircleCheck} className='mr-2 text-success' />Free Wifi</li>
-                                                    <li><FontAwesomeIcon icon={faCircleCheck} className='mr-2 text-success' />Free Lunch</li>
-                                                    <li><FontAwesomeIcon icon={faCircleCheck} className='mr-2 text-success' />Bottled Mineral Water</li>
-                                                    <li><FontAwesomeIcon icon={faCircleCheck} className='mr-2 text-success' />Hot/Cold Shower & Bathtub</li>
+                                                    {
+                                                        data.services && data.services.length > 0 &&
+                                                        data.services.map((item, index) => (
+                                                            <li key={index}><FontAwesomeIcon icon={faCircleCheck} className='mr-2 text-success' />{item}</li>
+                                                        ))
+                                                    }
                                                 </ul>
                                             </div>
                                         </Skeleton>
@@ -244,8 +228,8 @@ function Detail() {
                                 </div>
                             </div>
                             <div className="wrap_button">
-                                <button className='btn btn-success' disabled={bookDate.startDate !== null && bookDate.endDate !== null ? false : true}
-                                    onClick={() => navigate('/booking_form', { replace: true })}
+                                <button className='btn btn-success' disabled={userToken && dateChosen ? false : true}
+                                    onClick={() => navigate('/booking_form')}
                                 >
                                     {t('detail.detail_reservation_button_book')}
                                 </button>
