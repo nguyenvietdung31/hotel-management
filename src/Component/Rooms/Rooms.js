@@ -1,28 +1,26 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+import { useQuery } from "react-query"
 import { useTranslation } from 'react-i18next'
-import Header from "../Header_Footer/Header";
-import Footer from "../Header_Footer/Footer";
+import { getAllData } from "../../Service/Room_service/API_Service"
+import Header from "../Header_Footer/Header"
+import Footer from "../Header_Footer/Footer"
 import Slider from "../Utilities/Slider"
-import ScrollToTop from "../Utilities/ScrollToTop";
-import PageTitle from "../Utilities/PageTitle";
-import BeAtTop from "../Utilities/BeAtTop";
+import ScrollToTop from "../Utilities/ScrollToTop"
+import PageTitle from "../Utilities/PageTitle"
+import BeAtTop from "../Utilities/BeAtTop"
 import AosAnimation from '../Utilities/AosAnimation'
-import axios from "axios";
+import Loader from "../Utilities/Loader"
+import Error from "../Utilities/Error"
 import './Rooms.scss'
 import {
     Pagination, Card, Select, Input, Slider as Slide,
     Space, Spin, Skeleton, Radio, Empty
 } from 'antd';
-import { useQuery } from "react-query";
-import Loader from "../Utilities/Loader";
-import Error from "../Utilities/Error";
 const { Meta } = Card
 
 
 function Rooms() {
-    /* API */
-    const API = 'https://639003d065ff41831106d1c8.mockapi.io/api/login/rooms'
 
     /* list data room */
     const [allRooms, setAllRooms] = useState([])
@@ -52,15 +50,15 @@ function Rooms() {
     const navigate = useNavigate()
 
     // Fetcher function
-    const getAllData = async () => {
-        const res = await axios.get(API)
-        setAllRooms(res.data)
-        setAllRoomsFilter(res.data)
-        return res.data
+    const getData = async () => {
+        const res = await getAllData()
+        setAllRooms(res)
+        setAllRoomsFilter(res)
+        return res
     }
 
     // Using the hook
-    const { data, error, isLoading, isError } = useQuery('Rooms', getAllData, { refetchInterval: 300000 })
+    const { data, error, isLoading, isError } = useQuery('Rooms', getData, { refetchInterval: 300000 })
 
 
     /* handle sort ascending or descending by name or price */

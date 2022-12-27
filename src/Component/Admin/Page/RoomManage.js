@@ -1,13 +1,15 @@
 import { Image, Modal, Table, Space, Button, Layout, Input, Spin } from 'antd'
 import React from 'react'
 import Sidebar from '../Sidebar'
-import axios from "axios";
 import { useState, useEffect } from "react";
 import { DownloadOutlined, PlusOutlined } from '@ant-design/icons';
+import { getAllData } from '../../../Service/Room_service/API_Service';
+import Loader from '../../Utilities/Loader';
+import Error from '../../Utilities/Error';
+import { useQuery } from 'react-query';
 
 function RoomManage() {
   const { Header, Sider, Content } = Layout
-  const API = 'https://639003d065ff41831106d1c8.mockapi.io/api/login/rooms'
   const [allRooms, setAllRooms] = useState([])
   const [loading, setLoading] = useState(false)
   const [refresh, setRefresh] = useState(false)
@@ -94,20 +96,21 @@ function RoomManage() {
     },
   ]
 
-  useEffect(() => {
-    getAllData()
-  }, [refresh])
-  const getAllData = async () => {
-    setLoading(true)
-    await axios.get(API)
-      .then(resp => {
-        setAllRooms(resp.data)
-        setTotalPages(resp.data.totalPages)
-        /* after get data, set loading to False */
-        setLoading(false)
-      }
-      )
+  // Fetcher function
+  const getData = async () => {
+    const res = await getAllData()
+    return res
   }
+
+  // Using the hook
+  const { data, error, isLoading, isError } = useQuery('Rooms', getData, { refetchInterval: 300000 })
+
+  /* while loading -> display this */
+  if(isLoading) return <Loader />
+
+  /* if error -> display this */
+  if(isError) return <Error description={error.message} />
+
   return (
     <>
       <Layout hasSider>
@@ -127,7 +130,7 @@ function RoomManage() {
                     </Space>
                   </div>
                 </div>
-                {loading ?
+                {isLoading ?
                   <div className="d-flex justify-content-center mt-5" style={{ height: '400px', alignItems: 'center' }}>
                     <Space direction="vertical"
                       style={{
@@ -142,11 +145,11 @@ function RoomManage() {
                   <div>
                     <Table
                       columns={column_room}
-                      dataSource={allRooms}
+                      dataSource={data}
                       pagination={{
                         pageSize: 8,
                         total: totalPages,
-                        onChange: () => { getAllData() }
+                        onChange: () => { getData() }
                       }}
                     />
                   </div>

@@ -1,8 +1,7 @@
-import { useTranslation } from 'react-i18next'
-import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import axios from 'axios'
-import './Home.scss'
+import { useQuery } from 'react-query'
+import { useTranslation } from 'react-i18next'
+import { getAllData } from '../../Service/Room_service/API_Service'
 import Header from '../Header_Footer/Header'
 import Footer from '../Header_Footer/Footer'
 import Slider from "../Utilities/Slider"
@@ -10,29 +9,26 @@ import BeAtTop from "../Utilities/BeAtTop"
 import PageTitle from "../Utilities/PageTitle"
 import ScrollToTop from "../Utilities/ScrollToTop"
 import Error from '../Utilities/Error'
+import AosAnimation from '../Utilities/AosAnimation'
+import './Home.scss'
 import slide_img1 from '../../Image/slide_img_1.jpg'
 import img_avt_team from '../../Image/img_avt_team.jpg'
 import { Card, Row, Col, Skeleton, Space, Spin } from "antd"
-import AosAnimation from '../Utilities/AosAnimation'
-import { useQuery } from 'react-query'
 
 
 function Home() {
 
     /* i18next */
     const { t, i18n } = useTranslation()
-    
-    /* API */
-    const API = 'https://639003d065ff41831106d1c8.mockapi.io/api/login/rooms'
 
     // Fetcher function
-    const getAllData = async () => {
-        const res = await axios.get(API)
-        return res.data
+    const getData = async () => {
+        const res = await getAllData()
+        return res
     }
 
     // Using the hook
-    const { data, error, isLoading, isError } = useQuery('all_Rooms', getAllData, { refetchInterval: 300000 })
+    const { data, error, isLoading, isError } = useQuery('all_Rooms', getData, { refetchInterval: 300000 })
 
 
     /* information about managers of hotel */
