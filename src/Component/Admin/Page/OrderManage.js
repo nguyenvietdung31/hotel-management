@@ -1,6 +1,7 @@
 import React from 'react'
-import { Layout,Button } from 'antd'
+import { Layout,Button, Space } from 'antd'
 import Sidebar from '../Sidebar'
+import { DownloadOutlined, PlusOutlined } from '@ant-design/icons';
 function OrderManage() {
   const { Sider, Content } = Layout
   return (
@@ -16,9 +17,11 @@ function OrderManage() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '5px' }}>
                 <h1>Order</h1>
                 <div>
-                  <Button className=''>Add new Order</Button>
-                  <Button className=''>Export Data</Button>
-                </div>
+                    <Space size='small'>
+                      <Button type='primary' style={{ backgroundColor: '#42b72a' }}><PlusOutlined /> Add new room</Button>
+                      <Button type='primary' style={{ backgroundColor: '#187205' }}><DownloadOutlined /> Export Data</Button>
+                    </Space>
+                  </div>
               </div>
               <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
                 <p>Order Table here</p>

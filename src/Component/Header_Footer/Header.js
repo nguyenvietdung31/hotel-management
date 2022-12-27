@@ -34,19 +34,16 @@ function Header() {
 
             <div className="menu ml-5">
               <div className="item_menu">
-                <a href="/">Home</a>
+                <Link to="/">Home</Link>
               </div>
               <div className="item_menu">
-                <a href="/rooms">Rooms</a>
+                <Link to="/rooms">Rooms</Link>
               </div>
               <div className="item_menu">
-                <a href="/about">About Us</a>
+                <Link to="/about">About Us</Link>
               </div>
               <div className="item_menu">
-                <a href="/contact">Contact</a>
-              </div>
-              <div className="item_menu">
-                <a href="/dashboard">Go to dashboard</a>
+                <Link to="/contact">Contact</Link>
               </div>
               <div className="item_menu">
                 <Link to='/dashboard'>Dashboard</Link>

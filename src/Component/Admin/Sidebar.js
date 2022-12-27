@@ -6,13 +6,11 @@ import {
     HomeOutlined,
     GlobalOutlined,
 } from '@ant-design/icons';
-import './Dashboard.css'
 import img_logo from '../../Image/hotel_logo.png'
 
-function Sidebar({ children }) {
+function Sidebar() {
     const navigate = useNavigate()
     const { Header, Sider, Content } = Layout
-    const [collapsed, setCollapsed] = useState(false)
     return (
         <div>
             <div>
@@ -20,7 +18,6 @@ function Sidebar({ children }) {
                     <Sider
                         trigger={null}
                         collapsible
-                        collapsed={collapsed}
                         className='sidebar'
                         // style={{ display: 'flex', flexDirection: 'row', background: '#001529', minHeight: '100vh', height: '100%' }}
                         style={{
@@ -31,7 +28,6 @@ function Sidebar({ children }) {
                             top: 0,
                             bottom: 0,
                         }}
-
                     >
                         <div style={{
                         padding: "10px 0 0 0",
@@ -48,7 +44,6 @@ function Sidebar({ children }) {
                             }}
                             theme='dark'
                             mode='inline'
-                            inlineCollapsed={collapsed}
                             items={[
                                 // {
                                 //     key: '/',
@@ -90,7 +85,6 @@ function Sidebar({ children }) {
                         </Menu>
                     </Sider>
                 </Layout>
-
             </div>
         </div>
     )

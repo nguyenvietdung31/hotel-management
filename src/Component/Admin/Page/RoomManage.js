@@ -1,15 +1,14 @@
-import { Image, Modal, Table, Space, Button, Layout, Input,Spin } from 'antd'
+import { Image, Modal, Table, Space, Button, Layout, Input, Spin } from 'antd'
 import React from 'react'
 import Sidebar from '../Sidebar'
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { DownloadOutlined, FileAddOutlined, PlusOutlined } from '@ant-design/icons';
+import { DownloadOutlined, PlusOutlined } from '@ant-design/icons';
 
 function RoomManage() {
   const { Header, Sider, Content } = Layout
   const API = 'https://639003d065ff41831106d1c8.mockapi.io/api/login/rooms'
   const [allRooms, setAllRooms] = useState([])
-  const [allRoomsFilter, setAllRoomsFilter] = useState([])
   const [loading, setLoading] = useState(false)
   const [refresh, setRefresh] = useState(false)
   const [totalPages, setTotalPages] = useState(1)
@@ -103,9 +102,7 @@ function RoomManage() {
     await axios.get(API)
       .then(resp => {
         setAllRooms(resp.data)
-        setAllRoomsFilter(resp.data)
         setTotalPages(resp.data.totalPages)
-
         /* after get data, set loading to False */
         setLoading(false)
       }
@@ -125,37 +122,35 @@ function RoomManage() {
                   <h1>Room</h1>
                   <div>
                     <Space size='small'>
-                      <Button type='primary' style={{ backgroundColor: '#42b72a' }}><PlusOutlined/> Add new room</Button>
-                      <Button type='primary' style={{ backgroundColor: '#187205' }}><DownloadOutlined/> Export Data</Button>
+                      <Button type='primary' style={{ backgroundColor: '#42b72a' }}><PlusOutlined /> Add new room</Button>
+                      <Button type='primary' style={{ backgroundColor: '#187205' }}><DownloadOutlined /> Export Data</Button>
                     </Space>
                   </div>
                 </div>
-                {loading?
-                <div className="d-flex justify-content-center mt-5" style={{ height: '400px', alignItems: 'center' }}>
-                <Space direction="vertical"
-                    style={{
+                {loading ?
+                  <div className="d-flex justify-content-center mt-5" style={{ height: '400px', alignItems: 'center' }}>
+                    <Space direction="vertical"
+                      style={{
                         width: '100%',
-                    }}>
-                    <Spin tip="Loading" size="large">
+                      }}>
+                      <Spin tip="Loading" size="large">
                         <div className="content" />
-                    </Spin>
-                </Space>
-            </div>
-
-                :
-                <div>
-                  <Table
-                    columns={column_room}
-                    dataSource={allRooms}
-                    pagination={{
-                      pageSize: 8,
-                      total: totalPages,
-                      onChange: () => { getAllData() }
-                    }}
-                  />
-                </div>
+                      </Spin>
+                    </Space>
+                  </div>
+                  :
+                  <div>
+                    <Table
+                      columns={column_room}
+                      dataSource={allRooms}
+                      pagination={{
+                        pageSize: 8,
+                        total: totalPages,
+                        onChange: () => { getAllData() }
+                      }}
+                    />
+                  </div>
                 }
-                
               </div>
             </div>
           </Content>

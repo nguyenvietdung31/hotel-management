@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import img_avt_team from '../../../Image/img_avt_team.jpg'
 import { Avatar, Button, Layout, Space, Table } from 'antd'
 import Sidebar from '../Sidebar'
+import { DownloadOutlined, PlusOutlined } from '@ant-design/icons';
 function StaffManage() {
 
 
@@ -39,14 +40,14 @@ function StaffManage() {
 
   const { Header, Sider, Content } = Layout
   const [data, setData] = useState([])
-  
+
   const onDelete = (id) => {
-    const deleteStaff = data.filter((el)=>{
+    const deleteStaff = data.filter((el) => {
       return el.id !== id
     })
     setData(deleteStaff)
 
-  } 
+  }
   const column_staff = [
     {
       title: 'Avatar',
@@ -80,33 +81,14 @@ function StaffManage() {
     {
       title: 'Action',
       key: 'action',
-      render: (_,record) => (
+      render: (_, record) => (
         <Space size='middle'>
           <Button>Edit</Button>
-          <Button onClick={()=>onDelete(record.id)}>Delete</Button>
+          <Button onClick={() => onDelete(record.id)}>Delete</Button>
         </Space>
       )
     }
   ]
-
-  // return (
-  //   <div>
-  //     <div style={{ display: 'flex' }}>
-  //       <div>
-  //         <Sidebar />
-  //       </div>
-  //       <div style={{ width: '100%' }}>
-  //         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '5px' }}>
-  //           <h1>Staff</h1>
-  //           <Button className=''>Add new staff</Button>
-  //         </div>
-  //         <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-  //           <Table columns={column_staff} dataSource={admin_staff} />
-  //         </div>
-  //       </div>
-  //     </div>
-  //   </div>
-  // )
   return (
     <Layout hasSider>
       <Sider      >
@@ -119,9 +101,11 @@ function StaffManage() {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '5px' }}>
                 <h1>Staff</h1>
                 <div>
-                  <Button className=''>Add new staff</Button>
-                  <Button className=''>Export Data</Button>
-                </div>
+                    <Space size='small'>
+                      <Button type='primary' style={{ backgroundColor: '#42b72a' }}><PlusOutlined /> Add new room</Button>
+                      <Button type='primary' style={{ backgroundColor: '#187205' }}><DownloadOutlined /> Export Data</Button>
+                    </Space>
+                  </div>
               </div>
               <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
                 <Table
