@@ -9,7 +9,8 @@
         "change_pass": "Change Password",
         "log_out": "Log Out",
         "log_in": "Log In",
-        "register": "Register"
+        "register": "Register",
+        "dashboard":"Dashboard"
     },
 
     "footer": {
