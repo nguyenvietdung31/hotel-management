@@ -74,6 +74,9 @@ function Header() {
                 <div className="item_menu">
                   <a href="/contact">{t('header.contact')}</a>
                 </div>
+                <div className="item_menu">
+                  <a href="/dashboard">{t('header.dashboard')}</a>
+                </div>
               </div>
 
               <div className="contain_btn_see_more">

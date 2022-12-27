@@ -15,7 +15,12 @@ const Rooms = lazy(() => import('../Rooms/Rooms'))
 const NotFound = lazy(() => import('../NotFound/NotFound'))
 const Booking_Form = lazy(() => import('../Form/Booking_Form'))
 const Detail = lazy(() => import('../Rooms/Detail'))
-
+const Dashboard = lazy(() => import('../Admin/Dashboard'))
+const RoomManage = lazy(() => import('../Admin/Page/RoomManage'))
+const StaffManage = lazy(() => import('../Admin/Page/StaffManage'))
+const UserManage = lazy(() => import('../Admin/Page/UserManage'))
+const OrderManage = lazy(() => import('../Admin/Page/OrderManage'))
+const ExportData = lazy(() => import('../Admin/Page/ExportData'))
 function RouterApp() {
 
     return (
@@ -95,12 +100,31 @@ function RouterApp() {
 
 
                 {/* Link to admin site */}
-                <Route path='/dashboard' element={<Dashboard/>}/>
-                <Route path='/roommanage' element={<RoomManage />}/>
-                <Route path='/staffmanage' element={<StaffManage/>}/>
-                <Route path='/usermanage' element={<UserManage/>}/>
-                <Route path='/ordermanage' element={<OrderManage/>}/>
-                <Route path='/exportdata' element={<ExportData/>}/>
+                <Route path='/dashboard' element={
+                    <Suspense fallback={<Loader />}>
+                        <Dashboard />
+                    </Suspense>} />
+
+                <Route path='/roommanage' element={
+                    <Suspense fallback={<Loader />}>
+                        <RoomManage />
+                    </Suspense>} />
+                <Route path='/staffmanage' element={
+                    <Suspense fallback={<Loader />}>
+                        <StaffManage />
+                    </Suspense>} />
+                <Route path='/usermanage' element={
+                    <Suspense fallback={<Loader />}>
+                        <UserManage />
+                    </Suspense>} />
+                <Route path='/ordermanage' element={
+                    <Suspense fallback={<Loader />}>
+                        <OrderManage />
+                    </Suspense>} />
+                <Route path='/exportdata' element={
+                    <Suspense fallback={<Loader />}>
+                        <ExportData />
+                    </Suspense>} />
             </Routes>
         </>
     )

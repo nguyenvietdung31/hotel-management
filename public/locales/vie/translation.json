@@ -9,7 +9,8 @@
       "change_pass": "Đổi Mật Khẩu",
       "log_out": "Đăng Xuất",
       "log_in": "Đăng Nhập",
-      "register": "Đăng Ký"
+      "register": "Đăng Ký",
+      "dashboard":"Tổng Quan"
     },
 
     "footer": {
