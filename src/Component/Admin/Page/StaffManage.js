@@ -8,6 +8,7 @@ function StaffManage() {
 
   const admin_staff = [
     {
+      id:'01',
       name: 'Nguyễn Việt Dũng',
       position: 'Front-end Developer',
       avatar: img_avt_team,
@@ -15,6 +16,7 @@ function StaffManage() {
       sex: 'male',
     },
     {
+      id:'02',
       name: 'Nguyễn Minh Thanh',
       position: 'Front-end Developer',
       avatar: img_avt_team,
@@ -22,6 +24,7 @@ function StaffManage() {
       sex: 'male',
     },
     {
+      id:'03',
       name: 'Phạm Tùng Dương',
       position: 'Back-end Developer',
       avatar: img_avt_team,
@@ -29,6 +32,7 @@ function StaffManage() {
       sex: 'male',
     },
     {
+      id:'04',
       name: 'Nguyễn Cung Ứng',
       position: 'Back-end Developer',
       avatar: img_avt_team,
@@ -102,7 +106,7 @@ function StaffManage() {
                 <h1>Staff</h1>
                 <div>
                     <Space size='small'>
-                      <Button type='primary' style={{ backgroundColor: '#42b72a' }}><PlusOutlined /> Add new room</Button>
+                      <Button type='primary' style={{ backgroundColor: '#42b72a' }}><PlusOutlined /> Add a new staff</Button>
                       <Button type='primary' style={{ backgroundColor: '#187205' }}><DownloadOutlined /> Export Data</Button>
                     </Space>
                   </div>
@@ -111,6 +115,7 @@ function StaffManage() {
                 <Table
                   columns={column_staff}
                   dataSource={admin_staff}
+                  rowKey = {record=>record.id}
                 // pagination={{
                 //   pageSize: 8,
                 //   total: totalPages,
