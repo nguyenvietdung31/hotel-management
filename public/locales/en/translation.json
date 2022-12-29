@@ -111,7 +111,7 @@
     "booking": {
         "booking_button_rooms": "See other rooms",
         "booking_room_title": "Room Information",
-        "booking_room": "Room name",
+        "booking_room": "Name",
         "booking_room_price": "Price",
         "booking_room_startdate": "Start Date",
         "booking_room_enddate": "End Date",

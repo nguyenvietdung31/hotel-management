@@ -1,49 +1,35 @@
+import { Link, useNavigate } from "react-router-dom"
+import { useQuery } from 'react-query'
 import { useTranslation } from 'react-i18next'
-import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
-import AOS from 'aos'
-import axios from 'axios'
-import './Home.scss'
+import { getAllData } from '../../Service/Room_service/API_Service'
 import Header from '../Header_Footer/Header'
 import Footer from '../Header_Footer/Footer'
 import Slider from "../Utilities/Slider"
 import BeAtTop from "../Utilities/BeAtTop"
 import PageTitle from "../Utilities/PageTitle"
 import ScrollToTop from "../Utilities/ScrollToTop"
+import Error from '../Utilities/Error'
+import AosAnimation from '../Utilities/AosAnimation'
+import './Home.scss'
 import slide_img1 from '../../Image/slide_img_1.jpg'
 import img_avt_team from '../../Image/img_avt_team.jpg'
 import { Card, Row, Col, Skeleton, Space, Spin } from "antd"
-import AosAnimation from '../Utilities/AosAnimation'
+
 
 function Home() {
 
     /* i18next */
     const { t, i18n } = useTranslation()
-    
-    /* API */
-    const API = 'https://639003d065ff41831106d1c8.mockapi.io/api/login/rooms'
 
-    /* list data room */
-    const [allRooms, setAllRooms] = useState([])
-    const [loading, setLoading] = useState(false)
-
-    /* when 'refresh' change => call getAllData() again to refresh new data */
-    useEffect(() => {
-        getAllData()
-    }, [])
-
-    /* Get data from api */
-    const getAllData = async () => {
-        setLoading(true)
-        await axios.get(API)
-            .then(resp => {
-                setAllRooms(resp.data)
-
-                /* after get data, set loading to False */
-                setLoading(false)
-            }
-            )
+    // Fetcher function
+    const getData = async () => {
+        const res = await getAllData()
+        return res
     }
+
+    // Using the hook
+    const { data, error, isLoading, isError } = useQuery('all_Rooms', getData, { refetchInterval: 300000 })
+
 
     /* information about managers of hotel */
     const home_staff = [
@@ -89,6 +75,10 @@ function Home() {
     const { Meta } = Card
     let navigate = useNavigate()
 
+    /* if error when call api -> display this */
+    if(isError) return <Error description={error.message}/>
+        
+
     return (
         <>
             {/* set title of page */}
@@ -109,7 +99,7 @@ function Home() {
                 <p className="text-center" data-aos="fade-up">{t('home.introduce_room_description')}</p>
                 <div className="row">
                     {
-                        loading ?
+                        isLoading ?
                         (
                             <div className="col-lg-12 col-sm-6 col-xs-12 mt-3 mb-3 d-flex justify-content-center mt-5">
                                 <Space direction="vertical"
@@ -123,17 +113,17 @@ function Home() {
                             </div>
                         ) :
                         // Check if data exist => display the data
-                        (allRooms && allRooms.length > 0 &&
+                        (data && data.length > 0 &&
                         // Display data in range - for Pagination
-                        allRooms.slice(0, 3).map((el, index) => (
+                        data.slice(0, 3).map((el, index) => (
                             <div data-aos="fade-right" className="col-lg-4 col-sm-6 col-xs-12 mt-3 mb-3" key={index}>
                                 <Card style={{ overflow: 'hidden' }}
-                                    onClick={() => navigate(`/detail?roomID=${el.id}`, { replace: true })}
+                                    onClick={() => navigate(`/detail?roomID=${el.id}`)}
                                     hoverable
                                     cover={<img className="img_rooms" alt="img" src={slide_img1} style={{ borderBottom: '1px solid #000' }} />}
                                 >
-                                    <Skeleton loading={loading} avatar active>
-                                        <Meta title={el.title} description={el.description} className="mt-1" />
+                                    <Skeleton loading={isLoading} avatar active>
+                                        <Meta title={el.name} description={el.description} className="mt-1" />
                                         <Meta title={`$ ${el.price}`} className="mt-2 contain_price" />
                                     </Skeleton>
                                 </Card>
@@ -141,8 +131,8 @@ function Home() {
                         )))
                     }
 
-                    <div className="col-lg-12 col-sm-12 col-xs-12 d-flex justify-content-center">
-                        <a href="/rooms" className="home_link">{t('home.introduce_room_seemore')}</a>
+                    <div className="contain_btn_link col-lg-12 col-sm-12 col-xs-12 d-flex justify-content-center">
+                        <Link to="/rooms" className="home_link">{t('home.introduce_room_seemore')}</Link>
                     </div>
                 </div>
 
@@ -170,8 +160,8 @@ function Home() {
                         ))
                     }
                 </Row>
-                <div className="col-lg-12 col-sm-12 col-xs-12 d-flex justify-content-center">
-                    <a href="/about" className="home_link">{t('home.introduce_member_seemore')}</a>
+                <div className="contain_btn_link col-lg-12 col-sm-12 col-xs-12 d-flex justify-content-center">
+                    <Link to="/about" className="home_link">{t('home.introduce_member_seemore')}</Link>
                 </div>
             </div>
             <hr />

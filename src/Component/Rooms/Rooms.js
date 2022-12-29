@@ -1,14 +1,17 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+import { useQuery } from "react-query"
 import { useTranslation } from 'react-i18next'
-import Header from "../Header_Footer/Header";
-import Footer from "../Header_Footer/Footer";
+import { getAllData } from "../../Service/Room_service/API_Service"
+import Header from "../Header_Footer/Header"
+import Footer from "../Header_Footer/Footer"
 import Slider from "../Utilities/Slider"
-import ScrollToTop from "../Utilities/ScrollToTop";
-import PageTitle from "../Utilities/PageTitle";
-import BeAtTop from "../Utilities/BeAtTop";
+import ScrollToTop from "../Utilities/ScrollToTop"
+import PageTitle from "../Utilities/PageTitle"
+import BeAtTop from "../Utilities/BeAtTop"
 import AosAnimation from '../Utilities/AosAnimation'
-import axios from "axios";
+import Loader from "../Utilities/Loader"
+import Error from "../Utilities/Error"
 import './Rooms.scss'
 import {
     Pagination, Card, Select, Input, Slider as Slide,
@@ -18,18 +21,10 @@ const { Meta } = Card
 
 
 function Rooms() {
-    /* API */
-    const API = 'https://639003d065ff41831106d1c8.mockapi.io/api/login/rooms'
 
     /* list data room */
     const [allRooms, setAllRooms] = useState([])
     const [allRoomsFilter, setAllRoomsFilter] = useState([])
-
-    /* Loading when call data from api */
-    const [loading, setLoading] = useState(false)
-
-    /* Decide when recall useEffect */
-    const [refresh, setRefresh] = useState(false)
 
     /* State for filtering */
     const [type, setType] = useState('all')
@@ -49,31 +44,22 @@ function Rooms() {
     const [maxValue, setMaxValue] = useState(pageSizeOpt[0])
 
     /* i18next */
-    const { t, i18n } = useTranslation();
+    const { t, i18n } = useTranslation()
 
     // using this to redirect to another page
     const navigate = useNavigate()
 
-    
-
-    /* when 'refresh' change => call getAllData() again to refresh new data */
-    useEffect(() => {
-        getAllData()
-    }, [refresh])
-
-    /* Get data from api */
-    const getAllData = async () => {
-        setLoading(true)
-        await axios.get(API)
-            .then(resp => {
-                setAllRooms(resp.data)
-                setAllRoomsFilter(resp.data)
-
-                /* after get data, set loading to False */
-                setLoading(false)
-            }
-            )
+    // Fetcher function
+    const getData = async () => {
+        const res = await getAllData()
+        setAllRooms(res)
+        setAllRoomsFilter(res)
+        return res
     }
+
+    // Using the hook
+    const { data, error, isLoading, isError } = useQuery('Rooms', getData, { refetchInterval: 300000 })
+
 
     /* handle sort ascending or descending by name or price */
     const handleSort = (sort_type) => {
@@ -187,6 +173,12 @@ function Rooms() {
         setMaxValue(pageNumber * pageSize)
     }
 
+    /* while loading data -> display this */
+    if(isLoading) return <Loader />
+
+    /* if error when call api -> display this */
+    if(isError) return <Error />
+
     return (
         <>
             {/* set title of page */}
@@ -262,7 +254,7 @@ function Rooms() {
                             </div>
                             {/* loop rooms here */}
                             {
-                                loading ?
+                                isLoading ?
                                     (
                                         <div className="col-lg-12 col-sm-6 col-xs-12 mt-3 mb-3 d-flex justify-content-center mt-5">
                                             <Space direction="vertical"
@@ -281,11 +273,11 @@ function Rooms() {
                                         allRooms.slice(minValue, maxValue).map((val, index) => (
                                             <div className="col-lg-4 col-sm-6 col-xs-12 mt-3 mb-3" key={index}>
                                                 <Card style={{ overflow: 'hidden' }} loading={val !== undefined ? false : true}
-                                                    onClick={() => navigate(`/detail?roomID=${val.id}`, { replace: true })}
+                                                    onClick={() => navigate(`/detail?roomID=${val.id}`)}
                                                     hoverable
                                                     cover={<img className="img_rooms" alt="example" src={val.avatar} />}
                                                 >
-                                                    <Skeleton loading={loading} avatar active>
+                                                    <Skeleton loading={isLoading} avatar active>
                                                         <Meta title={val.name} description={val.description} className="mt-1" />
                                                         <Meta title={`Type: ${val.type}`} className="mt-2" />
                                                         <Meta title={`Price: $${val.price}`} className="mt-2 contain_price" />
@@ -302,7 +294,7 @@ function Rooms() {
 
                             {/* Pagination part */}
                             {
-                                !loading && allRooms && allRooms.length > 0 &&
+                                !isLoading && allRooms && allRooms.length > 0 &&
                                 <div data-aos="fade-right" className="col-md-12 col-sm-12 col-xs-12 d-flex justify-content-center mt-5 mb-5">
                                     <Pagination
                                         showSizeChanger

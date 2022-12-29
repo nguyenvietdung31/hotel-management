@@ -5,8 +5,7 @@ import './Header.scss'
 import img_logo from '../../Image/hotel_logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faGlobe } from '@fortawesome/free-solid-svg-icons'
-import { useNavigate } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function Header() {
   /* Define state */
@@ -48,7 +47,7 @@ function Header() {
   }
 
   const handleLogOut = () => {
-    localStorage.clear('userToken')
+    localStorage.clear()
     navigate(0)
   }
 
@@ -63,20 +62,23 @@ function Header() {
 
               <div className="menu ml-5">
                 <div className="item_menu">
-                  <a href="/">{t('header.home')}</a>
+                  <Link to="/">{t('header.home')}</Link>
                 </div>
                 <div className="item_menu">
-                  <a href="/rooms">{t('header.rooms')}</a>
+                  <Link to="/rooms">{t('header.rooms')}</Link>
                 </div>
                 <div className="item_menu">
-                  <a href="/about">{t('header.about')}</a>
+                  <Link to="/about">{t('header.about')}</Link>
                 </div>
                 <div className="item_menu">
-                  <a href="/contact">{t('header.contact')}</a>
+                  <Link to="/contact">{t('header.contact')}</Link>
                 </div>
-                <div className="item_menu">
-                  <a href="/dashboard">{t('header.dashboard')}</a>
-                </div>
+                {
+                  localStorage.getItem('access_admin') &&
+                  <div className="item_menu">
+                    <a href="/dashboard">{t('header.dashboard')}</a>
+                  </div>
+                }
               </div>
 
               <div className="contain_btn_see_more">
@@ -128,8 +130,8 @@ function Header() {
                         <img src={img_logo} width={50} height={50} className='rounded-circle' alt="avatar" role="button"
                           id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" />
                         <div className="dropdown-menu">
-                          <a className="dropdown-item" href="/change_password">{t('header.change_pass')}</a>
-                          <a className="dropdown-item" style={{ cursor: 'pointer' }} onClick={handleLogOut}>{t('header.log_out')}</a>
+                          <Link className="dropdown-item" to="/change_password">{t('header.change_pass')}</Link>
+                          <Link className="dropdown-item" style={{ cursor: 'pointer' }} onClick={handleLogOut}>{t('header.log_out')}</Link>
                         </div>
                       </div>
                     </div>
@@ -138,10 +140,10 @@ function Header() {
                     /* Not logged in will display this */
                     <div className="login_register">
                       <div className='right_item_menu'>
-                        <a href="/login" className='btn btn-light'>{t('header.log_in')}</a>
+                        <Link to="/login" className='btn btn-light'>{t('header.log_in')}</Link>
                       </div>
                       <div className='right_item_menu'>
-                        <a href="/register" className='btn btn-light'>{t('header.register')}</a>
+                        <Link to="/register" className='btn btn-light'>{t('header.register')}</Link>
                       </div>
                     </div>
                   )
@@ -153,18 +155,21 @@ function Header() {
           {/* When the isHiddenMenuLink = false then display the menu link */}
           {!isHiddenMenuLink &&
             <div className="list_dropdown_menu">
-              <a href="/"><div className="item_dropdown_menu">{t('header.home')}</div></a>
-              <a href="/rooms"><div className="item_dropdown_menu">{t('header.rooms')}</div></a>
-              <a href="/about"><div className="item_dropdown_menu">{t('header.about')}</div></a>
-              <a href="/contact"><div className="item_dropdown_menu">{t('header.contact')}</div></a>
+              <Link to="/"><div className="item_dropdown_menu">{t('header.home')}</div></Link>
+              <Link to="/rooms"><div className="item_dropdown_menu">{t('header.rooms')}</div></Link>
+              <Link to="/about"><div className="item_dropdown_menu">{t('header.about')}</div></Link>
+              <Link to="/contact"><div className="item_dropdown_menu">{t('header.contact')}</div></Link>
+              {
+                localStorage.getItem('access_admin') &&
+                <Link to="/dashboard"><div className="item_dropdown_menu">{t('header.dashboard')}</div></Link>
+              }
 
               {userToken === null &&
                 <div>
-                  <a href="/login"><div className="item_dropdown_menu">{t('header.log_in')}</div></a>
-                  <a href="/register"><div className="item_dropdown_menu">{t('header.register')}</div></a>
+                  <Link to="/login"><div className="item_dropdown_menu">{t('header.log_in')}</div></Link>
+                  <Link to="/register"><div className="item_dropdown_menu">{t('header.register')}</div></Link>
                 </div>
               }
-
 
             </div>
           }
@@ -184,8 +189,8 @@ function Header() {
           {/* When the isHiddenUserMore = false then display the menu of user */}
           {!isHiddenUserMore &&
             <div className="list_dropdown_menu">
-              <a href="/change_password"><div className="item_dropdown_menu">{t('header.change_pass')}</div></a>
-              <a href="/log-out"><div className="item_dropdown_menu">{t('header.log_out')}</div></a>
+              <Link to="/change_password"><div className="item_dropdown_menu">{t('header.change_pass')}</div></Link>
+              <Link to="/log-out"><div className="item_dropdown_menu">{t('header.log_out')}</div></Link>
             </div>
           }
 

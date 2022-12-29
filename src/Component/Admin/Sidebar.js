@@ -56,27 +56,27 @@ function Sidebar() {
                                     icon: <DashboardOutlined />
                                 },
                                 {
-                                    key: '/roommanage',
+                                    key: '/room_manage',
                                     label: "Room manage",
                                     icon: <HomeOutlined />
                                 },
                                 {
-                                    key: '/staffmanage',
+                                    key: '/staff_manage',
                                     label: "Staff manage",
                                     icon: <TeamOutlined />
                                 },
                                 {
-                                    key: '/usermanage',
+                                    key: '/user_manage',
                                     label: "User manage",
                                     icon: <UserOutlined />
                                 },
                                 {
-                                    key: '/ordermanage',
-                                    label: "Order manage",
+                                    key: '/booking_manage',
+                                    label: "Booking manage",
                                     icon: <FileOutlined />
                                 },
                                 // {
-                                //     key: '/exportdata',
+                                //     key: '/export_data',
                                 //     label: "Export database",
                                 //     icon: <DatabaseOutlined />
                                 // },
