@@ -15,6 +15,7 @@ const Rooms = lazy(() => import('../Rooms/Rooms'))
 const NotFound = lazy(() => import('../NotFound/NotFound'))
 const Booking_Form = lazy(() => import('../Form/Booking_Form'))
 const Detail = lazy(() => import('../Rooms/Detail'))
+const Order_History = lazy(() => import('../Order/Order_History'))
 
 function RouterApp() {
 
@@ -77,6 +78,11 @@ function RouterApp() {
                 <Route path='/booking_form' element={
                     <Suspense fallback={<Loader />}>
                         <Booking_Form />
+                    </Suspense>
+                } />
+                <Route path='/order_history' element={
+                    <Suspense fallback={<Loader />}>
+                        <Order_History />
                     </Suspense>
                 } />
 
