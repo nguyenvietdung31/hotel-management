@@ -5,9 +5,9 @@ import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { Form, Input } from 'antd'
 import PageTitle from '../Utilities/PageTitle'
 import { useState } from 'react'
-import axios from 'axios'
+import Notify from '../Notification/Notify'
 import { useNavigate } from 'react-router-dom'
-
+import { postData, postDataService } from '../../Service/Account_service/API_Service'
 
 function Forgot_Password() {
 
@@ -15,23 +15,56 @@ function Forgot_Password() {
 
     const [email, setEmail] = useState('')
     const [notifyCheckMail, setNotifyCheckMail] = useState(false)
+    const [notify, setNotify] = useState({
+        status: false,
+        message: '',
+        type: ''
+    })
 
     const navigate = useNavigate()
     /* When submit form Login -> do something */
     const onFinish = (values) => {
-        /* write code here */
+        /* data will be sent through api */
+        const data = { Email: email }
 
-        handleForgotPassword()
+        /*  Send email to server to handle */
+        handleForgotPassword(data)
+
+        /* reset input field */
         handleResetInputField()
     }
 
     /* forgot password */
-    const handleForgotPassword = async () => {
-        await axios.post(`${API}`, {
-            email: email
-        })
-            .then(res => setNotifyCheckMail(true))
-            .catch(err => console.error(err))
+    const handleForgotPassword = async (data) => {
+        await postDataService(data)
+            .then(res => {
+                /* set notification */
+                setNotify({
+                    status: true,
+                    message: 'Successfully!',
+                    type: 'success'
+                })
+                handleNotify()
+
+                /* notify check mail to activate account */
+                setNotifyCheckMail(true)
+            })
+            .catch(err => {
+                /* set notification */
+                setNotify({
+                    status: true,
+                    message: err.message,
+                    type: 'error'
+                })
+                handleNotify()
+            })
+    }
+
+    /* hide notification */
+    const handleNotify = () => {
+        setTimeout(() => {
+            setNotify({status: false})
+        }, 2000)
     }
 
     /* reset input field */
@@ -45,6 +78,8 @@ function Forgot_Password() {
             <PageTitle title='Forgot password page' />
 
             <div className="container-fluid">
+                {notify.status && <Notify message={notify.message} type={notify.type} />}
+
                 <div className="row">
                     <div className="wrapper col-md-12 col-sm-12 col-xs-12">
                         <div className="wrap_form">
@@ -57,7 +92,7 @@ function Forgot_Password() {
                                 onFinish={onFinish}
                             >
                                 <div className="contain_logo m-4">
-                                    <img src={logo} alt="avt" style={{cursor: 'pointer'}} onClick={() => navigate('/')} />
+                                    <img src={logo} alt="avt" style={{ cursor: 'pointer' }} onClick={() => navigate('/')} />
                                 </div>
                                 <p className='title mb-5 font-weight-bold'>FORGOT PASSWORD</p>
 

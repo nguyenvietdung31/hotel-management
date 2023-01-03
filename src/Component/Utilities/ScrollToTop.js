@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { memo, useState } from 'react'
 
 function ScrollToTop() {
     /* Initialize the variable to check when scroll button appear */
@@ -41,6 +41,7 @@ function ScrollToTop() {
         document.documentElement.scrollTop = 0;
     }
 
+
     return (
         <>
             {/* scroll to top */}
@@ -50,4 +51,4 @@ function ScrollToTop() {
     )
 }
 
-export default ScrollToTop
+export default memo(ScrollToTop)

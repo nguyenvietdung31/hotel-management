@@ -61,7 +61,7 @@ function RoomManage() {
     },
     {
       title: 'Price',
-      dataIndex: 'price',
+      dataIndex: `price`,
       key: 'price',
     },
     {
@@ -145,6 +145,7 @@ function RoomManage() {
                   <div>
                     <Table
                       columns={column_room}
+                      rowKey='id'
                       dataSource={data}
                       pagination={{
                         pageSize: 8,

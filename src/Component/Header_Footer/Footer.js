@@ -1,7 +1,7 @@
 import { Col, Row } from 'antd';
 import './Footer.scss'
 import img_logo from '../../Image/hotel_logo.png'
-import { Suspense } from 'react';
+import { memo, Suspense } from 'react';
 import Loader from '../Utilities/Loader';
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom';
@@ -49,4 +49,4 @@ function Footer() {
     )
 }
 
-export default Footer
+export default memo(Footer)

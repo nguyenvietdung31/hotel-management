@@ -7,7 +7,8 @@ import { Form, Input } from 'antd'
 import PageTitle from '../Utilities/PageTitle'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Notify from '../Notification/Notify';
+import Notify from '../Notification/Notify'
+import { postDataService } from '../../Service/Account_service/API_Service';
 
 function Register() {
 
@@ -22,7 +23,11 @@ function Register() {
     const [phone, setPhone] = useState('')
     const [address, setAddress] = useState('')
 
-    const [notify, setNotify] = useState(false)
+    const [notify, setNotify] = useState({
+        status: false,
+        message: '',
+        type: ''
+    })
     const [notifyActive, setNotifyActive] = useState(false)
 
     /* use this to redirect page */
@@ -30,26 +35,43 @@ function Register() {
 
     /* When submit form Register set value for 5 states below */
     const onFinish = (values) => {
+        const acc = {
+            Email: email,
+            Password: password
+        }
         /* handle register here */
-        postData()
+        handleRegister(acc)
 
         /* reset input field */
         handleResetInputField()
-
-        /* set notification */
-        setNotify(true)
-        setNotifyActive(true)
-        handleNotify()
     }
 
     /* post data */
-    const postData = async () => {
-        await axios.post(API, {
-            Email: email,
-            Password: password
-        })
-            .then(res => handleRedirect('/login'))
-            .catch(err => console.log(err))
+    const handleRegister = async (acc) => {
+        await postDataService(acc)
+            .then(res => {
+                /* set notification */
+                setNotify({
+                    status: true,
+                    message: 'You have registed successfully!',
+                    type: 'success'
+                })
+                handleNotify()
+
+                /* notify check mail to activate account */
+                setNotifyActive(true)
+
+            })
+            .catch(err => {
+                /* set notification */
+                setNotify({
+                    status: true,
+                    message: err.message,
+                    type: 'error'
+                })
+                handleNotify()
+
+            })
     }
 
     /* reset input field */
@@ -62,17 +84,10 @@ function Register() {
         setAddress('')
     }
 
-    /* redirect to another page */
-    const handleRedirect = (path) => {
-        setTimeout(() => {
-            navigate(`${path}`)
-        }, 2000)
-    }
-
     /* display notify */
     const handleNotify = () => {
         setTimeout(() => {
-            setNotify(false)
+            setNotify({status: false})
         }, [2000])
     }
 
@@ -83,7 +98,7 @@ function Register() {
 
             {/* Register UI part */}
             <div className="container-fluid">
-                {notify && <Notify message='You have registed successfully!' type='success' />}
+                {notify.status && <Notify message={notify.message} type={notify.type} />}
 
                 <div className="row">
                     <div className="wrapper col-md-12 col-sm-12 col-xs-12">

@@ -84,6 +84,9 @@ function Detail() {
         dispatch(setRoomBooked({
             name: data.name,
             price: data.price,
+            size: data.size,
+            bed: data.bed,
+            type: data.type,
             startDate: stringDate[0],
             endDate: stringDate[1]
         }))

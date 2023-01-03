@@ -101,6 +101,18 @@ function Booking_Form() {
                     <td>{storeRoom.price}</td>
                   </tr>
                   <tr>
+                    <td>{t('booking.booking_room_size')}</td>
+                    <td>{storeRoom.size}</td>
+                  </tr>
+                  <tr>
+                    <td>{t('booking.booking_room_bed')}</td>
+                    <td>{storeRoom.bed}</td>
+                  </tr>
+                  <tr>
+                    <td>{t('booking.booking_room_type')}</td>
+                    <td>{storeRoom.type}</td>
+                  </tr>
+                  <tr>
                     <td>{t('booking.booking_room_startdate')}</td>
                     <td>{storeRoom.startDate}</td>
                   </tr>

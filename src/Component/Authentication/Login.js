@@ -5,12 +5,10 @@ import { faLock, faUser } from '@fortawesome/free-solid-svg-icons'
 import { Form, Input } from 'antd'
 import PageTitle from '../Utilities/PageTitle'
 import { useState } from 'react'
-import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 
 function Login() {
 
-    const API = 'api'
     const navigate = useNavigate()
 
     const [email, setEmail] = useState('')

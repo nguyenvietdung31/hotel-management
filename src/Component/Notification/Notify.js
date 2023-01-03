@@ -1,4 +1,5 @@
 import { Alert, Space } from 'antd'
+import { memo } from 'react'
 
 function Notify(prop) {
 
@@ -19,5 +20,5 @@ function Notify(prop) {
     )
 }
 
-export default Notify
+export default memo(Notify)
 

@@ -1,4 +1,5 @@
 import { Space, Spin } from "antd"
+import { memo } from "react"
 
 
 function Loader() {
@@ -19,4 +20,4 @@ function Loader() {
     )
 }
 
-export default Loader
+export default memo(Loader)
