@@ -1,16 +1,14 @@
 import axios from "axios"
-
-/* base API room */
-const API = 'https://639003d065ff41831106d1c8.mockapi.io/api/login/rooms'
+import { base_API_room } from "../../Constant/Constant"
 
 /* get data of all rooms */
 export const getAllData = async () => {
-    const res = await axios.get(API)
+    const res = await axios.get(base_API_room)
     return res.data
 }
 
 /* get data of a room */
 export const getRoomData = async (roomID) => {
-    const res = await axios.get(`${API}/${roomID}`)
+    const res = await axios.get(`${base_API_room}/${roomID}`)
     return res.data
 }

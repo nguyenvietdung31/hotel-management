@@ -1,20 +1,20 @@
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 function BeAtTop() {
 
-    const location = useLocation();
+    const location = useLocation()
 
     /* be at top of page after loading */
     useEffect(() => {
       if (!location.hash) {
         window.scrollTo(0, 0);
       }
-    }, [location]);
+    }, [location])
 
     return (
         <></>
     )
 }
 
-export default BeAtTop
+export default memo(BeAtTop)

@@ -113,6 +113,9 @@
         "booking_room_title": "Thông tin phòng",
         "booking_room": "Tên",
         "booking_room_price": "Giá",
+        "booking_room_size": "Kích cỡ",
+        "booking_room_bed": "Giường",
+        "booking_room_type": "Loại phòng",
         "booking_room_startdate": "Ngày thuê",
         "booking_room_enddate": "Ngày trả",
         "booking_form_title": "Đặt Phòng",
@@ -128,5 +131,16 @@
         "booking_form_confirm": "Hãy xác nhận để đặt phòng",
         "booking_form_confirm_err": "Hãy xác nhận, nếu bạn muốn đặt phòng",
         "booking_form_button": "Đặt phòng"
+    },
+
+    "admin": {
+        "sidebar": {
+            "multi_lang": "Đa ngôn ngữ",
+            "dashboard": "Tổng quan",
+            "room_manage": "Quản lý phòng",
+            "staff_manage": "Quản lý nhân viên",
+            "user_manage": "Quản lý người dùng",
+            "booking_manage": "Quản lý đặt phòng"
+        }
     }
 }

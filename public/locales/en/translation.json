@@ -113,6 +113,9 @@
         "booking_room_title": "Room Information",
         "booking_room": "Name",
         "booking_room_price": "Price",
+        "booking_room_size": "Size",
+        "booking_room_bed": "Bed",
+        "booking_room_type": "Type",
         "booking_room_startdate": "Start Date",
         "booking_room_enddate": "End Date",
         "booking_form_title": "Booking Room",
@@ -128,6 +131,17 @@
         "booking_form_confirm": "Please confirm to complete the booking",
         "booking_form_confirm_err": "Please confirm, if you wanna book a room",
         "booking_form_button": "Booking room"
+    },
+
+    "admin": {
+        "sidebar": {
+            "multi_lang": "Multi Languages",
+            "dashboard": "Dashboard",
+            "room_manage": "Rooms Manage",
+            "staff_manage": "Staff Manage",
+            "user_manage": "Users Manage",
+            "booking_manage": "Booking Manage"
+        }
     }
 
 }

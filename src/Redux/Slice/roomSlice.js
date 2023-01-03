@@ -7,6 +7,9 @@ export const roomSlice = createSlice({
   initialState: {
     name: null,
     price: 0,
+    size: 0,
+    bed: null,
+    type: null,
     startDate: null,
     endDate: null
   },
@@ -15,6 +18,9 @@ export const roomSlice = createSlice({
     setRoomBooked: (state, action) => {
       state.name = action.payload.name
       state.price = action.payload.price
+      state.size = action.payload.size
+      state.bed = action.payload.bed
+      state.type = action.payload.type
       state.startDate = action.payload.startDate
       state.endDate = action.payload.endDate
     },

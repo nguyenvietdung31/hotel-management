@@ -4,16 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
 import { Form, Input } from 'antd'
 import PageTitle from '../Utilities/PageTitle'
-import AxiosInstance from '../../Axios Interceptor/AxiosInstance'
 import { useState } from 'react'
 import Notify from '../Notification/Notify'
 import { useNavigate } from 'react-router-dom'
-
+import { changePasswordService } from '../../Service/Account_service/API_Service'
 
 function Change_Password() {
-
-    /* API */
-    const API = 'abc'
 
     /* userID */
     const [userID, setUserID] = useState(null)
@@ -21,7 +17,7 @@ function Change_Password() {
     /* old pass and new pass state */
     const [oldPass, setOldPass] = useState('')
     const [newPass, setNewPass] = useState('')
-    
+
     /* notification state */
     const [notify, setNotify] = useState(false)
 
@@ -29,28 +25,51 @@ function Change_Password() {
 
     /* When submit form Login -> do something */
     const onFinish = (values) => {
-        /* write code here */
 
-        handleChangePassword()
+        const data = {
+            oldPass: oldPass,
+            password: newPass
+        }
+
+        handleChangePassword(data)
         handleResetField()
         setNotify(true)
     }
 
     /* change password */
-    const handleChangePassword = async () => {
-        await AxiosInstance.patch(`${API}/${userID}`, {
-            oldPass: oldPass,
-            password: newPass
-        })
-        .then(() => handleRedirect('/'))
-        .catch((error) => console.log(error))
+    const handleChangePassword = async (userID, data) => {
+        await changePasswordService(userID, data)
+            .then(res => {
+                /* set notification */
+                setNotify({
+                    status: true,
+                    message: 'Your have changed password successfully!',
+                    type: 'success'
+                })
+                handleNotify()
+                handleReLogIn()
+            })
+            .catch(err => {
+                /* set notification */
+                setNotify({
+                    status: true,
+                    message: err.message,
+                    type: 'error'
+                })
+                handleNotify()
+            })
     }
 
+    const handleReLogIn = () => {
+        localStorage.clear()
+        handleRedirect('/login')
+    }
+    
     /* redirect to another page */
     const handleRedirect = (path) => {
         setTimeout(() => {
             navigate(`${path}`)
-        })
+        }, [2000])
     }
 
     /* reset field after submit form */
@@ -60,9 +79,11 @@ function Change_Password() {
     }
 
     /* hide notification */
-    setTimeout(() => {
-        setNotify(false)
-    }, [2000])
+    const handleNotify = () => {
+        setTimeout(() => {
+            setNotify({ status: false })
+        }, 2000)
+    }
 
     return (
         <>
@@ -84,7 +105,7 @@ function Change_Password() {
                                 onFinish={onFinish}
                             >
                                 <div className="contain_logo m-4">
-                                    <img src={logo} alt="avt" style={{cursor: 'pointer'}} onClick={() => navigate('/')} />
+                                    <img src={logo} alt="avt" style={{ cursor: 'pointer' }} onClick={() => navigate('/')} />
                                 </div>
                                 <p className='title mb-5 font-weight-bold'>CHANGE PASSWORD</p>
 

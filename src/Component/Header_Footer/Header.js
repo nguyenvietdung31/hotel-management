@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from 'react'
+import React, { useState, Suspense, memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import Loader from '../Utilities/Loader'
 import './Header.scss'
@@ -46,6 +46,7 @@ function Header() {
     setIsHiddenLanguage(true)
   }
 
+  /* handle log out */
   const handleLogOut = () => {
     localStorage.clear()
     navigate(0)
@@ -115,8 +116,14 @@ function Header() {
                     aria-haspopup="true" aria-expanded="false" style={{ fontSize: '20px' }} />
 
                   <div className="dropdown-menu">
-                    <button className="dropdown-item" onClick={() => i18n.changeLanguage('en')}>{t('header.lang_en')}</button>
-                    <button className="dropdown-item" onClick={() => i18n.changeLanguage('vie')}>{t('header.lang_vie')}</button>
+                    <button className="dropdown-item" onClick={() =>  {
+                      i18n.changeLanguage('en')
+                      localStorage.setItem('selectLanguage', '1')
+                      }}>{t('header.lang_en')}</button>
+                    <button className="dropdown-item" onClick={() => {
+                      i18n.changeLanguage('vie')
+                      localStorage.setItem('selectLanguage', '2')
+                      }}>{t('header.lang_vie')}</button>
                   </div>
                 </div>
               </div>
@@ -201,4 +208,4 @@ function Header() {
 }
 
 
-export default Header
+export default memo(Header)

@@ -111,6 +111,7 @@ function StaffManage() {
                 <Table
                   columns={column_staff}
                   dataSource={admin_staff}
+
                 // pagination={{
                 //   pageSize: 8,
                 //   total: totalPages,

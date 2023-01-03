@@ -1,5 +1,5 @@
-import { CloseCircleOutlined } from '@ant-design/icons';
 import {  Result } from 'antd';
+import { memo } from 'react';
 
 function Error(prop) {
 
@@ -15,4 +15,4 @@ function Error(prop) {
     )
 }
 
-export default Error
+export default memo(Error)

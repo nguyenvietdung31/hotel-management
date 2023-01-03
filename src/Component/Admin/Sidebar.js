@@ -1,16 +1,53 @@
 import { Layout, Menu, Button } from 'antd'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 import {
     DashboardOutlined, DatabaseOutlined, FileOutlined, MenuFoldOutlined, MenuUnfoldOutlined, TeamOutlined, UserOutlined,
     HomeOutlined,
     GlobalOutlined,
-} from '@ant-design/icons';
+} from '@ant-design/icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGlobe } from '@fortawesome/free-solid-svg-icons'
 import img_logo from '../../Image/hotel_logo.png'
 
+function getItem(label, key, icon, children, type) {
+    return {
+        key,
+        icon,
+        children,
+        label,
+        type,
+    };
+}
+
 function Sidebar() {
+    /* i18next */
+    const { t, i18n } = useTranslation()
+
     const navigate = useNavigate()
+
     const { Header, Sider, Content } = Layout
+
+    const selectLanguage = localStorage.getItem('selectLanguage')
+
+    const items = [
+        getItem('Multi Language', 'multi_lang', <FontAwesomeIcon icon={faGlobe} className='text-light' style={{ fontSize: '20px' }} />, [
+            getItem('English', '1'),
+            getItem('Vietnamese', '2'),
+        ])]
+
+    const handleChangeLanguage = (e) => {
+        if (e.key === '1') {
+            i18n.changeLanguage('en')
+            localStorage.setItem('selectLanguage', '1')
+        }
+        else {
+            i18n.changeLanguage('vie')
+            localStorage.setItem('selectLanguage', '2')
+        }
+    }
+
     return (
         <div>
             <div>
@@ -30,14 +67,31 @@ function Sidebar() {
                         }}
                     >
                         <div style={{
-                        padding: "10px 0 0 0",
-                        color: 'rgba(255, 255, 255, 0.65)',
-                        background: '#001529'
-                    }}>
-                        <Link to='/'>
-                        <img src={img_logo} alt='logo' width={'80px'} title='Go to Homepage'/>
-                        </Link>
-                    </div>
+                            margin: '30px 0',
+                            color: 'rgba(255, 255, 255, 0.65)',
+                            background: '#001529',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                            <Link to='/'>
+                                <img src={img_logo} alt='logo' width={'80px'} title='Go to Homepage' />
+                            </Link>
+                        </div>
+
+                        {/* multi language */}
+                        <Menu
+                            theme='dark'
+                            onClick={handleChangeLanguage}
+                            style={{
+                                width: '100%',
+                            }}
+                            // defaultSelectedKeys={[selectLanguage]}
+                            
+                            selectedKeys={[selectLanguage || '1']}
+                            mode="inline"
+                            items={items}
+                        />
                         <Menu
                             onClick={({ key }) => {
                                 navigate(key);
@@ -52,27 +106,27 @@ function Sidebar() {
                                 // },
                                 {
                                     key: '/dashboard',
-                                    label: "Dashboard",
+                                    label: `${t('admin.sidebar.dashboard')}`,
                                     icon: <DashboardOutlined />
                                 },
                                 {
                                     key: '/room_manage',
-                                    label: "Room manage",
+                                    label: `${t('admin.sidebar.room_manage')}`,
                                     icon: <HomeOutlined />
                                 },
                                 {
                                     key: '/staff_manage',
-                                    label: "Staff manage",
+                                    label: `${t('admin.sidebar.staff_manage')}`,
                                     icon: <TeamOutlined />
                                 },
                                 {
                                     key: '/user_manage',
-                                    label: "User manage",
+                                    label: `${t('admin.sidebar.user_manage')}`,
                                     icon: <UserOutlined />
                                 },
                                 {
                                     key: '/booking_manage',
-                                    label: "Booking manage",
+                                    label: `${t('admin.sidebar.booking_manage')}`,
                                     icon: <FileOutlined />
                                 },
                                 // {

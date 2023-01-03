@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 
 
 function PageTitle( prop ) {
@@ -7,10 +7,10 @@ function PageTitle( prop ) {
     useEffect(() => {
         document.title = prop.title
     },[prop.title])
-    
+
     return (
         <></>
     )
 }
 
-export default PageTitle
+export default memo(PageTitle)

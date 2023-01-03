@@ -1,4 +1,5 @@
 import { Carousel } from 'antd';
+import { memo } from 'react';
 import slide_img1 from '../../Image/slide_img_1.jpg'
 import slide_img2 from '../../Image/slide_img_2.jpg'
 import slide_img3 from '../../Image/slide_img_3.jpg'
@@ -36,4 +37,4 @@ function Slider() {
     )
 }
 
-export default Slider
+export default memo(Slider)

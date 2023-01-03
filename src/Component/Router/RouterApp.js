@@ -150,7 +150,7 @@ export default RouterApp
 function RequireLoggedIn({ children }) {
     if (!localStorage.getItem('access_user') && !localStorage.getItem('access_admin')){
         /* Redirect them to the / page(home page) if they are not logged in */
-        return <Navigate to="/" replace={true} />
+        return <Navigate to="/"/>
     }
     return children;
 }
@@ -159,7 +159,7 @@ function RequireLoggedIn({ children }) {
 function RequireLogOut({ children }) {
     if (localStorage.getItem('access_user') || localStorage.getItem('access_admin')){
         /* Redirect them to the / page(home page) if they are logged in */
-        return <Navigate to="/" replace={true} />
+        return <Navigate to="/"/>
     }
     return children;
 }
@@ -168,7 +168,7 @@ function RequireLogOut({ children }) {
 function RequireAdmin({ children }) {
     if (!localStorage.getItem('access_admin')){
         /* Redirect them to the / page(home page) if they are not admin */
-        return <Navigate to="/" replace={true} />
+        return <Navigate to="/"/>
     }
     return children;
 }
