@@ -18,7 +18,6 @@ function OrderManage() {
                 <h1>Order</h1>
                 <div>
                     <Space size='small'>
-                      <Button type='primary' style={{ backgroundColor: '#42b72a' }}><PlusOutlined /> Add new room</Button>
                       <Button type='primary' style={{ backgroundColor: '#187205' }}><DownloadOutlined /> Export Data</Button>
                     </Space>
                   </div>

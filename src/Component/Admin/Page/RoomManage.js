@@ -152,6 +152,7 @@ function RoomManage() {
                         total: totalPages,
                         onChange: () => { getData() }
                       }}
+                      rowKey={record=>record.id}
                     />
                   </div>
                 }
