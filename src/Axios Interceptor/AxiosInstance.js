@@ -1,13 +1,18 @@
 import axios from "axios"
+import { baseUrl } from "../Constant/Constant"
 
+const axiosInstance = axios.create({
+    baseURL: baseUrl,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+})
 
-const axiosInstance = axios.create()
+axiosInstance.interceptors.request.use(async config => {
+    let accessToken = localStorage.getItem('accessToken')
 
-axiosInstance.interceptors.request.use(config => {
-    //anything you want to attach to the requests such as token 
-    config.params = config.params || {}
-    // config.params['auth'] = localStorage.getItem('userToken')
-    config.params['auth'] = localStorage.getItem('userToken')
+    if(accessToken) 
+        config.headers.Authorization = 'Bearer ' + accessToken
 
     return config
 }, error => {
@@ -18,9 +23,31 @@ axiosInstance.interceptors.request.use(config => {
 axiosInstance.interceptors.response.use(response => {
     
     return response
-}, error => {
-    //check for authentication or anything like that
+}, async error => {
+    
+    /* if error of authorization -> refreshToken */
+    if(error.response.status === 401) {
+        const apiResp = await refreshToken()
+
+        if(apiResp.status === 200) {
+            const newAccessToken = apiResp.data.access_token
+            localStorage.setItem('accessToken', newAccessToken)
+            
+            error.config.headers.Authorization = 'Bearer ' + newAccessToken
+        }
+    }
+
     return Promise.reject(error)
 })
+
+/* to refresh access token */
+const refreshToken = async () => {
+    const refreshToken = localStorage.getItem('refreshToken')
+    const resp = await axios.post(`${baseUrl}/refresh`, {
+        refreshToken: refreshToken
+    })
+
+    return resp
+}
 
 export default axiosInstance

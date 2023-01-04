@@ -12,3 +12,8 @@ export const getRoomData = async (roomID) => {
     const res = await axios.get(`${base_API_room}/${roomID}`)
     return res.data
 }
+
+/* post data to api */
+export const bookingService = async (path, obj) => {
+    return await axios.post(`${base_API_room}${path}`, obj)
+}

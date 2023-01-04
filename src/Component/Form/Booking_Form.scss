@@ -30,6 +30,10 @@ $MD: 1024px;
     top: 0;
     right: 0;
 
+    td {
+        text-transform: capitalize;
+    }
+
     .contain_title {
         width: 100%;
         display: flex;
