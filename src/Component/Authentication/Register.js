@@ -1,12 +1,11 @@
-import { useState } from 'react';
+import { useState } from 'react'
 import logo from '../../Image/hotel_logo.png'
 import './Login.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock, faEnvelope, faSignature, faPhone, faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { Form, Input } from 'antd'
 import PageTitle from '../Utilities/PageTitle'
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom'
 import Notify from '../Notification/Notify'
 import { postDataService } from '../../Service/Account_service/API_Service';
 
@@ -37,7 +36,10 @@ function Register() {
     const onFinish = (values) => {
         const acc = {
             Email: email,
-            Password: password
+            Password: password,
+            Fullname: fullname,
+            Phone: phone,
+            Address: address
         }
         /* handle register here */
         handleRegister(acc)
@@ -48,7 +50,7 @@ function Register() {
 
     /* post data */
     const handleRegister = async (acc) => {
-        await postDataService(acc)
+        await postDataService('/register', acc)
             .then(res => {
                 /* set notification */
                 setNotify({

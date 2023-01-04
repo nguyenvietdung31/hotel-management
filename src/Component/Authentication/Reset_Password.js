@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import PageTitle from '../Utilities/PageTitle'
 import Notify from '../Notification/Notify'
 import { resetPasswordService } from '../../Service/Account_service/API_Service'
@@ -10,6 +10,8 @@ import { faLock } from '@fortawesome/free-solid-svg-icons'
 import { Form, Input } from 'antd'
 
 function Reset_Password() {
+
+    const location = useLocation()
 
     const [password, setPassword] = useState('')
     const [cfpassword, setCFPassword] = useState('')
@@ -25,16 +27,19 @@ function Reset_Password() {
     const onFinish = (values) => {
         const data = { Password: password }
 
+        const resetCode = location.pathname.slice(location.pathname.lastIndexOf("/") + 1,
+            location.pathname.length)
+
         /* handle reset password */
-        handleResetPassword(data)
+        handleResetPassword(resetCode, data)
 
         /* reset field */
         handleResetInputField()
     }
 
     /* reset password */
-    const handleResetPassword = async (data) => {
-        await resetPasswordService(data)
+    const handleResetPassword = async (resetCode, data) => {
+        await resetPasswordService(resetCode, data)
             .then(res => {
                 /* set notification */
                 setNotify({

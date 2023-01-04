@@ -1,12 +1,14 @@
 import { Button, Checkbox, Form, Input, Typography, message } from 'antd'
-import React from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './Booking_Form.scss'
 import PageTitle from '../Utilities/PageTitle'
 import { useTranslation } from 'react-i18next'
 import Header from '../Header_Footer/Header'
 import Footer from '../Header_Footer/Footer'
 import { useSelector } from "react-redux"
+import { bookingService } from '../../Service/Room_service/API_Service'
+import Notify from '../Notification/Notify'
 
 
 function Booking_Form() {
@@ -20,14 +22,59 @@ function Booking_Form() {
   /* store in redux */
   const storeRoom = useSelector(state => state.room)
 
+  /* if have not already choose room -> redirect to home page */
+  useEffect(() => {
+    if (storeRoom.name === null) {
+      navigate('/')
+    }
+  })
 
-  const [messageApi, contextHolder] = message.useMessage()
+  const [notify, setNotify] = useState({
+    status: false,
+    message: '',
+    type: ''
+  })
 
-  const test = (e) => {
-    messageApi.open({
-      type: 'success',
-      content: 'Booking room success',
-    });
+  const handleSubmit = (values) => {
+    const infor = {
+      name: values.fullname,
+      id: values.id,
+      phone: values.phone,
+      note: values.note,
+    }
+
+    handleBooking(infor)
+  }
+
+  /* handle booking room */
+  const handleBooking = async (infor) => {
+    await bookingService('/booking_form', infor)
+      .then(res => {
+        /* set notification */
+        setNotify({
+          status: true,
+          message: 'You have booked successfully!',
+          type: 'success'
+        })
+        handleNotify()
+      })
+
+      .catch(err => {
+        /* set notification */
+        setNotify({
+          status: true,
+          message: err.message,
+          type: 'error'
+        })
+        handleNotify()
+      })
+  }
+
+  /* display notify */
+  const handleNotify = () => {
+    setTimeout(() => {
+      setNotify({ status: false })
+    }, [2000])
   }
 
   const { Title } = Typography
@@ -74,6 +121,7 @@ function Booking_Form() {
       <Header />
 
       <div className='container' style={{ paddingTop: '80px' }}>
+        {notify.status && <Notify message={notify.message} type={notify.type} />}
         <div className="row">
           <div className='col-lg-12 col-sm-12- col-xs-12 mt-5 mb-5'>
             <Button className='font-weight-bold'
@@ -98,7 +146,7 @@ function Booking_Form() {
                   </tr>
                   <tr>
                     <td>{t('booking.booking_room_price')}</td>
-                    <td>{storeRoom.price}</td>
+                    <td>$ {storeRoom.price}</td>
                   </tr>
                   <tr>
                     <td>{t('booking.booking_room_size')}</td>
@@ -133,7 +181,7 @@ function Booking_Form() {
               <Form
                 {...formItemLayout}
                 name='booking'
-                onFinish={test}
+                onFinish={handleSubmit}
                 scrollToFirstError
                 style={{ width: '100%', marginTop: '10px' }}
                 initialValues={{
@@ -216,7 +264,6 @@ function Booking_Form() {
                 <Form.Item className='font-weight-bold'
                   {...tailFormItemLayOut}
                 >
-                  {contextHolder}
                   <Button type='primary' htmlType='submit'>
                     {t('booking.booking_form_button')}
                   </Button>

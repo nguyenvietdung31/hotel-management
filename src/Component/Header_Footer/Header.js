@@ -19,7 +19,7 @@ function Header() {
   const navigate = useNavigate()
 
   /* get token from localStorage */
-  const [userToken, setUserToken] = useState(localStorage.getItem('userToken'))
+  const [access_user, setAccessUser] = useState(localStorage.getItem('access_user'))
 
   /* To toggle menu of link */
   /* when the menu of link opens -> hidden menu of user, menu of language */
@@ -48,7 +48,9 @@ function Header() {
 
   /* handle log out */
   const handleLogOut = () => {
-    localStorage.clear()
+    localStorage.removeItem('access_user')
+    localStorage.removeItem('access_admin')
+    localStorage.removeItem('access_token')
     navigate(0)
   }
 
@@ -97,7 +99,7 @@ function Header() {
               </div>
 
               {
-                userToken &&
+                access_user &&
                 <div className="contain_avt_user">
                   <img src={img_logo} width={50} height={50} className='rounded-circle' alt="avatar"
                     id="dropdownMenuLink" onClick={handleOpenUserMore} />
@@ -129,7 +131,7 @@ function Header() {
               </div>
 
               {
-                userToken ?
+                access_user ?
                   (
                     /* Already logged in will display this */
                     < div className="user_logged_in">
@@ -171,7 +173,7 @@ function Header() {
                 <Link to="/dashboard"><div className="item_dropdown_menu">{t('header.dashboard')}</div></Link>
               }
 
-              {userToken === null &&
+              {access_user === null &&
                 <div>
                   <Link to="/login"><div className="item_dropdown_menu">{t('header.log_in')}</div></Link>
                   <Link to="/register"><div className="item_dropdown_menu">{t('header.register')}</div></Link>
