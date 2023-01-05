@@ -30,9 +30,7 @@ function RoomManage() {
 
   // delete data
   const onDelete = (id) => {
-    const deleteRoom = allRooms.filter((el) => {
-      return el.id !== id
-    }
+    const deleteRoom = allRooms.filter((el) => el.id !== id
     )
     setAllRooms(deleteRoom)
   }
@@ -99,6 +97,7 @@ function RoomManage() {
   // Fetcher function
   const getData = async () => {
     const res = await getAllData()
+    setAllRooms(res)
     return res
   }
 
@@ -145,8 +144,7 @@ function RoomManage() {
                   <div>
                     <Table
                       columns={column_room}
-                      rowKey='id'
-                      dataSource={data}
+                      dataSource={allRooms}
                       pagination={{
                         pageSize: 8,
                         total: totalPages,

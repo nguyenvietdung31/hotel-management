@@ -58,7 +58,7 @@ function RouterApp() {
                     </Suspense>
                 } />
 
-                <Route path='/reset_password' element={
+                <Route path='/reset_password/:resetCode' element={
                     <Suspense fallback={<Loader />}>
                         <RequireLogOut><Reset_Password /></RequireLogOut>
                     </Suspense>

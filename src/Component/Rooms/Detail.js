@@ -30,7 +30,7 @@ function Detail() {
     const API = 'https://639003d065ff41831106d1c8.mockapi.io/api/login/rooms'
 
     /* get token from localStorage */
-    const [userToken, setUserToken] = useState(localStorage.getItem('userToken'))
+    const [accessToken, setAccessToken] = useState(localStorage.getItem('access_token'))
 
     /* to call the action in reducer */
     const dispatch = useDispatch()
@@ -223,14 +223,14 @@ function Detail() {
                                             required
 
                                             /* check logged in. If logged => disabled = false, else disabled = true */
-                                            disabled={userToken ? false : true}
+                                            disabled={accessToken ? false : true}
                                         />
                                     </Space>
 
                                 </div>
                             </div>
                             <div className="wrap_button">
-                                <button className='btn btn-success' disabled={userToken && dateChosen ? false : true}
+                                <button className='btn btn-success' disabled={accessToken && dateChosen ? false : true}
                                     onClick={() => navigate('/booking_form')}
                                 >
                                     {t('detail.detail_reservation_button_book')}

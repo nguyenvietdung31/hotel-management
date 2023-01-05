@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from 'react'
 import logo from '../../Image/hotel_logo.png'
 import './Login.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -36,7 +36,10 @@ function Register() {
     const onFinish = (values) => {
         const acc = {
             Email: email,
-            Password: password
+            Password: password,
+            Fullname: fullname,
+            Phone: phone,
+            Address: address
         }
         /* handle register here */
         handleRegister(acc)
@@ -47,7 +50,7 @@ function Register() {
 
     /* post data */
     const handleRegister = async (acc) => {
-        await postDataService(acc)
+        await postDataService('/register', acc)
             .then(res => {
                 /* set notification */
                 setNotify({

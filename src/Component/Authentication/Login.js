@@ -6,6 +6,8 @@ import { Form, Input } from 'antd'
 import PageTitle from '../Utilities/PageTitle'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { postDataService } from '../../Service/Account_service/API_Service'
 
 function Login() {
 
@@ -16,30 +18,36 @@ function Login() {
 
     /* When submit form Login -> do something */
     const onFinish = (values) => {
-        /* write code here */
+        const acc = {
+            username: 'kminchelle',
+            password: '0lelplR'
+        }
 
-        handleLogin()
+        handleLogin(acc)
     }
 
-    const handleLogin = async () => {
-        // await axios.post(API)
-        // .then(res => {
-        //     console.log(res.data)
+    const handleLogin = async (acc) => {
+        await postDataService('/login', acc)
+            .then(res => {
+                console.log(res.data)
+                localStorage.setItem('access_token', res.data.token)
 
-        //     /* get token and save it into LocalStorage */
-        // })
-
-        /* Fake token to demo */
-        localStorage.setItem('userToken', 'nmthanhToken')
-        /* if admin log in => access_admin = true, else access_user = true */
-        localStorage.setItem('access_user', true)
-        navigate(-1)
+                /* if admin log in => access_admin = true, else access_user = true */
+                // if(res.data.role === 1) {
+                //     localStorage.setItem('access_admin', true)
+                // } else {
+                //     localStorage.setItem('access_user', true)
+                // }
+                localStorage.setItem('access_user', true)
+                /* back to previous page */
+                navigate(-1)
+            })
     }
 
     return (
         <>
             {/* set title of page */}
-            <PageTitle title='Login page'/>
+            <PageTitle title='Login page' />
 
             {/* Login UI part */}
             <div className="container-fluid">
@@ -55,7 +63,7 @@ function Login() {
                                 onFinish={onFinish}
                             >
                                 <div className="contain_logo m-4">
-                                    <img src={logo} alt="avt" style={{cursor: 'pointer'}} onClick={() => navigate('/')} />
+                                    <img src={logo} alt="avt" style={{ cursor: 'pointer' }} onClick={() => navigate('/')} />
                                 </div>
                                 <p className='title mb-5 font-weight-bold'>LOG IN</p>
 
@@ -69,7 +77,7 @@ function Login() {
                                     ]}
                                 >
                                     <Input className='input_tag' type='email'
-                                        prefix={<FontAwesomeIcon className='mr-2' icon={faUser} />} 
+                                        prefix={<FontAwesomeIcon className='mr-2' icon={faUser} />}
                                         placeholder="Username" value={email}
                                         onChange={(e) => setEmail(e.target.value)}
                                         />
@@ -90,7 +98,7 @@ function Login() {
                                         onChange={(e) => setPassword(e.target.value)}
                                     />
                                 </Form.Item>
-                                
+
                                 <Link className="login-form-forgot text-primary forgotpass" to="/forgot_password">
                                     Forgot password
                                 </Link><br />

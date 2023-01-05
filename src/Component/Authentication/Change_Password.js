@@ -33,7 +33,6 @@ function Change_Password() {
 
         handleChangePassword(data)
         handleResetField()
-        setNotify(true)
     }
 
     /* change password */

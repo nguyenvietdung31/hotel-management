@@ -7,7 +7,7 @@ import PageTitle from '../Utilities/PageTitle'
 import { useState } from 'react'
 import Notify from '../Notification/Notify'
 import { useNavigate } from 'react-router-dom'
-import { postData, postDataService } from '../../Service/Account_service/API_Service'
+import { postDataService } from '../../Service/Account_service/API_Service'
 
 function Forgot_Password() {
 
@@ -36,7 +36,7 @@ function Forgot_Password() {
 
     /* forgot password */
     const handleForgotPassword = async (data) => {
-        await postDataService(data)
+        await postDataService('/forgot', data)
             .then(res => {
                 /* set notification */
                 setNotify({

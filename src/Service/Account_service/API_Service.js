@@ -1,23 +1,19 @@
 import axios from "axios"
 import axiosInstance from "../../Axios Interceptor/AxiosInstance"
+import { baseUrl } from "../../Constant/Constant"
 
-const API_account = 'https://639003d065ff41831106d1c8.mockapi.io/api/login/Account'
-const API_resetP = 'api_reset_password'
-
-/* post data to api */
-export const postDataService = async (obj) => {
-    return await axios.post(API_account, obj)
+/* handle post data to api: register, login, forgot password */
+export const postDataService = async (path, obj) => {
+    return await axios.post(`${baseUrl}${path}`, obj)
 }
 
-
-/* patch data */
-export const resetPasswordService = async (obj) => {
-    return await axiosInstance.patch(API_resetP, obj)
+/* handle reset password */
+export const resetPasswordService = async (resetCode, obj) => {
+    return await axios.patch(`${baseUrl}/reset/${resetCode}`, obj)
 }
 
-
-/* patch data */
+/* handle change password */
 export const changePasswordService = async (userID, obj) => {
-    return await axiosInstance.patch(`${API_account}/${userID}`, obj)
+    return await axiosInstance.patch(`${baseUrl}/users/${userID}`, obj)
 }
 
