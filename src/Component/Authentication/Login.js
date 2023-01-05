@@ -71,7 +71,7 @@ function Login() {
                                     <Input className='input_tag' type='email'
                                         prefix={<FontAwesomeIcon className='mr-2' icon={faUser} />} 
                                         placeholder="Username" value={email}
-                                        onChange={(e) => setEmail(e.target.value.trim())}
+                                        onChange={(e) => setEmail(e.target.value)}
                                         />
                                 </Form.Item>
                                 <Form.Item
@@ -87,7 +87,7 @@ function Login() {
                                         prefix={<FontAwesomeIcon className='mr-2' icon={faLock} />}
                                         type="password"
                                         placeholder="Password" value={password}
-                                        onChange={(e) => setPassword(e.target.value.trim())}
+                                        onChange={(e) => setPassword(e.target.value)}
                                     />
                                 </Form.Item>
                                 

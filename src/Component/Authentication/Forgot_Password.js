@@ -119,7 +119,7 @@ function Forgot_Password() {
                                         prefix={<FontAwesomeIcon className='mr-2' icon={faEnvelope} />}
                                         type="email"
                                         placeholder="Email"
-                                        onChange={e => setEmail(e.target.value.trim())} />
+                                        onChange={e => setEmail(e.target.value)} />
 
                                 </Form.Item>
 

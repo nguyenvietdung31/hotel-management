@@ -132,7 +132,7 @@ function Change_Password() {
                                         prefix={<FontAwesomeIcon className='mr-2' icon={faLock} />}
                                         type="password"
                                         placeholder="Old password"
-                                        onChange={e => setOldPass(e.target.value.trim())} />
+                                        onChange={e => setOldPass(e.target.value)} />
 
                                 </Form.Item>
                                 <Form.Item
@@ -158,7 +158,7 @@ function Change_Password() {
                                         prefix={<FontAwesomeIcon className='mr-2' icon={faLock} />}
                                         type="password"
                                         placeholder="Password"
-                                        onChange={e => setNewPass(e.target.value.trim())}
+                                        onChange={e => setNewPass(e.target.value)}
                                     />
                                 </Form.Item>
                                 <Form.Item

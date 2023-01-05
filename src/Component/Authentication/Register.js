@@ -5,15 +5,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock, faEnvelope, faSignature, faPhone, faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { Form, Input } from 'antd'
 import PageTitle from '../Utilities/PageTitle'
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom'
 import Notify from '../Notification/Notify'
-import { postDataService } from '../../Service/Account_service/API_Service';
+import { postDataService } from '../../Service/Account_service/API_Service'
 
 function Register() {
 
     /* API */
-    const API = 'https://639003d065ff41831106d1c8.mockapi.io/api/login/Account'
+    // const API = 'https://639003d065ff41831106d1c8.mockapi.io/api/login/Account'
 
     /* Initialize state */
     const [fullname, setFullname] = useState('')
@@ -139,7 +138,7 @@ function Register() {
                                     <Input className='input_tag'
                                         prefix={<FontAwesomeIcon className='mr-2' icon={faSignature} />}
                                         placeholder="Full name"
-                                        onChange={(e) => setFullname(e.target.value.trim())}
+                                        onChange={(e) => setFullname(e.target.value)}
                                     />
                                 </Form.Item>
                                 <Form.Item
@@ -160,7 +159,7 @@ function Register() {
                                         prefix={<FontAwesomeIcon className='mr-2' icon={faEnvelope} />}
                                         type="email"
                                         placeholder="Email"
-                                        onChange={(e) => setEmail(e.target.value.trim())}
+                                        onChange={(e) => setEmail(e.target.value)}
                                     />
                                 </Form.Item>
                                 <Form.Item
@@ -183,7 +182,7 @@ function Register() {
                                         prefix={<FontAwesomeIcon className='mr-2' icon={faLock} />}
                                         type="password"
                                         placeholder="Password"
-                                        onChange={(e) => setPassword(e.target.value.trim())}
+                                        onChange={(e) => setPassword(e.target.value)}
                                     />
                                 </Form.Item>
                                 <Form.Item
@@ -218,7 +217,7 @@ function Register() {
                                         prefix={<FontAwesomeIcon className='mr-2' icon={faLock} />}
                                         type="password"
                                         placeholder="Confirm password"
-                                        onChange={(e) => setCFPassword(e.target.value.trim())}
+                                        onChange={(e) => setCFPassword(e.target.value)}
                                     />
                                 </Form.Item>
                                 <Form.Item
@@ -232,7 +231,7 @@ function Register() {
                                     <Input className='input_tag'
                                         prefix={<FontAwesomeIcon className='mr-2' icon={faPhone} />}
                                         placeholder="Phone"
-                                        onChange={(e) => setPhone(e.target.value.trim())}
+                                        onChange={(e) => setPhone(e.target.value)}
                                     />
                                 </Form.Item>
                                 <Form.Item
@@ -248,7 +247,7 @@ function Register() {
                                     <Input className='input_tag'
                                         prefix={<FontAwesomeIcon className='mr-2' icon={faLocationDot} />}
                                         placeholder="Address"
-                                        onChange={(e) => setAddress(e.target.value.trim())}
+                                        onChange={(e) => setAddress(e.target.value)}
                                     />
                                 </Form.Item>
 

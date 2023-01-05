@@ -115,7 +115,7 @@ function Reset_Password() {
                                         type="password"
                                         placeholder="Password"
                                         value={password}
-                                        onChange={e => setPassword(e.target.value.trim())}
+                                        onChange={e => setPassword(e.target.value)}
                                     />
                                 </Form.Item>
                                 <Form.Item
@@ -151,7 +151,7 @@ function Reset_Password() {
                                         type="password"
                                         placeholder="Confirm password"
                                         value={cfpassword}
-                                        onChange={e => setCFPassword(e.target.value.trim())}
+                                        onChange={e => setCFPassword(e.target.value)}
                                     />
                                 </Form.Item>
 
