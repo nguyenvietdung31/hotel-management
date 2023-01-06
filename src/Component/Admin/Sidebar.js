@@ -1,16 +1,12 @@
-import { Layout, Menu, Button } from 'antd'
-import React, { useState } from 'react'
+import { Layout, Menu,  } from 'antd'
+import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import {
-    DashboardOutlined, DatabaseOutlined, FileOutlined, MenuFoldOutlined, MenuUnfoldOutlined, TeamOutlined, UserOutlined,
-    HomeOutlined,
-    GlobalOutlined,
-} from '@ant-design/icons';
+import {DashboardOutlined, FileOutlined,TeamOutlined, UserOutlined,HomeOutlined,} from '@ant-design/icons';
 import img_logo from '../../Image/hotel_logo.png'
 
 function Sidebar() {
     const navigate = useNavigate()
-    const { Header, Sider, Content } = Layout
+    const { Sider,  } = Layout
     return (
         <div>
             <div>
@@ -30,14 +26,14 @@ function Sidebar() {
                         }}
                     >
                         <div style={{
-                        padding: "10px 0 0 0",
-                        color: 'rgba(255, 255, 255, 0.65)',
-                        background: '#001529'
-                    }}>
-                        <Link to='/'>
-                        <img src={img_logo} alt='logo' width={'80px'} title='Go to Homepage'/>
-                        </Link>
-                    </div>
+                            padding: "10px 0 0 0",
+                            color: 'rgba(255, 255, 255, 0.65)',
+                            background: '#001529'
+                        }}>
+                            <Link to='/'>
+                                <img src={img_logo} alt='logo' width={'80px'} title='Go to Homepage' />
+                            </Link>
+                        </div>
                         <Menu
                             onClick={({ key }) => {
                                 navigate(key);

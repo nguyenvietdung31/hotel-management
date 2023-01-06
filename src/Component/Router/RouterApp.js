@@ -20,7 +20,6 @@ const RoomManage = lazy(() => import('../Admin/Page/RoomManage'))
 const StaffManage = lazy(() => import('../Admin/Page/StaffManage'))
 const UserManage = lazy(() => import('../Admin/Page/UserManage'))
 const OrderManage = lazy(() => import('../Admin/Page/OrderManage'))
-const ExportData = lazy(() => import('../Admin/Page/ExportData'))
 function RouterApp() {
 
     return (
@@ -122,12 +121,6 @@ function RouterApp() {
                 <Route path='/booking_manage' element={
                     <Suspense fallback={<Loader />}>
                         <RequireAdmin><OrderManage /></RequireAdmin>
-                    </Suspense>
-                } />
-
-                <Route path='/export_data' element={
-                    <Suspense fallback={<Loader />}>
-                        <RequireAdmin><ExportData /></RequireAdmin>
                     </Suspense>
                 } />
 
