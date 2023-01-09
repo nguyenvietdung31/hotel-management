@@ -1,17 +1,15 @@
-import { useEffect, useState } from "react"
-import { Col, Row } from 'antd';
-import Header from "../Header_Footer/Header";
-import Footer from "../Header_Footer/Footer";
-import ScrollToTop from "../utilities/ScrollToTop";
+import { useState } from "react"
+import { Col, Row } from 'antd'
+import ScrollToTop from "../utilities/ScrollToTop"
 import { useTranslation } from 'react-i18next'
-import BeAtTop from "../utilities/BeAtTop";
 import './Contact.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationDot, faPhone, faEnvelope, faClock } from '@fortawesome/free-solid-svg-icons'
 import { faFacebook, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons'
 import PageTitle from "../utilities/PageTitle"
 import Notify from "../notification/Notify"
-import AosAnimation from "../utilities/AosAnimation"
+import useAosAnimation from "../utilities/customHook/useAosAnimation"
+import useBeAtTop from '../utilities/customHook/useBeAtTop'
 
 
 function Contact() {
@@ -25,6 +23,12 @@ function Contact() {
 
     /* i18next */
     const { t, i18n } = useTranslation()
+
+    /* Call custom hook: aos animation */
+    useAosAnimation()
+
+    /* Call custom hook: be at top position */
+    useBeAtTop()
 
     /* submit form */
     const handleSubmitForm = (e) => {
@@ -49,13 +53,7 @@ function Contact() {
             {/* set title of page */}
             <PageTitle title={t('title.title_contact')} />
 
-            {/* animation with aos lib */}
-            <AosAnimation />
-
             {notify && <Notify message='You have sent successfully!' type='success' />}
-
-            {/* Header part */}
-            <Header />
 
             {/* Body UI of Contact component */}
             <div className="container_contact">
@@ -129,10 +127,6 @@ function Contact() {
 
             {/* scroll to top */}
             <ScrollToTop />
-
-            {/* Footer part */}
-            <Footer />
-            <BeAtTop />
 
         </>
     )

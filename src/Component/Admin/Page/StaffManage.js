@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import img_avt_team from '../../../Image/img_avt_team.jpg'
+import img_avt_team from '../../../image/img_avt_team.jpg'
 import { Avatar, Button, Layout, Space, Table } from 'antd'
 import Sidebar from '../Sidebar'
 import { DownloadOutlined, PlusOutlined } from '@ant-design/icons';

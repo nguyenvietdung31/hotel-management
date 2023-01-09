@@ -1,4 +1,4 @@
-import logo from '../../Image/hotel_logo.png'
+import logo from '../../image/hotel_logo.png'
 import './Login.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'

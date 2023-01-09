@@ -1,14 +1,12 @@
-import { Col, Row, Card } from 'antd';
-import Header from '../headerAndFooter/Header';
-import Footer from '../headerAndFooter/Footer';
-import Slider from '../utilities/Slider';
-import BeAtTop from '../utilities/BeAtTop';
-import ScrollToTop from '../utilities/ScrollToTop';
+import { Col, Row, Card } from 'antd'
+import Slider from '../utilities/Slider'
+import ScrollToTop from '../utilities/ScrollToTop'
 import { useTranslation } from 'react-i18next'
 import './About.scss'
-import img_avt_team from '../../Image/img_avt_team.jpg'
+import img_avt_team from '../../image/img_avt_team.jpg'
 import PageTitle from '../utilities/PageTitle'
-import AosAnimation from '../utilities/AosAnimation'
+import useAosAnimation from "../utilities/customHook/useAosAnimation"
+import useBeAtTop from '../utilities/customHook/useBeAtTop'
 
 /*  to display UI elements */
 const { Meta } = Card;
@@ -17,16 +15,16 @@ function About() {
 
     const { t, i18n } = useTranslation()
 
+    /* Call custom hook: aos animation */
+    useAosAnimation()
+
+    /* Call custom hook: be at top position */
+    useBeAtTop()
+
     return (
         <>
             {/* set title of page */}
             <PageTitle title={t('title.title_about')} />
-
-            {/* animation with aos */}
-            <AosAnimation />
-
-            {/* Header part */}
-            <Header />
 
             {/* Body UI of About component */}
             <Row>
@@ -85,10 +83,6 @@ function About() {
 
             {/* scroll to top */}
             <ScrollToTop />
-
-            {/* Footer part */}
-            <Footer />
-            <BeAtTop />
 
         </>
     )

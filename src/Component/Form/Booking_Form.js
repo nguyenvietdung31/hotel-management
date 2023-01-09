@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import './Booking_Form.scss'
 import PageTitle from '../utilities/PageTitle'
 import { useTranslation } from 'react-i18next'
-import Header from '../headerAndFooter/Header'
-import Footer from '../headerAndFooter/Footer'
 import { useSelector } from "react-redux"
 import { bookingService } from '../../Service/Room_service/API_Service'
 import Notify from '../notification/Notify'
@@ -119,8 +117,6 @@ function Booking_Form() {
     <>
       {/* set title of page */}
       <PageTitle title={t('title.title_booking_form')} />
-
-      <Header />
 
       <div className='container' style={{ paddingTop: '80px' }}>
         {notify.status && <Notify message={notify.message} type={notify.type} />}
@@ -260,7 +256,6 @@ function Booking_Form() {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   )
 }

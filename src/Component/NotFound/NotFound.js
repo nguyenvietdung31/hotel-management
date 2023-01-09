@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import img_not_found from '../../Image/not_found.png'
+import img_not_found from '../../image/not_found.png'
 import PageTitle from '../utilities/PageTitle'
 
 function NotFound() {

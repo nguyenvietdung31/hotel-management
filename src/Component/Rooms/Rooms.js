@@ -1,15 +1,13 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useQuery } from "react-query"
 import { useTranslation } from 'react-i18next'
 import { getAllData } from "../../Service/Room_service/API_Service"
-import Header from "../headerAndFooter/Header"
-import Footer from "../headerAndFooter/Footer"
 import Slider from "../utilities/Slider"
 import ScrollToTop from "../utilities/ScrollToTop"
 import PageTitle from "../utilities/PageTitle"
-import BeAtTop from "../utilities/BeAtTop"
-import AosAnimation from '../utilities/AosAnimation'
+import useAosAnimation from "../utilities/customHook/useAosAnimation"
+import useBeAtTop from '../utilities/customHook/useBeAtTop'
 import Loader from "../utilities/Loader"
 import Error from "../utilities/Error"
 import './Rooms.scss'
@@ -48,6 +46,12 @@ function Rooms() {
 
     // using this to redirect to another page
     const navigate = useNavigate()
+
+    /* Call custom hook: aos animation */
+    useAosAnimation()
+
+    /* Call custom hook: be at top position */
+    useBeAtTop()
 
     // Fetcher function
     const getData = async () => {
@@ -184,12 +188,6 @@ function Rooms() {
             {/* set title of page */}
             <PageTitle title={t('title.title_rooms')} />
 
-            {/* animation with aos */}
-            <AosAnimation />
-
-            {/* Header part */}
-            <Header />
-
             {/* Slider part */}
             <Slider />
 
@@ -315,10 +313,6 @@ function Rooms() {
 
             {/* scroll to top */}
             <ScrollToTop />
-
-            {/* Footer part */}
-            <Footer />
-            <BeAtTop />
         </>
     )
 }

@@ -1,6 +1,6 @@
 import { Col, Row } from 'antd';
 import './Footer.scss'
-import img_logo from '../../Image/hotel_logo.png'
+import img_logo from '../../image/hotel_logo.png'
 import { memo, Suspense } from 'react';
 import Loader from '../utilities/Loader';
 import { useTranslation } from 'react-i18next'

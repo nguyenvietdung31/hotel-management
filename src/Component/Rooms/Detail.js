@@ -7,10 +7,8 @@ import { useTranslation } from 'react-i18next'
 import { getRoomData } from '../../Service/Room_service/API_Service'
 import Header from '../headerAndFooter/Header'
 import Footer from '../headerAndFooter/Footer'
-import BeAtTop from '../utilities/BeAtTop'
 import ScrollToTop from '../utilities/ScrollToTop'
 import PageTitle from '../utilities/PageTitle'
-import AosAnimation from '../utilities/AosAnimation'
 import Loader from '../utilities/Loader'
 import Error from '../utilities/Error'
 import './Detail.scss'
@@ -19,6 +17,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import customParseFormat from "dayjs/plugin/customParseFormat"
 import dayjs from "dayjs";
+import useAosAnimation from '../utilities/customHook/useAosAnimation'
+import useBeAtTop from '../utilities/customHook/useBeAtTop'
 
 
 dayjs.extend(customParseFormat)
@@ -28,9 +28,16 @@ function Detail() {
 
     /* API */
     const API = 'https://639003d065ff41831106d1c8.mockapi.io/api/login/rooms'
+    
 
     /* get token from localStorage */
     const [accessToken, setAccessToken] = useState(localStorage.getItem('access_token'))
+
+    /* Call custom hook: aos animation */
+    useAosAnimation()
+
+    /* Call custom hook: be at top position */
+    useBeAtTop()
 
     /* to call the action in reducer */
     const dispatch = useDispatch()
@@ -104,12 +111,6 @@ function Detail() {
         <>
             {/* set title of page */}
             <PageTitle title={t('title.title_detail')} />
-
-            {/* animation with aos */}
-            <AosAnimation />
-
-            {/* Header UI part */}
-            <Header />
 
             {/* Body Detail UI part */}
 
@@ -247,9 +248,6 @@ function Detail() {
             {/* Body Detail UI part */}
 
             <ScrollToTop />
-            {/* Footer UI part */}
-            <Footer />
-            <BeAtTop />
 
         </>
     )

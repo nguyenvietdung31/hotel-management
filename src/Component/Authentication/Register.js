@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import logo from '../../Image/hotel_logo.png'
+import logo from '../../image/hotel_logo.png'
 import './Login.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock, faEnvelope, faSignature, faPhone, faLocationDot } from '@fortawesome/free-solid-svg-icons'

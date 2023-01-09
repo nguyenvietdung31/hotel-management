@@ -3,6 +3,7 @@ import { lazy, Suspense } from 'react'
 import Loader from '../utilities/Loader'
 
 /* Only when use these component => import them */
+const Layout = lazy(() => import('../layout/Layout'))
 const Home = lazy(() => import('../home/Home'))
 const About = lazy(() => import('../aboutAndContact/About'))
 const Contact = lazy(() => import('../aboutAndContact/Contact'))
@@ -30,7 +31,7 @@ function RouterApp() {
 
                 <Route path="/" element={
                     <Suspense fallback={<Loader />}>
-                        <Home />
+                        <Layout component={ <Home /> } />
                     </Suspense>
                 } />
                 
@@ -66,31 +67,31 @@ function RouterApp() {
 
                 <Route path='/about' element={
                     <Suspense fallback={<Loader />}>
-                        <About />
+                        <Layout component={ <About /> } />
                     </Suspense>
                 } />
 
                 <Route path='/contact' element={
                     <Suspense fallback={<Loader />}>
-                        <Contact />
+                        <Layout component={ <Contact /> } />
                     </Suspense>
                 } />
 
                 <Route path='/rooms' element={
                     <Suspense fallback={<Loader />}>
-                        <Rooms />
+                        <Layout component={ <Rooms /> } />
                     </Suspense>
                 } />
 
                 <Route path='/detail' element={
                     <Suspense fallback={<Loader />}>
-                        <Detail />
+                        <Layout component={ <Detail /> } />
                     </Suspense>
                 } />
 
                 <Route path='/booking_form' element={
                     <Suspense fallback={<Loader />}>
-                        <RequireLoggedIn><Booking_Form /></RequireLoggedIn>
+                        <RequireLoggedIn><Layout component={ <Booking_Form /> } /></RequireLoggedIn>
                     </Suspense>
                 } />
                 
