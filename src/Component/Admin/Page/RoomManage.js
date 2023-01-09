@@ -2,7 +2,7 @@ import { Image, Modal, Table, Space, Button, Layout, Input, Spin, message } from
 import React from 'react'
 import Sidebar from '../Sidebar'
 import { useState, } from "react";
-import { DeleteOutlined, DownloadOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
+import { DeleteOutlined, DownloadOutlined, EditOutlined, PictureTwoTone, PlusOutlined } from '@ant-design/icons';
 import { getAllData } from '../../../Service/Room_service/API_Service';
 import Loader from '../../Utilities/Loader';
 import Error from '../../Utilities/Error';
@@ -62,16 +62,17 @@ function RoomManage() {
       dataIndex: 'name',
       key: 'name',
     },
-    {
-      title: 'Image',
-      dataIndex: 'avatar',
-      key: 'avatar',
-      render: (_, record) => (
-        <Image.PreviewGroup>
-          <Image src={record.avatar} width={200} />
-        </Image.PreviewGroup>
-      )
-    },
+    // {
+    //   title: 'Image',
+    //   dataIndex: 'avatar',
+    //   key: 'avatar',
+    //   render: (_, record) => (
+    //     <Image.PreviewGroup>
+    //       <Image src={record.avatar} width={200} />
+    //     </Image.PreviewGroup>
+    //   )
+    // },
+    Table.EXPAND_COLUMN,
     {
       title: 'Price',
       dataIndex: 'price',
@@ -176,6 +177,21 @@ function RoomManage() {
                         onChange: () => { getData() }
                       }}
                       rowKey={record => record.id}
+                      expandable={{
+                        expandedRowRender: (record) => (
+                          <Image.PreviewGroup>
+                            <Image src={record.avatar} width={200} />
+                          </Image.PreviewGroup>
+                        ),
+                        expandIcon: ({ expanded, onExpand, record }) =>
+                          expanded ? (
+                            <PictureTwoTone twoToneColor="#52c41a" onClick={e => onExpand(record, e)} title='Close' />
+                          ) : (
+                            <PictureTwoTone twoToneColor="#52c41a" onClick={e => onExpand(record, e)} title="Click to see all images" />
+                          ),
+                        expandRowByClick: 'true',
+                        columnTitle: 'Image'
+                      }}
                     />
                   </div>
                 }

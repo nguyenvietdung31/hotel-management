@@ -149,6 +149,7 @@ function StaffManage() {
                     </Space>
                   </div>
                 </div>
+                <hr/>
                 <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
                   <Table
                     bordered={true}
