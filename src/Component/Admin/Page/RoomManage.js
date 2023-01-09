@@ -1,41 +1,56 @@
-import { Image, Modal, Table, Space, Button, Layout, Input, Spin } from 'antd'
+import { Image, Modal, Table, Space, Button, Layout, Input, Spin, message } from 'antd'
 import React from 'react'
 import Sidebar from '../Sidebar'
-import { useState, useEffect } from "react";
-import { DownloadOutlined, PlusOutlined } from '@ant-design/icons';
+import { useState, } from "react";
+import { DeleteOutlined, DownloadOutlined, EditOutlined, PictureTwoTone, PlusOutlined } from '@ant-design/icons';
 import { getAllData } from '../../../Service/Room_service/API_Service';
 import Loader from '../../Utilities/Loader';
 import Error from '../../Utilities/Error';
 import { useQuery } from 'react-query';
+import { CSVLink } from 'react-csv'
 
 function RoomManage() {
-  const { Header, Sider, Content } = Layout
+  const { Sider, Content } = Layout
   const [allRooms, setAllRooms] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [refresh, setRefresh] = useState(false)
   const [totalPages, setTotalPages] = useState(1)
 
-  // edit data
+
   const [isEditing, setIsEditing] = useState(false);
   const [editingRooms, setEditingRooms] = useState(null);
 
-  const onEdit = (allRoom) => {
-    setIsEditing(true);
-    setEditingRooms({ ...allRoom });
-  };
-  const resetEditing = () => {
-    setIsEditing(false);
-    setEditingRooms(null);
-  };
+  const [messageApi, contextHolder] = message.useMessage();
 
-  // delete data
-  const onDelete = (id) => {
-    const deleteRoom = allRooms.filter((el) => el.id !== id
-    )
-    setAllRooms(deleteRoom)
+  // Fetcher function
+  const getData = async () => {
+    const res = await getAllData()
+    setAllRooms(res)
+    setTotalPages(res)
+    return res
   }
 
-  // table column
+  // Using the hook
+  const { data, error, isLoading, isError } = useQuery('Rooms', getData, { refetchInterval: 300000 })
+
+  /* while loading -> display this */
+  if (isLoading) return <Loader />
+
+  /* if error -> display this */
+  if (isError) return <Error description={error.message} />
+
+
+  const headers = [
+    { label: 'Id', key: 'id' },
+    { label: 'Name', key: 'name' },
+    // { label: 'Image', key: 'image' },
+    { label: 'Price', key: 'price' },
+    { label: 'Bed', key: 'bed' },
+    { label: 'Size', key: 'size' },
+    { label: 'Type', key: 'type' },
+    { label: 'Description', key: 'description' },
+
+  ]
+
+  // name of column in table
   const column_room = [
     {
       title: '#',
@@ -47,16 +62,17 @@ function RoomManage() {
       dataIndex: 'name',
       key: 'name',
     },
-    {
-      title: 'Image',
-      dataIndex: 'avatar',
-      key: 'avatar',
-      render: (_, record) => (
-        <Image.PreviewGroup>
-          <Image src={record.avatar} width={200} />
-        </Image.PreviewGroup>
-      )
-    },
+    // {
+    //   title: 'Image',
+    //   dataIndex: 'avatar',
+    //   key: 'avatar',
+    //   render: (_, record) => (
+    //     <Image.PreviewGroup>
+    //       <Image src={record.avatar} width={200} />
+    //     </Image.PreviewGroup>
+    //   )
+    // },
+    Table.EXPAND_COLUMN,
     {
       title: 'Price',
       dataIndex: `price`,
@@ -87,28 +103,34 @@ function RoomManage() {
       key: 'action',
       render: (_, record) => ( //function(text, record, index)
         <Space size='middle'>
-          <Button onClick={() => onEdit(record)}>Edit</Button>
-          <Button onClick={() => onDelete(record.id)}>Delete</Button>
+          <Button type='primary' onClick={() => onEdit(record)}><EditOutlined /> Edit</Button>
+          <Button type='primary' danger onClick={() => onDelete(record.id)}><DeleteOutlined /> Delete</Button>
         </Space>
       )
     },
   ]
 
-  // Fetcher function
-  const getData = async () => {
-    const res = await getAllData()
-    setAllRooms(res)
-    return res
+  // edit data
+  const onEdit = (allRoom) => {
+    setIsEditing(true);
+    setEditingRooms({ ...allRoom });
+  };
+  const resetEditing = () => {
+    setIsEditing(false);
+    setEditingRooms(null);
+  };
+
+  // delete data
+  const onDelete = (id) => {
+    const deleteRoom = allRooms.filter((el) => {
+      return el.id !== id
+    })
+    setAllRooms(deleteRoom)
+    messageApi.open({
+      type: 'success',
+      content: 'Delete completed successfully',
+    });
   }
-
-  // Using the hook
-  const { data, error, isLoading, isError } = useQuery('Rooms', getData, { refetchInterval: 300000 })
-
-  /* while loading -> display this */
-  if(isLoading) return <Loader />
-
-  /* if error -> display this */
-  if(isError) return <Error description={error.message} />
 
   return (
     <>
@@ -118,17 +140,21 @@ function RoomManage() {
         </Sider>
         <Layout >
           <Content style={{ overflow: 'initial', }}>
+            {contextHolder}
             <div>
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '5px' }}>
-                  <h1>Room</h1>
+                  <h1>Total {allRooms.length} rooms </h1>
                   <div>
                     <Space size='small'>
                       <Button type='primary' style={{ backgroundColor: '#42b72a' }}><PlusOutlined /> Add new room</Button>
-                      <Button type='primary' style={{ backgroundColor: '#187205' }}><DownloadOutlined /> Export Data</Button>
+                      <CSVLink data={data} headers={headers} filename='rooms.csv'>
+                        <Button type='primary' style={{ backgroundColor: '#187205' }}><DownloadOutlined /> Export Data to CSV</Button>
+                      </CSVLink>
                     </Space>
                   </div>
                 </div>
+                <hr />
                 {isLoading ?
                   <div className="d-flex justify-content-center mt-5" style={{ height: '400px', alignItems: 'center' }}>
                     <Space direction="vertical"
@@ -146,11 +172,26 @@ function RoomManage() {
                       columns={column_room}
                       dataSource={allRooms}
                       pagination={{
-                        pageSize: 8,
+                        pageSize: 4,
                         total: totalPages,
                         onChange: () => { getData() }
                       }}
-                      rowKey={record=>record.id}
+                      rowKey={record => record.id}
+                      expandable={{
+                        expandedRowRender: (record) => (
+                          <Image.PreviewGroup>
+                            <Image src={record.avatar} width={200} />
+                          </Image.PreviewGroup>
+                        ),
+                        expandIcon: ({ expanded, onExpand, record }) =>
+                          expanded ? (
+                            <PictureTwoTone twoToneColor="#52c41a" onClick={e => onExpand(record, e)} title='Close' />
+                          ) : (
+                            <PictureTwoTone twoToneColor="#52c41a" onClick={e => onExpand(record, e)} title="Click to see all images" />
+                          ),
+                        expandRowByClick: 'true',
+                        columnTitle: 'Image'
+                      }}
                     />
                   </div>
                 }
@@ -164,6 +205,7 @@ function RoomManage() {
       <Modal
         title="Edit"
         open={isEditing}
+        centered
         onOk={() => {
           setAllRooms((pre) => {
             return pre.map((allRoom) => {
@@ -173,6 +215,10 @@ function RoomManage() {
                 return allRoom;
               }
             });
+          });
+          messageApi.open({
+            type: 'success',
+            content: 'Edit completed successfully',
           });
           resetEditing();
         }}
