@@ -47,6 +47,7 @@ function RoomManage() {
     { label: 'Size', key: 'size' },
     { label: 'Type', key: 'type' },
     { label: 'Description', key: 'description' },
+    // { label: 'Services', key: 'services' },
 
   ]
 
@@ -97,6 +98,19 @@ function RoomManage() {
       title: 'Description',
       dataIndex: 'description',
       key: 'description',
+    },
+    {
+      title: 'Services',
+      dataIndex: 'services',
+      key: 'services',
+      render: (_, record) => (
+        <ul style={{ listStyleType: 'circle' }}>
+          {record.services.map((service, index) =>
+            <li key={index}>{service}</li>
+          )}
+        </ul>
+      )
+
     },
     {
       title: 'Action',
