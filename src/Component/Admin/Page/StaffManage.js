@@ -226,7 +226,7 @@ function StaffManage() {
             });
           }}
         />
-      </Modal>age
+      </Modal>
     </>
 
   );

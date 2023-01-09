@@ -1,12 +1,12 @@
-import { Layout, Menu,  } from 'antd'
+import { Layout, Menu, } from 'antd'
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import {DashboardOutlined, FileOutlined,TeamOutlined, UserOutlined,HomeOutlined,} from '@ant-design/icons';
+import { DashboardOutlined, FileOutlined, TeamOutlined, UserOutlined, HomeOutlined, } from '@ant-design/icons';
 import img_logo from '../../Image/hotel_logo.png'
 
 function Sidebar() {
     const navigate = useNavigate()
-    const { Sider,  } = Layout
+    const { Sider, } = Layout
     return (
         <div>
             <div>

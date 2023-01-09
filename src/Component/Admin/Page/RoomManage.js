@@ -143,7 +143,7 @@ function RoomManage() {
             <div>
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '5px' }}>
-                  <h1>Total {allRooms.length} rooms</h1>
+                  <h1>Total {allRooms.length} rooms </h1>
                   <div>
                     <Space size='small'>
                       <Button type='primary' style={{ backgroundColor: '#42b72a' }}><PlusOutlined /> Add new room</Button>

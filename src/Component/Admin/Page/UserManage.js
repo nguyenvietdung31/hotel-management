@@ -170,11 +170,12 @@ function UserManage() {
                       <Table
                         columns={column_user}
                         dataSource={data}
-                        pagination={{
-                          pageSize: 5,
-                          total: totalPages,
-                          onChange: () => { getAllData() }
-                        }}
+                        // pagination={{
+                        //   pageSize: 5,
+                        //   total: totalPages,
+                        //   onChange: () => { getAllData() }
+                        // }}
+                        pagination={false}
                         rowKey={record => record.id}
                       />
                     </div>
