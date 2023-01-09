@@ -2,14 +2,14 @@ import { Link, useNavigate } from "react-router-dom"
 import { useQuery } from 'react-query'
 import { useTranslation } from 'react-i18next'
 import { getAllData } from '../../Service/Room_service/API_Service'
-import Header from '../Header_Footer/Header'
-import Footer from '../Header_Footer/Footer'
-import Slider from "../Utilities/Slider"
-import BeAtTop from "../Utilities/BeAtTop"
-import PageTitle from "../Utilities/PageTitle"
-import ScrollToTop from "../Utilities/ScrollToTop"
-import Error from '../Utilities/Error'
-import AosAnimation from '../Utilities/AosAnimation'
+import Header from '../headerAndFooter/Header'
+import Footer from '../headerAndFooter/Footer'
+import Slider from "../utilities/Slider"
+import BeAtTop from "../utilities/BeAtTop"
+import PageTitle from "../utilities/PageTitle"
+import ScrollToTop from "../utilities/ScrollToTop"
+import Error from '../utilities/Error'
+import AosAnimation from '../utilities/AosAnimation'
 import './Home.scss'
 import slide_img1 from '../../Image/slide_img_1.jpg'
 import img_avt_team from '../../Image/img_avt_team.jpg'

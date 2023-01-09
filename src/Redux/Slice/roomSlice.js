@@ -5,6 +5,7 @@ export const roomSlice = createSlice({
   name: 'room',
 
   initialState: {
+    id: null,
     name: null,
     price: 0,
     size: 0,
@@ -16,6 +17,7 @@ export const roomSlice = createSlice({
 
   reducers: {
     setRoomBooked: (state, action) => {
+      state.id = action.payload.roomId
       state.name = action.payload.name
       state.price = action.payload.price
       state.size = action.payload.size

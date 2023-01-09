@@ -1,20 +1,20 @@
 import { Route, Routes, Navigate } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
-import Loader from '../Utilities/Loader'
+import Loader from '../utilities/Loader'
 
 /* Only when use these component => import them */
-const Home = lazy(() => import('../Home/Home'))
-const About = lazy(() => import('../About_Contact/About'))
-const Contact = lazy(() => import('../About_Contact/Contact'))
-const Login = lazy(() => import('../Authentication/Login'))
-const Register = lazy(() => import('../Authentication/Register'))
-const Change_Password = lazy(() => import('../Authentication/Change_Password'))
-const Forgot_Password = lazy(() => import('../Authentication/Forgot_Password'))
-const Reset_Password = lazy(() => import('../Authentication/Reset_Password'))
-const Rooms = lazy(() => import('../Rooms/Rooms'))
-const NotFound = lazy(() => import('../NotFound/NotFound'))
-const Booking_Form = lazy(() => import('../Form/Booking_Form'))
-const Detail = lazy(() => import('../Rooms/Detail'))
+const Home = lazy(() => import('../home/Home'))
+const About = lazy(() => import('../aboutAndContact/About'))
+const Contact = lazy(() => import('../aboutAndContact/Contact'))
+const Login = lazy(() => import('../authentication/Login'))
+const Register = lazy(() => import('../authentication/Register'))
+const Change_Password = lazy(() => import('../authentication/Change_Password'))
+const Forgot_Password = lazy(() => import('../authentication/Forgot_Password'))
+const Reset_Password = lazy(() => import('../authentication/Reset_Password'))
+const Rooms = lazy(() => import('../rooms/Rooms'))
+const NotFound = lazy(() => import('../notFound/NotFound'))
+const Booking_Form = lazy(() => import('../form/Booking_Form'))
+const Detail = lazy(() => import('../rooms/Detail'))
 const Dashboard = lazy(() => import('../Admin/Dashboard'))
 const RoomManage = lazy(() => import('../Admin/Page/RoomManage'))
 const StaffManage = lazy(() => import('../Admin/Page/StaffManage'))

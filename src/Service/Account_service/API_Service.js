@@ -1,6 +1,6 @@
 import axios from "axios"
 import axiosInstance from "../../Axios Interceptor/AxiosInstance"
-import { baseUrl } from "../../Constant/Constant"
+import { baseUrl } from "../../constant/Constant"
 
 /* handle post data to api: register, login, forgot password */
 export const postDataService = async (path, obj) => {

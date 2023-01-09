@@ -1,16 +1,14 @@
 import { Col, Row, Card } from 'antd';
-import { useEffect } from 'react';
-import Header from '../Header_Footer/Header';
-import Footer from '../Header_Footer/Footer';
-import Slider from '../Utilities/Slider';
-import BeAtTop from '../Utilities/BeAtTop';
-import ScrollToTop from '../Utilities/ScrollToTop';
+import Header from '../headerAndFooter/Header';
+import Footer from '../headerAndFooter/Footer';
+import Slider from '../utilities/Slider';
+import BeAtTop from '../utilities/BeAtTop';
+import ScrollToTop from '../utilities/ScrollToTop';
 import { useTranslation } from 'react-i18next'
 import './About.scss'
-import AOS from 'aos'
 import img_avt_team from '../../Image/img_avt_team.jpg'
-import PageTitle from '../Utilities/PageTitle'
-import AosAnimation from '../Utilities/AosAnimation'
+import PageTitle from '../utilities/PageTitle'
+import AosAnimation from '../utilities/AosAnimation'
 
 /*  to display UI elements */
 const { Meta } = Card;

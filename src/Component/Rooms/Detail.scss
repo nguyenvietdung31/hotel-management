@@ -20,7 +20,7 @@ $MD: 1024px;
     }
 }
 
-@import '../Base/Base.scss';
+@import '../base/Base.scss';
 
 @mixin title_part($color) {
     color: $color;

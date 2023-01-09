@@ -1,6 +1,6 @@
 import React, { useState, Suspense, memo } from 'react'
 import { useTranslation } from 'react-i18next'
-import Loader from '../Utilities/Loader'
+import Loader from '../utilities/Loader'
 import './Header.scss'
 import img_logo from '../../Image/hotel_logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

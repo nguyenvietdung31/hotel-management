@@ -4,15 +4,12 @@ import './Login.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock, faEnvelope, faSignature, faPhone, faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { Form, Input } from 'antd'
-import PageTitle from '../Utilities/PageTitle'
+import PageTitle from '../utilities/PageTitle'
 import { Link, useNavigate } from 'react-router-dom'
-import Notify from '../Notification/Notify'
+import Notify from '../notification/Notify'
 import { postDataService } from '../../Service/Account_service/API_Service'
 
 function Register() {
-
-    /* API */
-    // const API = 'https://639003d065ff41831106d1c8.mockapi.io/api/login/Account'
 
     /* Initialize state */
     const [fullname, setFullname] = useState('')

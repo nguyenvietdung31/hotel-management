@@ -4,8 +4,8 @@ import Sidebar from '../Sidebar'
 import { useState, useEffect } from "react";
 import { DownloadOutlined, PlusOutlined } from '@ant-design/icons';
 import { getAllData } from '../../../Service/Room_service/API_Service';
-import Loader from '../../Utilities/Loader';
-import Error from '../../Utilities/Error';
+import Loader from '../../utilities/Loader';
+import Error from '../../utilities/Error';
 import { useQuery } from 'react-query';
 
 function RoomManage() {

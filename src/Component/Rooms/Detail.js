@@ -5,14 +5,14 @@ import { useQuery } from 'react-query'
 import { setRoomBooked } from '../../Redux/Slice/roomSlice'
 import { useTranslation } from 'react-i18next'
 import { getRoomData } from '../../Service/Room_service/API_Service'
-import Header from '../Header_Footer/Header'
-import Footer from '../Header_Footer/Footer'
-import BeAtTop from '../Utilities/BeAtTop'
-import ScrollToTop from '../Utilities/ScrollToTop'
-import PageTitle from '../Utilities/PageTitle'
-import AosAnimation from '../Utilities/AosAnimation'
-import Loader from '../Utilities/Loader'
-import Error from '../Utilities/Error'
+import Header from '../headerAndFooter/Header'
+import Footer from '../headerAndFooter/Footer'
+import BeAtTop from '../utilities/BeAtTop'
+import ScrollToTop from '../utilities/ScrollToTop'
+import PageTitle from '../utilities/PageTitle'
+import AosAnimation from '../utilities/AosAnimation'
+import Loader from '../utilities/Loader'
+import Error from '../utilities/Error'
 import './Detail.scss'
 import { DatePicker, Space, Skeleton } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -82,6 +82,7 @@ function Detail() {
 
         /* set current value of booked room */
         dispatch(setRoomBooked({
+            roomId: data.id,
             name: data.name,
             price: data.price,
             size: data.size,

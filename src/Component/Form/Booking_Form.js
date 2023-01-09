@@ -1,14 +1,14 @@
-import { Button, Checkbox, Form, Input, Typography, message } from 'antd'
+import { Button, Checkbox, Form, Input, Typography } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Booking_Form.scss'
-import PageTitle from '../Utilities/PageTitle'
+import PageTitle from '../utilities/PageTitle'
 import { useTranslation } from 'react-i18next'
-import Header from '../Header_Footer/Header'
-import Footer from '../Header_Footer/Footer'
+import Header from '../headerAndFooter/Header'
+import Footer from '../headerAndFooter/Footer'
 import { useSelector } from "react-redux"
 import { bookingService } from '../../Service/Room_service/API_Service'
-import Notify from '../Notification/Notify'
+import Notify from '../notification/Notify'
 
 
 function Booking_Form() {
@@ -22,12 +22,14 @@ function Booking_Form() {
   /* store in redux */
   const storeRoom = useSelector(state => state.room)
 
+  const user = JSON.parse(localStorage.getItem('user'))
+
   /* if have not already choose room -> redirect to home page */
   useEffect(() => {
     if (storeRoom.name === null) {
       navigate('/')
     }
-  })
+  }, [])
 
   const [notify, setNotify] = useState({
     status: false,
@@ -191,17 +193,9 @@ function Booking_Form() {
                 <Form.Item className='font-weight-bold'
                   name='fullname'
                   label={t('booking.booking_form_name')}
-                  rules={[{
-                    required: true,
-                    message: 'Please fill your name'
-                  },
-                  {
-                    pattern: /^[^-\s][a-zA-Z_\s-]+$/,
-                    message: 'Please fill correct name (character format string a to z)'
-                  }
-                  ]}
+                  initialValue={user.firstName}
                 >
-                  <Input placeholder={t('booking.booking_form_name_plh')} />
+                  <Input readOnly />
                 </Form.Item>
                 <Form.Item className='font-weight-bold'
                   name='id'
@@ -221,17 +215,9 @@ function Booking_Form() {
                 <Form.Item className='font-weight-bold'
                   name='phone'
                   label={t('booking.booking_form_phone')}
-                  rules={[{
-                    required: true,
-                    message: 'Please fill your number phone'
-                  },
-                  {
-                    pattern: /(0)\d{9}/,
-                    message: 'Please fill correct number phone (start with 0 and the length is 10 characters)'
-                  },
-                  ]}>
-                  <Input placeholder={t('booking.booking_form_phone_plh')}
-                    maxLength={10} />
+                  initialValue={user.id}
+                  >
+                  <Input readOnly />
                 </Form.Item>
                 <Form.Item className='font-weight-bold'
                   name='note'

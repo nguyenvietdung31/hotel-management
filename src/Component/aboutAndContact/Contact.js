@@ -2,16 +2,16 @@ import { useEffect, useState } from "react"
 import { Col, Row } from 'antd';
 import Header from "../Header_Footer/Header";
 import Footer from "../Header_Footer/Footer";
-import ScrollToTop from "../Utilities/ScrollToTop";
+import ScrollToTop from "../utilities/ScrollToTop";
 import { useTranslation } from 'react-i18next'
-import BeAtTop from "../Utilities/BeAtTop";
+import BeAtTop from "../utilities/BeAtTop";
 import './Contact.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationDot, faPhone, faEnvelope, faClock } from '@fortawesome/free-solid-svg-icons'
 import { faFacebook, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons'
-import PageTitle from "../Utilities/PageTitle"
-import Notify from "../Notification/Notify"
-import AosAnimation from "../Utilities/AosAnimation"
+import PageTitle from "../utilities/PageTitle"
+import Notify from "../notification/Notify"
+import AosAnimation from "../utilities/AosAnimation"
 
 
 function Contact() {

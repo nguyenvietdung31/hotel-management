@@ -3,10 +3,9 @@ import './Login.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock, faUser } from '@fortawesome/free-solid-svg-icons'
 import { Form, Input } from 'antd'
-import PageTitle from '../Utilities/PageTitle'
+import PageTitle from '../utilities/PageTitle'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
 import { postDataService } from '../../Service/Account_service/API_Service'
 
 function Login() {
@@ -29,8 +28,8 @@ function Login() {
     const handleLogin = async (acc) => {
         await postDataService('/login', acc)
             .then(res => {
-                console.log(res.data)
                 localStorage.setItem('access_token', res.data.token)
+                localStorage.setItem('user', JSON.stringify(res.data))
 
                 /* if admin log in => access_admin = true, else access_user = true */
                 // if(res.data.role === 1) {

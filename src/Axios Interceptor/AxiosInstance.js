@@ -1,5 +1,5 @@
 import axios from "axios"
-import { baseUrl } from "../Constant/Constant"
+import { baseUrl } from "../constant/Constant"
 
 const axiosInstance = axios.create({
     baseURL: baseUrl,
@@ -13,7 +13,7 @@ axiosInstance.interceptors.request.use(async config => {
 
     if(accessToken) 
         config.headers.Authorization = 'Bearer ' + accessToken
-
+        
     return config
 }, error => {
     return Promise.reject(error)
