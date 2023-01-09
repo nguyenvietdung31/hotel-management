@@ -5,20 +5,20 @@ import { useQuery } from 'react-query'
 import { setRoomBooked } from '../../Redux/Slice/roomSlice'
 import { useTranslation } from 'react-i18next'
 import { getRoomData } from '../../Service/Room_service/API_Service'
-import Header from '../Header_Footer/Header'
-import Footer from '../Header_Footer/Footer'
-import BeAtTop from '../Utilities/BeAtTop'
-import ScrollToTop from '../Utilities/ScrollToTop'
-import PageTitle from '../Utilities/PageTitle'
-import AosAnimation from '../Utilities/AosAnimation'
-import Loader from '../Utilities/Loader'
-import Error from '../Utilities/Error'
+import Header from '../headerAndFooter/Header'
+import Footer from '../headerAndFooter/Footer'
+import ScrollToTop from '../utilities/ScrollToTop'
+import PageTitle from '../utilities/PageTitle'
+import Loader from '../utilities/Loader'
+import Error from '../utilities/Error'
 import './Detail.scss'
 import { DatePicker, Space, Skeleton } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import customParseFormat from "dayjs/plugin/customParseFormat"
 import dayjs from "dayjs";
+import useAosAnimation from '../utilities/customHook/useAosAnimation'
+import useBeAtTop from '../utilities/customHook/useBeAtTop'
 
 
 dayjs.extend(customParseFormat)
@@ -28,9 +28,16 @@ function Detail() {
 
     /* API */
     const API = 'https://639003d065ff41831106d1c8.mockapi.io/api/login/rooms'
+    
 
     /* get token from localStorage */
     const [accessToken, setAccessToken] = useState(localStorage.getItem('access_token'))
+
+    /* Call custom hook: aos animation */
+    useAosAnimation()
+
+    /* Call custom hook: be at top position */
+    useBeAtTop()
 
     /* to call the action in reducer */
     const dispatch = useDispatch()
@@ -82,6 +89,7 @@ function Detail() {
 
         /* set current value of booked room */
         dispatch(setRoomBooked({
+            roomId: data.id,
             name: data.name,
             price: data.price,
             size: data.size,
@@ -103,12 +111,6 @@ function Detail() {
         <>
             {/* set title of page */}
             <PageTitle title={t('title.title_detail')} />
-
-            {/* animation with aos */}
-            <AosAnimation />
-
-            {/* Header UI part */}
-            <Header />
 
             {/* Body Detail UI part */}
 
@@ -246,9 +248,6 @@ function Detail() {
             {/* Body Detail UI part */}
 
             <ScrollToTop />
-            {/* Footer UI part */}
-            <Footer />
-            <BeAtTop />
 
         </>
     )

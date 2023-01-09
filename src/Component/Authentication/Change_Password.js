@@ -1,11 +1,11 @@
-import logo from '../../Image/hotel_logo.png'
+import logo from '../../image/hotel_logo.png'
 import './Login.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
 import { Form, Input } from 'antd'
-import PageTitle from '../Utilities/PageTitle'
+import PageTitle from '../utilities/PageTitle'
 import { useState } from 'react'
-import Notify from '../Notification/Notify'
+import Notify from '../notification/Notify'
 import { useNavigate } from 'react-router-dom'
 import { changePasswordService } from '../../Service/Account_service/API_Service'
 
@@ -131,7 +131,7 @@ function Change_Password() {
                                         prefix={<FontAwesomeIcon className='mr-2' icon={faLock} />}
                                         type="password"
                                         placeholder="Old password"
-                                        onChange={e => setOldPass(e.target.value.trim())} />
+                                        onChange={e => setOldPass(e.target.value)} />
 
                                 </Form.Item>
                                 <Form.Item
@@ -157,7 +157,7 @@ function Change_Password() {
                                         prefix={<FontAwesomeIcon className='mr-2' icon={faLock} />}
                                         type="password"
                                         placeholder="Password"
-                                        onChange={e => setNewPass(e.target.value.trim())}
+                                        onChange={e => setNewPass(e.target.value)}
                                     />
                                 </Form.Item>
                                 <Form.Item

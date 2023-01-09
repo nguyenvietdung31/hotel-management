@@ -4,8 +4,8 @@ import Sidebar from '../Sidebar'
 import { useState, } from "react";
 import { DeleteOutlined, DownloadOutlined, EditOutlined, PictureTwoTone, PlusOutlined } from '@ant-design/icons';
 import { getAllData } from '../../../Service/Room_service/API_Service';
-import Loader from '../../Utilities/Loader';
-import Error from '../../Utilities/Error';
+import Loader from '../../utilities/Loader';
+import Error from '../../utilities/Error';
 import { useQuery } from 'react-query';
 import { CSVLink } from 'react-csv'
 

@@ -1,7 +1,7 @@
-import { memo, useEffect } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-function BeAtTop() {
+function useBeAtTop() {
 
     const location = useLocation()
 
@@ -12,9 +12,7 @@ function BeAtTop() {
       }
     }, [location])
 
-    return (
-        <></>
-    )
+    return;
 }
 
-export default memo(BeAtTop)
+export default useBeAtTop

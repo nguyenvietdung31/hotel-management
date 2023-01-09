@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import PageTitle from '../Utilities/PageTitle'
-import Notify from '../Notification/Notify'
+import PageTitle from '../utilities/PageTitle'
+import Notify from '../notification/Notify'
 import { resetPasswordService } from '../../Service/Account_service/API_Service'
-import logo from '../../Image/hotel_logo.png'
+import logo from '../../image/hotel_logo.png'
 import './Login.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
@@ -120,7 +120,7 @@ function Reset_Password() {
                                         type="password"
                                         placeholder="Password"
                                         value={password}
-                                        onChange={e => setPassword(e.target.value.trim())}
+                                        onChange={e => setPassword(e.target.value)}
                                     />
                                 </Form.Item>
                                 <Form.Item
@@ -156,7 +156,7 @@ function Reset_Password() {
                                         type="password"
                                         placeholder="Confirm password"
                                         value={cfpassword}
-                                        onChange={e => setCFPassword(e.target.value.trim())}
+                                        onChange={e => setCFPassword(e.target.value)}
                                     />
                                 </Form.Item>
 

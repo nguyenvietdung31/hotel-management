@@ -20,7 +20,7 @@ $MD: 1024px;
     }
 }
 
-@import '../Base/Base.scss';
+        @import '../base/Base.scss';
 
 .contain_btn_link a:link,
 .contain_btn_link a:visited {
@@ -51,26 +51,24 @@ $MD: 1024px;
         display: flex;
         justify-content: space-around;
         flex-wrap: wrap;
-    
+
         .home_more_content_box {
             margin: 20px 0;
-    
+
             .home_more_content_card {
                 width: 280px;
                 height: 280px;
                 background: #c5a491;
                 text-transform: justify;
                 padding: 10px;
-    
+
                 .ant-card-meta-title {
                     text-align: center;
                 }
             }
         }
-    
     }
 }
-
 
 .contain_price .ant-card-meta-title {
     color: red;
@@ -85,7 +83,6 @@ $MD: 1024px;
     padding: 50px 30px;
 
     .contain_title_manager {
-
         margin-bottom: 50px;
 
         .title_manager {
@@ -103,7 +100,7 @@ $MD: 1024px;
             }
 
             &::after {
-                content: "";
+                content: '';
                 height: 3px;
                 width: 100%;
                 position: absolute;
@@ -124,7 +121,11 @@ $MD: 1024px;
 
     .card {
         width: 240;
-        box-shadow: rgba(254, 252, 243, 0.4) -5px 5px, rgba(254, 252, 243, 0.3) -10px 10px, rgba(254, 252, 243, 0.2) -15px 15px, rgba(254, 252, 243, 0.1) -20px 20px, rgba(254, 252, 243, 0.05) -25px 25px;
-        border: 1px solid #F3EFE0;
+        box-shadow: rgba(254, 252, 243, 0.4) -5px 5px,
+            rgba(254, 252, 243, 0.3) -10px 10px,
+            rgba(254, 252, 243, 0.2) -15px 15px,
+            rgba(254, 252, 243, 0.1) -20px 20px,
+            rgba(254, 252, 243, 0.05) -25px 25px;
+        border: 1px solid #f3efe0;
     }
 }

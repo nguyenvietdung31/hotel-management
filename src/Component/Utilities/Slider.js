@@ -1,9 +1,9 @@
 import { Carousel } from 'antd';
 import { memo } from 'react';
-import slide_img1 from '../../Image/slide_img_1.jpg'
-import slide_img2 from '../../Image/slide_img_2.jpg'
-import slide_img3 from '../../Image/slide_img_3.jpg'
-import slide_img4 from '../../Image/slide_img_4.jpg'
+import slide_img1 from '../../image/slide_img_1.jpg'
+import slide_img2 from '../../image/slide_img_2.jpg'
+import slide_img3 from '../../image/slide_img_3.jpg'
+import slide_img4 from '../../image/slide_img_4.jpg'
 import './Slider.scss'
 
 function Slider() {

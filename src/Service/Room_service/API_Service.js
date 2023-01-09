@@ -1,5 +1,5 @@
 import axios from "axios"
-import { base_API_room } from "../../Constant/Constant"
+import { base_API_room } from "../../constant/Constant"
 
 /* get data of all rooms */
 export const getAllData = async () => {

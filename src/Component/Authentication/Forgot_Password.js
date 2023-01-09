@@ -1,11 +1,11 @@
-import logo from '../../Image/hotel_logo.png'
+import logo from '../../image/hotel_logo.png'
 import './Login.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { Form, Input } from 'antd'
-import PageTitle from '../Utilities/PageTitle'
+import PageTitle from '../utilities/PageTitle'
 import { useState } from 'react'
-import Notify from '../Notification/Notify'
+import Notify from '../notification/Notify'
 import { useNavigate } from 'react-router-dom'
 import { postDataService } from '../../Service/Account_service/API_Service'
 
@@ -119,7 +119,7 @@ function Forgot_Password() {
                                         prefix={<FontAwesomeIcon className='mr-2' icon={faEnvelope} />}
                                         type="email"
                                         placeholder="Email"
-                                        onChange={e => setEmail(e.target.value.trim())} />
+                                        onChange={e => setEmail(e.target.value)} />
 
                                 </Form.Item>
 

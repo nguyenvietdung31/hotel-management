@@ -9,7 +9,7 @@ import {
 } from '@ant-design/icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGlobe } from '@fortawesome/free-solid-svg-icons'
-import img_logo from '../../Image/hotel_logo.png'
+import img_logo from '../../image/hotel_logo.png'
 
 function getItem(label, key, icon, children, type) {
     return {

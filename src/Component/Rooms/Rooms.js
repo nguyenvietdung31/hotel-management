@@ -1,17 +1,15 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useQuery } from "react-query"
 import { useTranslation } from 'react-i18next'
 import { getAllData } from "../../Service/Room_service/API_Service"
-import Header from "../Header_Footer/Header"
-import Footer from "../Header_Footer/Footer"
-import Slider from "../Utilities/Slider"
-import ScrollToTop from "../Utilities/ScrollToTop"
-import PageTitle from "../Utilities/PageTitle"
-import BeAtTop from "../Utilities/BeAtTop"
-import AosAnimation from '../Utilities/AosAnimation'
-import Loader from "../Utilities/Loader"
-import Error from "../Utilities/Error"
+import Slider from "../utilities/Slider"
+import ScrollToTop from "../utilities/ScrollToTop"
+import PageTitle from "../utilities/PageTitle"
+import useAosAnimation from "../utilities/customHook/useAosAnimation"
+import useBeAtTop from '../utilities/customHook/useBeAtTop'
+import Loader from "../utilities/Loader"
+import Error from "../utilities/Error"
 import './Rooms.scss'
 import {
     Pagination, Card, Select, Input, Slider as Slide,
@@ -48,6 +46,12 @@ function Rooms() {
 
     // using this to redirect to another page
     const navigate = useNavigate()
+
+    /* Call custom hook: aos animation */
+    useAosAnimation()
+
+    /* Call custom hook: be at top position */
+    useBeAtTop()
 
     // Fetcher function
     const getData = async () => {
@@ -104,7 +108,7 @@ function Rooms() {
     }
 
     /* handle filter with TYPE of room: '..' */
-    const handleFilter = (type) => {
+    const handleFilter = (type, search) => {
         setType(type)
         setSortType('DF')
 
@@ -129,11 +133,11 @@ function Rooms() {
     const handleSearch = value => {
         setSearch(value)
         if (value !== '') {
-            handleFilter(type)
+            handleFilter(type, value)
             setAllRooms(allRooms.filter(room => room.name.toLowerCase().includes(value.toLowerCase())))
         }
         else {
-            handleFilter(type)
+            handleFilter(type, value)
         }
     }
 
@@ -174,21 +178,15 @@ function Rooms() {
     }
 
     /* while loading data -> display this */
-    if(isLoading) return <Loader />
+    if (isLoading) return <Loader />
 
     /* if error when call api -> display this */
-    if(isError) return <Error />
+    if (isError) return <Error />
 
     return (
         <>
             {/* set title of page */}
             <PageTitle title={t('title.title_rooms')} />
-
-            {/* animation with aos */}
-            <AosAnimation />
-
-            {/* Header part */}
-            <Header />
 
             {/* Slider part */}
             <Slider />
@@ -203,12 +201,14 @@ function Rooms() {
                     <div className="col-lg-3 col-md-12 col-xs-12">
                         <div className="contain_filter pl-2 pr-2">
 
-                            <Input placeholder={t('rooms.rooms_input_search')} onChange={(e) => handleSearch(e.target.value)} value={search} />
+                            <Input placeholder={t('rooms.rooms_input_search')} onChange={(e) => 
+                                handleSearch(e.target.value)
+                            } value={search} />
 
                             <div className="category">
                                 <div className="category_title font-weight-bold mb-3">{t('rooms.rooms_type_title')}</div>
 
-                                <Radio.Group onChange={(e) => handleFilter(e.target.value)} value={type}>
+                                <Radio.Group onChange={(e) => handleFilter(e.target.value, search)} value={type}>
                                     <Radio className="mt-2 mb-2" value='all'>{t('rooms.rooms_type_item1')}</Radio><br />
                                     <Radio className="mt-2 mb-2" value='standard'>{t('rooms.rooms_type_item2')}</Radio><br />
                                     <Radio className="mt-2 mb-2" value='superior'>{t('rooms.rooms_type_item3')}</Radio><br />
@@ -313,10 +313,6 @@ function Rooms() {
 
             {/* scroll to top */}
             <ScrollToTop />
-
-            {/* Footer part */}
-            <Footer />
-            <BeAtTop />
         </>
     )
 }
