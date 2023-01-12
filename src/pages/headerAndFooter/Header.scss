@@ -1,0 +1,183 @@
+$XS: 480px;
+$SM: 768px;
+$MD: 1024px;
+
+@mixin mobile {
+    @media (max-width: #{$SM - 1px}) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (min-width: #{$SM}) and (max-width: #{$MD - 1px}) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: #{$MD}) {
+        @content;
+    }
+}
+
+@import '../../utility/baseStyle/Base.scss';
+
+
+.header {
+    background-color: rgb(30 41 59);
+    width: 100%;
+    position: fixed;
+    z-index: 999;
+
+    .navbar {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+        .left_menu {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+
+            @include mobile {
+                width: 100%;
+            }
+
+            @include tablet {
+                width: 100%;
+            }
+
+            .menu {
+                display: flex;
+
+                @include mobile {
+                    display: none;
+                }
+
+                @include tablet {
+                    display: none;
+                }
+            }
+
+            .button_see_more, .contain_avt_user img {
+                display: none;
+                cursor: pointer;
+
+                @include mobile {
+                    display: block;
+                }
+
+                @include tablet {
+                    display: block;
+                }
+            }
+
+            .contain_multi_lang_responsive {
+                display: none;
+                cursor: pointer;
+
+                @include mobile {
+                    display: block;
+                }
+
+                @include tablet {
+                    display: block;
+                }
+            }
+        }
+    }
+
+
+    .right_menu {
+        display: flex;
+        align-items: center;
+
+        .login_register {
+            display: flex;
+
+            @include mobile {
+                display: none;
+            }
+
+            @include tablet {
+                display: none;
+            }
+        }
+
+        .contain_multi_lang {
+            @include mobile {
+                display: none;
+            }
+
+            @include tablet {
+                display: none;
+            }
+        }
+
+        .user_logged_in {
+            margin-left: 20px;
+
+            @include mobile {
+                display: none;
+            }
+
+            @include tablet {
+                display: none;
+            }
+        }
+    }
+
+    .item_menu {
+        padding: 10px;
+        margin: 15px 0;
+
+        a {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 0 15px;
+
+            &:hover {
+                color: burlywood;
+            }
+        }
+    }
+
+    .right_item_menu {
+        padding: 6px;
+    }
+
+    .list_dropdown_menu {
+        position: absolute;
+        top: 20;
+        width: 100%;
+
+        a {
+            color: #fff;
+            text-decoration: none;
+
+            .item_dropdown_menu {
+                background-color: #343a40;
+                padding: 20px;
+    
+                &:hover {
+                    background-color: burlywood;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+    
+}
+
+
+
+
+
+iframe {
+    border-radius: 5px;
+    border: 1px solid #fff;
+}

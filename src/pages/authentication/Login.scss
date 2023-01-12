@@ -1,0 +1,101 @@
+$XS: 480px;
+$SM: 768px;
+$MD: 1024px;
+
+@mixin mobile {
+    @media (max-width: #{$SM - 1px}) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (min-width: #{$SM}) and (max-width: #{$MD - 1px}) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: #{$MD}) {
+        @content;
+    }
+}
+@import '../../utility/baseStyle/Base.scss';
+
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(../../image/bg_login_img.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+    width: 100%;
+    background-color: rgba(255, 255, 255, .9);
+    background-attachment: fixed;
+
+
+    .wrap_form {
+        background: linear-gradient(to right bottom, rgb(242, 183, 95, 0.85), rgba(248, 228, 98, 0.85));
+        padding: 50px;
+        width: 30vw;
+        border-radius: 15px;
+        border: 1px solid rgb(217, 153, 57);
+
+        @include mobile {
+            width: 100%;
+        }
+
+        @include tablet {
+            width: 100%;
+        }
+
+
+        .contain_logo {
+            display: flex;
+            justify-content: center;
+
+            img {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        .title {
+            font-size: 30px;
+            color: #65C18C;
+            text-align: center;
+        }
+
+        .input_tag {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .forgotpass {
+            text-decoration: none;
+        }
+
+        .contain_button {
+            display: flex;
+            justify-content: center;
+
+            .btn_login {
+                width: 50%;
+                border-radius: 30px;
+                background: linear-gradient(to right bottom, #95f84f, #9ce469, #d1f7d1);
+
+                // background: linear-gradient(to bottom right, #76BA99, #C3FF99);
+                border: 1px solid #C3FF99;
+                box-shadow: rgba(62, 253, 209, 0.4) -2px 2px, rgba(51, 255, 98, 0.3) -3px 3px;
+
+                &:hover {
+                    background: linear-gradient(to top left, #95f84f, #9ce469, #d1f7d1);
+                }
+            }
+        }
+
+
+    }
+}
