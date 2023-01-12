@@ -39,21 +39,25 @@ function Home() {
     /* information about managers of hotel */
     const home_staff = [
         {
+            id: '01',
             name: `${t('home.introduce_member_name1')}`,
             position: `${t('home.introduce_member_front_end')}`,
             avatar: img_avt_team,
         },
         {
+            id: '02',
             name: `${t('home.introduce_member_name2')}`,
             position: `${t('home.introduce_member_front_end')}`,
             avatar: img_avt_team,
         },
         {
+            id: '03',
             name: `${t('home.introduce_member_name3')}`,
             position: `${t('home.introduce_member_back_end')}`,
             avatar: img_avt_team,
         },
         {
+            id: '04',
             name: `${t('home.introduce_member_name4')}`,
             position: `${t('home.introduce_member_back_end')}`,
             avatar: img_avt_team,
@@ -192,12 +196,12 @@ function Home() {
                             </p>
                         </div>
                     </Col>
-                    {home_staff.map((el, index) => (
+                    {home_staff.map((el,) => (
                         <Col
                             lg={5}
                             sm={10}
                             xs={24}
-                            key={index}
+                            key={el.id}
                             data-aos="fade-right"
                         >
                             <Card

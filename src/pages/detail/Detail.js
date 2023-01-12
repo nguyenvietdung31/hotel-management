@@ -23,6 +23,8 @@ const { RangePicker } = DatePicker;
 
 function Detail() {
 
+    /* i18next */
+    const { t, i18n } = useTranslation()
     usePageTitle(t('title.title_detail'))
 
     /* get token from localStorage */
@@ -52,8 +54,6 @@ function Detail() {
 
     let navigate = useNavigate()
 
-    /* i18next */
-    const { t, i18n } = useTranslation()
 
     // Fetcher function
     const getData = async () => {

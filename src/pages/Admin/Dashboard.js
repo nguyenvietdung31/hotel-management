@@ -2,7 +2,7 @@ import { Layout } from 'antd'
 import React from 'react'
 import './Dashboard.scss'
 import Sidebar from './Sidebar';
-import { admin_staff } from './Page/StaffManage'
+import { staffs } from '../../Service/Staff_service/Staff';
 import { FileOutlined, HomeOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
 
 function Dashboard() {
@@ -26,7 +26,7 @@ function Dashboard() {
                 </div>
                 <div style={{ margin: '40px', display: 'flex', justifyContent: 'center' }}>
                   <div className='head_content' style={{ backgroundColor: 'coral', }}><HomeOutlined /> Total number of rooms: 8</div>
-                  <div className='head_content' style={{ backgroundColor: 'salmon' }}><TeamOutlined /> Total number of staffs: {admin_staff.length}</div>
+                  <div className='head_content' style={{ backgroundColor: 'salmon' }}><TeamOutlined /> Total number of staffs: {staffs.length}</div>
                   <div className='head_content' style={{ backgroundColor: 'forestgreen' }}><UserOutlined /> Total number of users: 10</div>
                   <div className='head_content' style={{ backgroundColor: 'lightskyblue' }}><FileOutlined /> Total number of order booking: 0 </div>
                 </div>

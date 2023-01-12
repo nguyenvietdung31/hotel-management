@@ -1,51 +1,9 @@
 import React, { useState } from 'react'
-import img_avt_team from '../../../image/img_avt_team.jpg'
 import { Avatar, Button, Layout, message, Space, Table, Modal, Input } from 'antd'
 import Sidebar from '../Sidebar'
 import { DeleteOutlined, DownloadOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import { CSVLink } from 'react-csv'
-export const admin_staff = [
-  {
-    id: '01',
-    name: 'Nguyễn Việt Dũng',
-    position: 'Front-end Developer',
-    avatar: img_avt_team,
-    age: '23',
-    sex: 'male',
-  },
-  {
-    id: '02',
-    name: 'Nguyễn Minh Thanh',
-    position: 'Front-end Developer',
-    avatar: img_avt_team,
-    age: '21',
-    sex: 'male',
-  },
-  {
-    id: '03',
-    name: 'Phạm Tùng Dương',
-    position: 'Back-end Developer',
-    avatar: img_avt_team,
-    age: '21',
-    sex: 'male',
-  },
-  {
-    id: '04',
-    name: 'Nguyễn Cung Ứng',
-    position: 'Back-end Developer',
-    avatar: img_avt_team,
-    age: '23',
-    sex: 'male',
-  },
-  {
-    id: '05',
-    name: 'Quang Vũ',
-    position: 'Front-end Developer',
-    avatar: img_avt_team,
-    age: '24',
-    sex: 'male',
-  },
-]
+import { staffs } from '../../../Service/Staff_service/Staff';
 function StaffManage() {
 
   const headers = [
@@ -57,7 +15,7 @@ function StaffManage() {
 
 
   const { Sider, Content } = Layout
-  const [data, setData] = useState(admin_staff)
+  const [data, setData] = useState(staffs)
 
   const [isEditing, setIsEditing] = useState(false);
   const [editingRooms, setEditingRooms] = useState(null);
@@ -66,9 +24,9 @@ function StaffManage() {
   const [messageApi, contextHolder] = message.useMessage();
 
   // edit data
-  const onEdit = (data) => {
+  const onEdit = (staff) => {
     setIsEditing(true);
-    setEditingRooms({ ...data });
+    setEditingRooms({ ...staff });
   };
   const resetEditing = () => {
     setIsEditing(false);
@@ -143,7 +101,7 @@ function StaffManage() {
                   <div>
                     <Space size='small'>
                       <Button type='primary' style={{ backgroundColor: '#42b72a' }}><PlusOutlined /> Add a new staff</Button>
-                      <CSVLink data={admin_staff} headers={headers} filename='staff.csv'>
+                      <CSVLink data={staffs} headers={headers} filename='staff.csv'>
                         <Button type='primary' style={{ backgroundColor: '#187205' }}><DownloadOutlined /> Export Data to CSV</Button>
                       </CSVLink>
                     </Space>
@@ -177,11 +135,11 @@ function StaffManage() {
         centered
         onOk={() => {
           setData((pre) => {
-            return pre.map((data) => {
-              if (data.id === editingRooms.id) {
+            return pre.map((staff) => {
+              if (staff.id === editingRooms.id) {
                 return editingRooms;
               } else {
-                return data;
+                return staff;
               }
             });
           });

@@ -21,6 +21,8 @@ const { Meta } = Card
 
 function Rooms() {
 
+    /* i18next */
+    const { t, i18n } = useTranslation()
     usePageTitle(t('title.title_rooms'))
 
     /* list data room */
@@ -44,8 +46,6 @@ function Rooms() {
     const [minValue, setMinValue] = useState(0)
     const [maxValue, setMaxValue] = useState(pageSizeOpt[0])
 
-    /* i18next */
-    const { t, i18n } = useTranslation()
 
     // using this to redirect to another page
     const navigate = useNavigate()
