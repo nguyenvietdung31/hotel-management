@@ -1,5 +1,5 @@
 import './App.css';
-import RouterApp from './Component/Router/RouterApp';
+import RouterApp from './router/RouterApp';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 // Initialze the client
